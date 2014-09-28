@@ -54,17 +54,44 @@
         </div>
       </div>
     </div>
-
+    <div id="overlay">
+      <input type="text" class="form-control login-input" placeholder="Name" required autofocus>
+      <input type="text" class="form-control login-input" placeholder="Email" required >
+      <input type="text" class="form-control login-input" placeholder="Student ID" required >
+      <input type="text" class="form-control login-input" placeholder="Major" required >
+      <div style="margin-left: auto; margin-right: auto; width: 200px; margin-bottom: 10px;">
+        <select name="account_types" style="width: 200px; height: 32px">
+          <option value="default">Select Election</option>
+          <option value="election1">Election 1</option>
+          <option value="election2">Election 2</option>
+          <option value="election3">Election 3</option>
+          <option value="election4">Election 4</option>
+        </select>
+        <form>
+          Applying for candidacy?  <input type="checkbox"><br>
+        </form>
+      </div>
+      <a 
+        onclick="document.getElementById('overlay').style.display='none';document.getElementById('fade').style.display='none'"
+        href="javascript:void(0)">
+        <div style="margin-left:auto; margin-right:auto; width:60px"><button type="button" class="btn btn-sm btn-default">Submit</button></div>
+      </a>
+    </div>
+    <div id="fade">
+    </div>
     <div class="container" style="height: 100%">
       <div class="verticalalign">
           <div class="bs-header text-center title-font" >
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
-        <input type="email" class="form-control login-input" placeholder="Username" required autofocus>
+        <input type="username" class="form-control login-input" placeholder="Username" required autofocus>
         <input type="password" class="form-control login-input" placeholder="Password" required>
-        <div style="margin-left:auto; margin-right:auto; width:60px"><a href="accounts.html"><button type="button" class="btn btn-sm btn-default">Sign In</button></a></div>
-        <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a href="#"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a></div>
+        <div style="margin-left:auto; margin-right:auto; width:63px"><a href="accounts.html"><button type="button" class="btn btn-sm btn-default">Sign In</button></a>
+        </div>
+        <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a onclick="document.getElementById('overlay').style.display='block';document.getElementById('fade').style.display='block'"
+    href="javascript:void(0)"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a>
+        </div>
       </div>
     </div>
     <div class="footer">
