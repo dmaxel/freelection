@@ -3,7 +3,8 @@
 
 <?php
 
-$this->load->library('flexi_auth');
+$ci = get_instance();
+$ci->load->library('flexi_auth');
 //these values need to be picked up by the form
 $identity = $_POST["username_field"];
 $password = $_POST["password_field"];
@@ -15,7 +16,7 @@ else
 	$remember_user = FALSE;
 }
 //login returns true or false if successful
-$result = $this->flexi_auth->login($identity, $password, $remember_user);
+$result = $ci->flexi_auth->login($identity, $password, $remember_user);
 if($result)
 {
 	//do stuff after successful login
