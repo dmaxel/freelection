@@ -74,26 +74,8 @@ a:active {
 }
 
 .dropdown {
-  display: none;
+  display: block !important;
 }
-
-nav ul li:hover > ul {
-    display: block;
-}
-
-  nav ul li {
-    float: none; 
-    border-top: 1px solid #6b727c;
-    border-bottom: 1px solid #575f6a;
-    position: relative;
-  }
-    nav ul li a {
-      padding: 15px 40px;
-      color: #fff;
-    } 
-      nav ul li a:hover {
-        background: #4b545f;
-      }
 
 #fade {
     display: none;  /* ensures it’s invisible until it’s called */
@@ -109,7 +91,8 @@ nav ul li:hover > ul {
     z-index: 90; /* makes the div the second most top layer, so it’ll lay on top of everything else EXCEPT for divs with a higher z-index (meaning the #overlay ruleset) */
 }
 
-#overlay {
+#overlay,
+#submitconfirm {
     display: none; /* ensures it’s invisible until it’s called */
     position: absolute; /* makes the div go into a position that’s absolute to the browser viewing area */
     left: 35%; /* positions the div half way horizontally */

@@ -54,6 +54,7 @@
         </div>
       </div>
     </div>
+
     <div id="overlay">
       <input type="text" class="form-control login-input" placeholder="Name" required autofocus>
       <input type="text" class="form-control login-input" placeholder="Email" required >
@@ -72,11 +73,21 @@
         </form>
       </div>
       <a 
-        onclick="document.getElementById('overlay').style.display='none';document.getElementById('fade').style.display='none'"
+        onclick="document.getElementById('overlay').style.display='none';document.getElementById('submitconfirm').style.display='block'"
         href="javascript:void(0)">
         <div style="margin-left:auto; margin-right:auto; width:60px"><button type="button" class="btn btn-sm btn-default">Submit</button></div>
       </a>
     </div>
+
+    <div id="submitconfirm">
+      <div style="text-align: center;">Your submission has been received. You will receive an email confirmation.</div>
+      <a 
+        onclick="document.getElementById('submitconfirm').style.display='none';document.getElementById('fade').style.display='none'"
+        href="javascript:void(0)">
+        <div style="margin-left:auto; margin-right:auto; width:37px"><button type="button" class="btn btn-sm btn-default">Ok</button></div>
+      </a>
+    </div>
+
     <div id="fade">
     </div>
     <div class="container" style="height: 100%">
@@ -85,10 +96,11 @@
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
-        <input type="username" class="form-control login-input" placeholder="Username" required autofocus>
-        <input type="password" class="form-control login-input" placeholder="Password" required>
-        <div style="margin-left:auto; margin-right:auto; width:63px"><a href="accounts.html"><button type="button" class="btn btn-sm btn-default">Sign In</button></a>
-        </div>
+          <form action="login.php" method="post">
+        <input name="username_field" type="username" class="form-control login-input" placeholder="Username" required autofocus>
+        <input name="password_field" type="password" class="form-control login-input" placeholder="Password" required>
+        <div style="margin-left:auto; margin-right:auto; width:63px"><a href="accounts.html"><button type="submit" class="btn btn-sm btn-default">Sign In</button></a></div>
+      </form>
         <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a onclick="document.getElementById('overlay').style.display='block';document.getElementById('fade').style.display='block'"
     href="javascript:void(0)"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a>
         </div>
@@ -105,8 +117,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script>
-    $
+
   </body>
 </html>
 
