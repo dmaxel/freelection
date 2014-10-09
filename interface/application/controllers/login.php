@@ -2,7 +2,7 @@
 class Login extends CI_Controller {
 	
 	public function index(){
-		$this->load->library(flexi_auth_lite);
+		$this->load->library('flexi_auth_lite');
 		
 		if(get_user_id() == FALSE)
 		{
