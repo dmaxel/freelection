@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://students.csci.unt.edu/~dbs0100/';
+$config['base_url']	= 'http://giogottardi.me/freelection';
 
 /*
 |--------------------------------------------------------------------------
@@ -358,6 +358,13 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 $config['security']['static_salt'] = 'freelection';
+
+// Defining the primary identity column within the user account table.
+// Note: Only the user 'email' or 'username' columns can be used.
+$config['database']['settings']['primary_identity_col'] = 'uacc_username';
+
+// Defining which user table columns are used to identify a user via data submitted by a login form.
+$config['database']['settings']['identity_cols'] = array('uacc_email', 'uacc_username');
 
 
 /* End of file config.php */

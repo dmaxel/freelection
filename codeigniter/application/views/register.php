@@ -63,7 +63,7 @@
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
-          <form action="register.php" method="post">
+          <form action="../models/register.php" method="post">
             <input name="name_field" type="text" class="form-control login-input" placeholder="Name" required autofocus>
             <input name="email_field" type="text" class="form-control login-input" placeholder="Email" required >
             <input name="password_field" type="text" class="form-control login-input" placeholder="Password" required >
