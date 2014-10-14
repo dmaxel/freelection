@@ -56,6 +56,7 @@
     </div>
 
     <div id="overlay">
+      <form>
       <input type="text" class="form-control login-input" placeholder="Name" required autofocus>
       <input type="text" class="form-control login-input" placeholder="Email" required >
       <input type="text" class="form-control login-input" placeholder="Student ID" required >
@@ -68,10 +69,9 @@
           <option value="election3">Election 3</option>
           <option value="election4">Election 4</option>
         </select>
-        <form>
           Applying for candidacy?  <input type="checkbox"><br>
-        </form>
       </div>
+      </form>
       <a 
         onclick="document.getElementById('overlay').style.display='none';document.getElementById('submitconfirm').style.display='block'"
         href="javascript:void(0)">
@@ -101,8 +101,9 @@
         <input name="password_field" type="password" class="form-control login-input" placeholder="Password" required>
         <div style="margin-left:auto; margin-right:auto; width:63px"><a href="accounts.html"><button type="submit" class="btn btn-sm btn-default">Sign In</button></a></div>
       </form>
-        <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a onclick="document.getElementById('overlay').style.display='block';document.getElementById('fade').style.display='block'"
-    href="javascript:void(0)"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a>
+        <!--<div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a onclick="document.getElementById('overlay').style.display='block';document.getElementById('fade').style.display='block'"
+    href="javascript:void(0)"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a>-->
+        <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a href="register.html"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a></div>
         </div>
       </div>
     </div>

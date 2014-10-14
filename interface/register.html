@@ -54,18 +54,21 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="jumbotron" style="height:520px">
-          <div class="dropdown" style="margin-left: auto; margin-right: auto; width: 101px">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">Candidate Name <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Candidate 1</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Candidate 2</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Candidate 3</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Candidate 4</a></li>
-            </ul>
+
+    <div id="fade">
+    </div>
+    <div class="container" style="height: 100%">
+      <div class="verticalalign">
+          <div class="bs-header text-center title-font" >
+            <h1 class="btn-custom">Freelection</h1>
+            <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
+          <form action="register.php" method="post">
+            <input name="name_field" type="text" class="form-control login-input" placeholder="Name" required autofocus>
+            <input name="email_field" type="text" class="form-control login-input" placeholder="Email" required >
+            <input name="password_field" type="text" class="form-control login-input" placeholder="Password" required >
+            <div style="margin-left:auto; margin-right:auto; width:63px"><a href="accounts.html"><button type="submit" class="btn btn-sm btn-default">Register</button></a></div>
+          </form>
       </div>
     </div>
     <div class="footer">
