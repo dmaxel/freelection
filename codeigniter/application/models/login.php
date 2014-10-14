@@ -16,7 +16,7 @@ class Login extends CI_Model {
 			$remember_user = FALSE;
 		}
 		//login returns true or false if successful
-		$result = $ci->flexi_auth->login($identity, $password, $remember_user);
+		$result = $this->flexi_auth->login($identity, $password, $remember_user);
 		if($result)
 		{
 			//do stuff after successful login
