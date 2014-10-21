@@ -63,32 +63,32 @@
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
-          <? echo form_open('register/input'); 
+          <?php echo form_open('register/input'); 
              $data = array(
-						'name' => 'name_field'
-						'class' => 'form-control login-input'
-						'placeholder' => 'Name'
-						'required' => 'required'
+						'name' => 'name_field',
+						'class' => 'form-control login-input',
+						'placeholder' => 'Name',
+						'required' => 'required',
 						'autofocus' => 'autofocus'
 						);
 			 echo form_input($data);
 			 $data = array(
-						'name' => 'email_field'
-						'class' => 'form-control login-input'
-						'placeholder' => 'Email'
+						'name' => 'email_field',
+						'class' => 'form-control login-input',
+						'placeholder' => 'Email',
 						'required' => 'required'
 						);
 			 echo form_input($data);
 			 $data = array(
-						'name' => 'password_field'
-						'class' => 'form-control login-input'
-						'placeholder' => 'Password'
+						'name' => 'password_field',
+						'class' => 'form-control login-input',
+						'placeholder' => 'Password',
 						'required' => 'required'
 						);
 			 echo form_input($data);?>
            <!-- <div style="margin-left:auto; margin-right:auto; width:63px"><button type="submit" class="btn btn-sm btn-default">Register</button></div>-->
-			<div style="margin-left:auto; margin-right:auto; width:63px"><? echo form_submit('mysubmit', 'Register');?></div>
-			<? echo form_close(); ?>
+			<div style="margin-left:auto; margin-right:auto; width:63px"><?php echo form_submit('mysubmit', 'Register');?></div>
+			<?php echo form_close(); ?>
       </div>
     </div>
     <div class="footer">
