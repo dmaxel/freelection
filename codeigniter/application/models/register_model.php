@@ -1,12 +1,16 @@
 <?php
-class Register extends CI_Model {
+class Register_Model extends CI_Model {
+	
+	public function __construct(){
+	        parent::__construct();
+	    }
 	
 	public function index(){
 		//
 	}
 	
 	public function entry_insert(){
-		$this->load->library(flexi_auth);
+		$this->load->library('flexi_auth');
 		
 		$username = $this->input->post('name_field');
 		$email = $this->input->post('email_field');

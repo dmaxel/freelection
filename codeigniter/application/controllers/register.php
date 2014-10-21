@@ -9,12 +9,13 @@ class Register extends CI_Controller {
 	}
 	
 	public function input(){
+		$this->auth = new stdClass;
 		$this->load->helper('form');
 		$this->load->helper('html');
-		$this->load->model('register');
+		$this->load->model('register_model');
 		
 		if($this->input->post('mysubmit')){
-			$this->register->entry_insert();
+			$this->register_model->entry_insert();
 		}
 	}
 }
