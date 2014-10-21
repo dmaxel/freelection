@@ -81,6 +81,7 @@
 			 echo form_input($data);
 			 $data = array(
 						'name' => 'password_field',
+						'type' => 'password',
 						'class' => 'form-control login-input',
 						'placeholder' => 'Password',
 						'required' => 'required'
