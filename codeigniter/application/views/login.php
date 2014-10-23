@@ -96,11 +96,26 @@
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
-          <form action="/application/models/login.php" method="post">
-        <input name="username_field" type="text" class="form-control login-input" placeholder="Username" required autofocus>
-        <input name="password_field" type="text" class="form-control login-input" placeholder="Password" required>
-        <div style="margin-left:auto; margin-right:auto; width:63px"><a href="accounts.html"><button type="submit" class="btn btn-sm btn-default">Sign In</button></a></div>
-      </form>
+		  <?php echo form_open('login/doLogin'); 
+             $data = array(
+						'name' => 'username_field',
+						'class' => 'form-control login-input',
+						'placeholder' => 'Username',
+						'required' => 'required',
+						'autofocus' => 'autofocus'
+						);
+			 echo form_input($data);
+			 $data = array(
+						'name' => 'password_field',
+						'type' => 'password',
+						'class' => 'form-control login-input',
+						'placeholder' => 'Password',
+						'required' => 'required'
+						);
+			 echo form_input($data);
+		  ?>
+        <div style="margin-left:auto; margin-right:auto; width:63px"><?php echo form_submit('mysubmit', 'Sign In');?></div>
+      	<?php echo form_close(); ?>
         <!--<div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a onclick="document.getElementById('overlay').style.display='block';document.getElementById('fade').style.display='block'"
     href="javascript:void(0)"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a>-->
         <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a href="register.html"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a></div>
