@@ -26,7 +26,15 @@ class Login extends CI_Controller {
 		$this->load->model('login_model');
 		
 		if($this->input->post('mysubmit')){
-			$this->login_model->login();
+			$result = $this->login_model->login();
+			if($result == TRUE)
+			{
+				$this->loadPage();
+			}
+			else
+			{
+				//show an error page, with a button to go back to the login page
+			}
 		}
 	}
 	
