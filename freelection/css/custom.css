@@ -21,7 +21,8 @@
 .jumbotron {
   margin-top: 60px;
   text-align: center;
-  border-bottom: 0px solid #e5e5e5;
+  background-color: #FFF !important;
+  border: 1px solid #ccc;
 }
 
 .header {
@@ -75,6 +76,16 @@ a:active {
 
 .dropdown {
   display: block !important;
+}
+
+#logout {
+  background: none !important;
+  border: none !important;
+  margin-top: 13px;
+}
+
+.navbar-brand:hover {
+  color: #777 !important;
 }
 
 #fade {
