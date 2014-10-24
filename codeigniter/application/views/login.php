@@ -7,12 +7,12 @@
     <title>Freelection</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jumbotron-narrow.css" rel="stylesheet">
-    <link href="css/navbar-fixed-top.css" rel="stylesheet">
-    <link href="font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-    <link href="css/sticky-footer.css" rel="stylesheet">
+    <link href="/freelection/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/freelection/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="/freelection/css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="/freelection/font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="/freelection/css/custom.css" rel="stylesheet">
+    <link href="/freelection/css/sticky-footer.css" rel="stylesheet">
 
     <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
 
@@ -25,7 +25,7 @@
     <![endif]-->
     <style>
         body{
-        background: url("images/mountain.jpg") no-repeat top center fixed;
+        background: url("/freelection/images/mountain.jpg") no-repeat top center fixed;
         background-color: #000;
         background-size: cover;
         margin: 0;
@@ -53,39 +53,6 @@
           </ul>
         </div>
       </div>
-    </div>
-
-    <div id="overlay">
-      <form>
-      <input type="text" class="form-control login-input" placeholder="Name" required autofocus>
-      <input type="text" class="form-control login-input" placeholder="Email" required >
-      <input type="text" class="form-control login-input" placeholder="Student ID" required >
-      <input type="text" class="form-control login-input" placeholder="Major" required >
-      <div style="margin-left: auto; margin-right: auto; width: 200px; margin-bottom: 10px;">
-        <select name="account_types" style="width: 200px; height: 32px">
-          <option value="default">Select Election</option>
-          <option value="election1">Election 1</option>
-          <option value="election2">Election 2</option>
-          <option value="election3">Election 3</option>
-          <option value="election4">Election 4</option>
-        </select>
-          Applying for candidacy?  <input type="checkbox"><br>
-      </div>
-      </form>
-      <a 
-        onclick="document.getElementById('overlay').style.display='none';document.getElementById('submitconfirm').style.display='block'"
-        href="javascript:void(0)">
-        <div style="margin-left:auto; margin-right:auto; width:60px"><button type="button" class="btn btn-sm btn-default">Submit</button></div>
-      </a>
-    </div>
-
-    <div id="submitconfirm">
-      <div style="text-align: center;">Your submission has been received. You will receive an email confirmation.</div>
-      <a 
-        onclick="document.getElementById('submitconfirm').style.display='none';document.getElementById('fade').style.display='none'"
-        href="javascript:void(0)">
-        <div style="margin-left:auto; margin-right:auto; width:37px"><button type="button" class="btn btn-sm btn-default">Ok</button></div>
-      </a>
     </div>
 
     <div id="fade">
@@ -118,7 +85,7 @@
       	<?php echo form_close(); ?>
         <!--<div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a onclick="document.getElementById('overlay').style.display='block';document.getElementById('fade').style.display='block'"
     href="javascript:void(0)"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a>-->
-        <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a href="register.html"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a></div>
+        <div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a href="index.php/register/"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a></div>
         </div>
       </div>
     </div>
@@ -132,7 +99,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/freelection/js/bootstrap.min.js"></script>
 
   </body>
 </html>
