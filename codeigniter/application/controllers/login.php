@@ -10,8 +10,7 @@ class Login extends CI_Controller {
 		
 		if($loggedIn == FALSE)
 		{
-			$this->load->helper('form');
-			$this->load->view('login');
+			$this->loadLoginPage();
 		}
 		else
 		{
@@ -36,6 +35,18 @@ class Login extends CI_Controller {
 				//show an error page, with a button to go back to the login page
 			}
 		}
+	}
+	
+	public function doLogout(){
+		$this->auth = new stdClass;
+		$this->load->model('login_model');
+		$this->login_model->logout(TRUE);
+		$this->loadLoginPage();
+	}
+	
+	public function loadLoginPage(){
+		$this->load->helper('form');
+		$this->load->view('login');
 	}
 	
 	public function loadPage(){

@@ -27,6 +27,11 @@ class Login_Model extends CI_Model {
 		$password = $this->input->post('password_field');
 		$result = $this->flexi_auth->login($username, $password);
 		return $result;
-		}
 	}
+	
+	public function logout($input){
+		$this->load->library('flexi_auth');
+		$this->flexi_auth->logout($input);
+	}
+}
 ?>
