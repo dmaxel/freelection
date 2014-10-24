@@ -42,7 +42,10 @@ class Login extends CI_Controller {
 		$groupID = $this->login_model->getGroupID();
 		if($groupID == 1)
 		{
-			$this->load->view('administrator');
+			//this should be $this->load->view('administrator'); but we're using voter for testing
+			$this->load->view('templates/header');
+			$this->load->view('voter');
+			$this->load->view('templates/footer');
 		}
 		else if($groupID == 2)
 		{
