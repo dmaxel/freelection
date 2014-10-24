@@ -43,17 +43,6 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="fa fa-bars fa-lg fa-inverse">
-          </button>-->
-          <a class="navbar-brand" href="index.html"></a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav pull-right">
-            <li><a href="about_me.html"></a></li>
-            <li><a href="contact.html"></a></li>
-          </ul>
-        </div>
       </div>
     </div>
 

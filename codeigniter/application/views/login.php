@@ -43,16 +43,6 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="fa fa-bars fa-lg fa-inverse">
-          </button>-->
-          <a class="navbar-brand" href="index.html"></a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav pull-right">
-            <li><a href="about_me.html"></a></li>
-            <li><a href="contact.html"></a></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -83,7 +73,13 @@
 						);
 			 echo form_input($data);
 		  ?>
-        <div style="margin-left:auto; margin-right:auto; width:63px"><?php echo form_submit('mysubmit', 'Sign In');?></div>
+        <div style="margin-left:auto; margin-right:auto; width:63px"><?php 
+		$data = array(
+					'name' => 'mysubmit',
+					'value' => 'Sign In',
+					'class' => 'btn btn-xs btn-default'
+					);	
+		echo form_submit($data);?></div>
       	<?php echo form_close(); ?>
         <!--<div style="margin-left:auto; margin-right:auto; margin-top: 10px; width:128px"><a onclick="document.getElementById('overlay').style.display='block';document.getElementById('fade').style.display='block'"
     href="javascript:void(0)"><button type="button" class="btn btn-xs btn-default">Or create an account</button></a>-->
