@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Freelection</title>
-	
-	<base href="http://giogottardi.me/freelection/" target="_self">
+  
+  <base href="http://giogottardi.me/freelection/" target="_self">
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -43,11 +43,10 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
+        </div>
       </div>
     </div>
 
-    <div id="fade">
-    </div>
     <div class="container" style="height: 100%">
       <div class="verticalalign">
           <div class="bs-header text-center title-font" >
@@ -56,37 +55,36 @@
           </div>
           <?php echo form_open('register/input'); 
              $data = array(
-						'name' => 'name_field',
-						'class' => 'form-control login-input',
-						'placeholder' => 'Name',
-						'required' => 'required',
-						'autofocus' => 'autofocus'
-						);
-			 echo form_input($data);
-			 $data = array(
-						'name' => 'email_field',
-						'class' => 'form-control login-input',
-						'placeholder' => 'Email',
-						'required' => 'required'
-						);
-			 echo form_input($data);
-			 $data = array(
-						'name' => 'password_field',
-						'type' => 'password',
-						'class' => 'form-control login-input',
-						'placeholder' => 'Password',
-						'required' => 'required'
-						);
-			 echo form_input($data);?>
+            'name' => 'name_field',
+            'class' => 'form-control login-input',
+            'placeholder' => 'Name',
+            'required' => 'required',
+            'autofocus' => 'autofocus'
+            );
+       echo form_input($data);
+       $data = array(
+            'name' => 'email_field',
+            'class' => 'form-control login-input',
+            'placeholder' => 'Email',
+            'required' => 'required'
+            );
+       echo form_input($data);
+       $data = array(
+            'name' => 'password_field',
+            'type' => 'password',
+            'class' => 'form-control login-input',
+            'placeholder' => 'Password',
+            'required' => 'required'
+            );
+       echo form_input($data);?>
            <!-- <div style="margin-left:auto; margin-right:auto; width:63px"><button type="submit" class="btn btn-sm btn-default">Register</button></div>-->
-			<div style="margin-left:auto; margin-right:auto; width:63px"><?php echo form_submit('mysubmit', 'Register');?></div>
-			<?php echo form_close(); ?>
+      <div style="margin-left:auto; margin-right:auto; width:63px"><?php echo form_submit('mysubmit', 'Register');?></div>
+      <?php echo form_close(); ?>
       </div>
     </div>
     <div class="footer">
       <div class="container">
       </div>
-           <!--<p><span class="glyphicon glyphicon-copyright-mark"></span> Adam Hair</p>-->
     </div>
     <!-- /container -->
 
