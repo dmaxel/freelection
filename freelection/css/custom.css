@@ -21,7 +21,7 @@
 .jumbotron {
   margin-top: 60px;
   text-align: center;
-  background-color: #FFF !important;
+  /*background-color: #FFF !important;*/
   border: 1px solid #ccc;
 }
 
