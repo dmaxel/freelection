@@ -57,53 +57,43 @@
       <div class="jumbotron" style="height: 500px;">
         <div class="row" style="margin-top:-20px">
           <div class="col-sm-4">
-            <a href="admin.html"><button class="btn btn-default btn-xs" id="back">Back</button></a>
+            <a href="view_elections.html"><button class="btn btn-default btn-xs" id="back">Back</button></a>
           </div>
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4">
-            <a href="new_user.html"><button class="btn btn-default btn-xs" id="back">New User</button></a>
           </div>
         </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-sm-4">
-            Name
+        <form>
+        <div id="election_title_container" style="margin-top:20px">
+          <input type="text" name="election_title" placeholder="Election Title">
+        </div>
+        <div id="election_description_container" style="margin-top:20px">
+          <input type="text" name="election_description" placeholder="Election Description" style="height:100px; width:200px">
+        </div>
+        <div class="row">
+          <div class="col-sm-6" style="margin-top:20px">
+            <input type="text" name="registration_window" placeholder="Registration Window">
           </div>
-          <div class="col-sm-4">
-            Election
-          </div>
-          <div class="col-sm-4">
-            <a href="update_user.html"><button class="btn btn-default btn-xs" style="font-size:12px !important">Edit</button></a>
+          <div class="col-sm-6" style="margin-top:20px">
+            <input type="text" name="election_window" placeholder="Election Window">
           </div>
         </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-sm-4">
-            Name
-          </div>
-          <div class="col-sm-4">
-            Election
-          </div>
-          <div class="col-sm-4">
-            <a href="update_user.html"><button class="btn btn-default btn-xs" style="font-size:12px !important">Edit</button></a>
-          </div>
+        <div style="margin-top:20px">
+          <input type="text" name="position1" placeholder="Position 1">
         </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-sm-4">
-            Name
-          </div>
-          <div class="col-sm-4">
-            Election
-          </div>
-          <div class="col-sm-4">
-            <a href="update_user.html"><button class="btn btn-default btn-xs" style="font-size:12px !important">Edit</button></a>
-          </div>
+        <div style="margin-top:20px">
+          <input type="text" name="position2" placeholder="Position 2">
+        </div>
+        </form>
+        <div id="create_button_container" style="margin-left: auto; margin-right: auto; margin-top: 40px">
+          <a href="view_elections.html"><button class="btn btn-xs btn-default" id="create_election">Create</button></a>
         </div>
       </div>
     </div>
     <div class="footer">
       <div class="container">
       </div>
-           <!--<p><span class="glyphicon glyphicon-copyright-mark"></span> Adam Hair</p>-->
     </div>
     <!-- /container -->
 
