@@ -50,7 +50,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
-            <a href="index.php/login/doLogout/"><button id="logout"><span class="fa fa-power-off fa-lg fa-inverse"></button></a>
+            <a href="index.php/login/doLogout/"><button id="logout" style="color: #777">Sign Out</button></a>
           </ul>
         </div>
       </div>
