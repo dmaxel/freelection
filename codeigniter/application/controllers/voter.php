@@ -6,9 +6,9 @@ class Voter extends CI_Controller {
     
         // check if logged in as voter
         $this->auth = new stdClass;
-		$this->load->model('login_model');
-		$loggedIn = $this->login_model->checkIfLoggedIn();
-		$groupID = $this->login_model->getGroupID();
+		$this->load->model('general_model');
+		$loggedIn = $this->general_model->checkIfLoggedIn();
+		$groupID = $this->general_model->getGroupID();
         
         // redirect to homepage if not logged in or incorrect id
         if($loggedIn === FALSE || $groupID !== 1) // should be 4 for actual voter

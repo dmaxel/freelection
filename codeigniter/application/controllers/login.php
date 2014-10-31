@@ -5,8 +5,8 @@ class Login extends CI_Controller {
 	public function index(){
 		
 		$this->auth = new stdClass;
-		$this->load->model('login_model');
-		$loggedIn = $this->login_model->checkIfLoggedIn();
+		$this->load->model('general_model');
+		$loggedIn = $this->general_model->checkIfLoggedIn();
 		
 		if($loggedIn == FALSE)
 		{
@@ -22,10 +22,10 @@ class Login extends CI_Controller {
 		$this->auth = new stdClass;
 		$this->load->helper('form');
 		$this->load->helper('html');
-		$this->load->model('login_model');
+		$this->load->model('general_model');
 		
 		if($this->input->post('mysubmit')){
-			$result = $this->login_model->login();
+			$result = $this->general_model->login();
 			if($result == TRUE)
 			{
 				$this->loadPage();
@@ -39,8 +39,8 @@ class Login extends CI_Controller {
 	
 	public function doLogout(){
 		$this->auth = new stdClass;
-		$this->load->model('login_model');
-		$this->login_model->logout(TRUE);
+		$this->load->model('general_model');
+		$this->general_model->logout(TRUE);
 		$this->loadLoginPage();
 	}
 	
@@ -50,13 +50,15 @@ class Login extends CI_Controller {
 	}
 	
 	public function loadPage(){
-		$groupID = $this->login_model->getGroupID();
+		$groupID = $this->general_model->getGroupID();
 		if($groupID == 1)
 		{
 			//this should be $this->load->view('administrator'); but we're using voter for testing
-			$this->load->view('templates/header');
-			$this->load->view('voter');
-			$this->load->view('templates/footer');
+			//$this->load->view('templates/header');
+			//$this->load->view('voter');
+			//$this->load->view('templates/footer');
+			$this->load->helper('url');
+            redirect('/voter');
 		}
 		else if($groupID == 2)
 		{
