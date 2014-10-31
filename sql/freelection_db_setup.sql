@@ -10,11 +10,11 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS elections;
 CREATE TABLE elections (
 	election_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+	description varchar(150) NOT NULL, -- New
 	registration_window_start datetime NOT NULL,
 	registration_window_end datetime NOT NULL,
 	voting_window_start datetime NOT NULL,
 	voting_window_end datetime NOT NULL,
-	write_ins BIT(1) NOT NULL DEFAULT b'0',
 	PRIMARY KEY (election_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -28,8 +28,10 @@ CREATE TABLE elections (
 DROP TABLE IF EXISTS ballots;
 CREATE TABLE ballots (
 	position int(10) unsigned NOT NULL AUTO_INCREMENT,
+	type BIT(1) NOT NULL DEFAULT b'0', -- New (0 means candidate, 1 means y/n)
 	election_id int(10) unsigned NOT NULL,
 	title varchar(40) NOT NULL,
+	write_ins BIT(1) NOT NULL DEFAULT b'0', -- New
 	PRIMARY KEY (position),
 	FOREIGN KEY (election_id)
 		REFERENCES elections(election_id)
@@ -46,6 +48,7 @@ DROP TABLE IF EXISTS votes;
 CREATE TABLE votes (
 	uacc_id int(11) unsigned NOT NULL,
 	position int(10) unsigned NOT NULL,
+	vote_type BIT(2) NOT NULL DEFAULT b'0', -- New (0 means normal, 1 means write-in)
 	candidate_id int(11) unsigned,
 	first_name varchar(20) DEFAULT '',
 	last_name varchar(20) DEFAULT '',
@@ -90,6 +93,7 @@ CREATE TABLE candidates (
 	first_name varchar(20) NOT NULL,
 	last_name varchar(20) NOT NULL,
 	uacc_id int(11) unsigned NOT NULL,
+	description varchar(600) NOT NULL, --New
 	PRIMARY KEY (candidate_id),
 	FOREIGN KEY (uacc_id)
 		REFERENCES user_accounts (uacc_id),
@@ -130,9 +134,11 @@ CREATE TABLE user_accounts (
   uacc_id int(11) unsigned NOT NULL AUTO_INCREMENT,
   uacc_group_fk smallint(5) unsigned NOT NULL DEFAULT 0,
   uacc_email varchar(100) NOT NULL DEFAULT '',
+  uacc_firstname varchar(20) NOT NULL DEFAULT '', -- New
+  uacc_lastname varchar(20) NOT NULL DEFAULT '', -- New
   uacc_username varchar(15) NOT NULL DEFAULT '',
   uacc_password varchar(60) NOT NULL DEFAULT '',
-  uacc_password_plain varchar(60) DEFAULT NULL, -- This column added for temporary password storage
+  uacc_password_plain varchar(60) DEFAULT NULL, -- New
   uacc_ip_address varchar(40) NOT NULL DEFAULT '',
   uacc_salt varchar(40) NOT NULL DEFAULT '',
   uacc_activation_token varchar(40) NOT NULL DEFAULT '',
