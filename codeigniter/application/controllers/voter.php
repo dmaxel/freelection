@@ -16,23 +16,18 @@ class Voter extends CI_Controller {
             $this->load->helper('url');
             redirect('');
         }
-    
-    
-        // get data associated with this user/election and pass to view
-        //this->load->model('voter_model');
         
-        $query = $this->flexi_auth->get_user_by_identity();
-        $result = $query->row();
-        // echo '<pre>';
-        // var_dump($result);
-        // echo '</pre>';
-        // exit;
-        
-        $data['username'] = $result->uacc_username;
+        $data['username'] = $this->general_model->getUsername();
         
         // load the view
         $this->load->view('templates/header', $data);
-        $this->load->view('voter');
+		
+		$userID = $this->general_model->getUserID();
+		$electionID = $this->general_model->getElectionID($userID);
+		$data['candidates'] = $this->general_model->getAllCandidates($electionID);
+
+		$this->load->view('voter', $data);
+		
         $this->load->view('templates/footer');
 	}
 }

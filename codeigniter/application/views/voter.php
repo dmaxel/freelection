@@ -1,15 +1,18 @@
-        <div class="row">
-          <div class="col-sm-4">
-            <select name="candidates" style="margin-bottom:10px">
-              <option value="candidate1">Candidate 1</option>
-              <option value="candidate2">Candidate 2</option>
-              <option value="candidate3">Candidate 3</option>
-            </select>
-          </div>
-          <div class="col-sm-8">
-            Candidate Description Candidate Description Candidate Description Candidate Description
-            Candidate Description Candidate Description Candidate Description Candidate Description
-          </div>
+        <div>
+          <?
+		  $options = array();
+		  $i = 1;
+		  foreach($candidates as $each)
+		  {
+			  array_push($options, "'$i' => '$each->firstname.\" \".$each->lastname'");
+			  $i = $i + 1;
+		  }
+		  echo form_dropdown('candidates', $options, 1, 'style="margin-bottom:10px"');
+		   ?>
+        </div>
+        <div>
+          Candidate Description Candidate Description Candidate Description Candidate Description
+          Candidate Description Candidate Description Candidate Description Candidate Description
         </div>
         <div class="row" style="margin-top: 50px">
           <div class="col-sm-6">
