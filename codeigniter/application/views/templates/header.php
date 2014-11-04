@@ -46,7 +46,7 @@
           <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="fa fa-bars fa-lg fa-inverse">
           </button>-->
-          <div class="navbar-brand">User Name</div>
+          <div class="navbar-brand"><? echo $username ?></div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
