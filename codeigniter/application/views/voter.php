@@ -4,10 +4,11 @@
 		  $i = 1;
 		  foreach($candidates as $each)
 		  {
-			  array_push($options, "'$i' => '$each->firstname.\" \".$each->lastname'");
+			  $candidate_name = $each['first_name'] . " " . $each['last_name'];
+			  $options[] = "$candidate_name";
 			  $i = $i + 1;
 		  }
-		  echo form_dropdown('candidates', $options, 1, 'style="margin-bottom:10px"');
+		  echo form_dropdown('candidates', $options, 0, 'style="margin-bottom:10px"');
 		   ?>
         </div>
         <div>

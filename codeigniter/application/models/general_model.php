@@ -61,27 +61,30 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getElectionID($userID){
-		$query = $this->db->query('SELECT unique b.election_id FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = $userID');
-		$result = $query->row();
-		return $result;
+		//$sql = "SELECT DISTINCT b.election_id FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = ?";
+		//$query = $this->db->query($sql, $userID);
+		$query = $this->db->query("SELECT DISTINCT b.election_id FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = $userID");
+		$result = $query->row_array();
+		return $result['election_id'];
 	}
 	
 	public function getPositionTitles($userID){
-		$query = $this->db->query('SELECT b.title FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = $userID');
-		$result = $query->result();
-		return $result;
+		$sql = "SELECT b.title FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = ?";
+		$query = $this->db->query($sql, $userID);
+		return $query;
 	}
 	
 	public function getAllCandidates($electionID){
-		$query = $this->db->query('SELECT firstname, lastname FROM ballots NATURAL JOIN candidates WHERE b.election_id = $electionID');
-		$result = $query->result();
-		return $result;
+		//$sql = "SELECT first_name, last_name FROM ballots NATURAL JOIN candidates WHERE election_id = ?";
+		//$query = $this->db->query($sql, $electionID);
+		$query = $this->db->query("SELECT first_name, last_name FROM ballots NATURAL JOIN candidates WHERE election_id = $electionID");
+		return $query->result_array();
 	}
 	
 	public function getCandidates($position){
-		$query = $this->db->query('SELECT first_name, last_name FROM candidates c, voting_eligibility v WHERE c.position = v.position AND v.position = $position');
-		$result = $query->result();
-		return $result;
+		$sql = "SELECT first_name, last_name FROM candidates c, voting_eligibility v WHERE c.position = v.position AND v.position = ?";
+		$query = $this->db->query($sql, $position);
+		return $query;
 	}
 }
 ?>
