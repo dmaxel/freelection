@@ -86,5 +86,16 @@ class General_Model extends CI_Model {
 		$query = $this->db->query($sql, $position);
 		return $query;
 	}
+	
+	public function getElectionDescription($electionID){
+		$query = $this->db->query("SELECT description FROM elections WHERE election_id = $electionID");
+		$result = $query->row_array();
+		return $result['description'];
+	}
+	
+	public function getElectionWindow($electionID){
+		$query = $this->db->query("SELECT voting_window_start, voting_window_end FROM elections WHERE election_id = $electionID");
+		return $query->row_array();
+	}
 }
 ?>

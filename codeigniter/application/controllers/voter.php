@@ -25,6 +25,8 @@ class Voter extends CI_Controller {
 		$userID = $this->general_model->getUserID();
 		$electionID = $this->general_model->getElectionID($userID);
 		$data['candidates'] = $this->general_model->getAllCandidates($electionID);
+		$data['election_description'] = $this->general_model->getElectionDescription($electionID);
+		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
 
 		$this->load->view('voter', $data);
 		
