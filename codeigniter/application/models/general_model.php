@@ -75,9 +75,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getAllCandidates($electionID){
-		//$sql = "SELECT first_name, last_name FROM ballots NATURAL JOIN candidates WHERE election_id = ?";
-		//$query = $this->db->query($sql, $electionID);
-		$query = $this->db->query("SELECT first_name, last_name FROM ballots NATURAL JOIN candidates WHERE election_id = $electionID");
+		$query = $this->db->query("SELECT candidate_id, first_name, last_name, description FROM ballots NATURAL JOIN candidates WHERE election_id = $electionID");
 		return $query->result_array();
 	}
 	

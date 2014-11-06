@@ -1,9 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Login extends CI_Controller {
 	
+	public function __construct(){
+	    parent::__construct();
+	    $this->auth = new stdClass;
+	}
+
 	public function index(){
-		
-		$this->auth = new stdClass;
 		$this->load->model('general_model');
 		$loggedIn = $this->general_model->checkIfLoggedIn();
 		
@@ -18,7 +21,6 @@ class Login extends CI_Controller {
 	}
 	
 	public function doLogin(){
-		$this->auth = new stdClass;
 		$this->load->helper('form');
 		$this->load->helper('html');
 		$this->load->model('general_model');
@@ -52,10 +54,6 @@ class Login extends CI_Controller {
 		$groupID = $this->general_model->getGroupID();
 		if($groupID == 1)
 		{
-			//this should be $this->load->view('administrator'); but we're using voter for testing
-			//$this->load->view('templates/header');
-			//$this->load->view('voter');
-			//$this->load->view('templates/footer');
 			$this->load->helper('url');
             redirect('/voter');
 		}
