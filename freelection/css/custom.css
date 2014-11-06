@@ -52,6 +52,13 @@ a:active {
   color: #0F161C !important;
 }
 
+.btn-xs {
+  padding-top: 1px !important;
+  padding-right: 5px !important;
+  padding-bottom: 1px !important;
+  padding-left: 5px !important;
+}
+
 .title-font {
   color: #999 !important;
 }
