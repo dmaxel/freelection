@@ -50,19 +50,19 @@ class Login extends CI_Controller {
 		$groupID = $this->general_model->getGroupID();
 		if($groupID == 1)
 		{
-            redirect('/voter');
+            redirect('/admin');
 		}
 		else if($groupID == 2)
 		{
-			$this->load->view('monitor');
+			redirect('/monitor');
 		}
 		else if($groupID == 3)
 		{
-			$this->load->view('candidate');
+			redirect('/candidate');
 		}
 		else if($groupID == 4)
 		{
-			$this->load->view('voter');
+			redirect('/voter');
 		}
 	}
 }
