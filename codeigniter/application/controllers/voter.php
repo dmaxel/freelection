@@ -16,7 +16,6 @@ class Voter extends CI_Controller {
         // redirect to homepage if not logged in or incorrect id
         if($loggedIn === FALSE || $groupID !== 1) // should be 4 for actual voter
         {
-            $this->load->helper('url');
             redirect('');
         }
 		else

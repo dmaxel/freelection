@@ -21,8 +21,6 @@ class Login extends CI_Controller {
 	}
 	
 	public function doLogin(){
-		$this->load->helper('form');
-		$this->load->helper('html');
 		$this->load->model('general_model');
 		
 		if($this->input->post('mysubmit')){
@@ -33,20 +31,18 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				//show an error page, with a button to go back to the login page
+				//still need to handle if login fails
 			}
 		}
 	}
 	
 	public function doLogout(){
-		$this->auth = new stdClass;
 		$this->load->model('general_model');
 		$this->general_model->logout(TRUE);
 		$this->loadLoginPage();
 	}
 	
 	public function loadLoginPage(){
-		$this->load->helper('form');
 		$this->load->view('login');
 	}
 	
@@ -54,7 +50,6 @@ class Login extends CI_Controller {
 		$groupID = $this->general_model->getGroupID();
 		if($groupID == 1)
 		{
-			$this->load->helper('url');
             redirect('/voter');
 		}
 		else if($groupID == 2)
