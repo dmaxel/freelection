@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 class Voter extends CI_Controller {
 	
 	public function index(){
@@ -27,7 +26,6 @@ class Voter extends CI_Controller {
 		$data['candidates'] = $this->general_model->getAllCandidates($electionID);
 		$data['election_description'] = $this->general_model->getElectionDescription($electionID);
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
-
 		$this->load->view('voter', $data);
 		
         $this->load->view('templates/footer');
