@@ -57,5 +57,5 @@
           </div>
         </div>
         <div id="vote_button_container" style="margin-left: auto; margin-right: auto; margin-top: 200px">
-          <a href="vote_now.html"><button class="btn btn-xs btn-default" id="vote_button">Vote Now</button></a>
+          <a href="index.php/voter/voteNow"><button class="btn btn-xs btn-default" id="vote_button">Vote Now</button></a>
         </div>

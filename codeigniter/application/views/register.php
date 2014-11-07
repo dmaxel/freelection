@@ -76,7 +76,9 @@
             'placeholder' => 'Password',
             'required' => 'required'
             );
-       echo form_input($data);
+       echo form_input($data);?>
+	   <div style="margin-left:auto; margin-right:auto; width:63px">
+	   <?
 	   $options = array(
 		    'voter' => 'Voter',
 			'candidate' => 'Candidate',
@@ -84,9 +86,7 @@
 			'monitor' => 'Election Monitor'
 	   		);
 	   echo form_dropdown('user_types', $options, 'voter', 'style="margin-bottom:10px"');
-	   ?>
-      <div style="margin-left:auto; margin-right:auto; width:63px">
-        <?php $data = array(
+	   $data = array(
           'name' => 'mysubmit',
           'value' => 'Register',
           'class' => 'btn btn-xs btn-default'

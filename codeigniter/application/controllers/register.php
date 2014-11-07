@@ -13,11 +13,11 @@ class Register extends CI_Controller {
 	}
 	
 	public function input(){
-		$this->auth = new stdClass;
 		$this->load->model('general_model');
 		
 		if($this->input->post('mysubmit')){
 			$this->general_model->entry_insert();
+			redirect('/voter');
 		}
 	}
 }

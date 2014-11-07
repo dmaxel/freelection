@@ -31,7 +31,7 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				//still need to handle if login fails
+				$this->loadLoginPage();
 			}
 		}
 	}

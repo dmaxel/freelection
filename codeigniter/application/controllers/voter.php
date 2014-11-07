@@ -4,12 +4,12 @@ class Voter extends CI_Controller {
 	public function __construct(){
 	    parent::__construct();
 	    $this->auth = new stdClass;
+		$this->load->model('general_model');
 	}
 	
 	public function index(){
     
         // check if logged in as voter
-		$this->load->model('general_model');
 		$loggedIn = $this->general_model->checkIfLoggedIn();
 		$groupID = $this->general_model->getGroupID();
         
@@ -25,7 +25,6 @@ class Voter extends CI_Controller {
 	}
         
 		public function showPage(){
-		$this->load->model('general_model');
         $data['username'] = $this->general_model->getUsername();
         
         // load the view
@@ -47,6 +46,13 @@ class Voter extends CI_Controller {
 		$this->load->view('voter', $data);
 		
         $this->load->view('templates/footer');
+		}
+		
+		public function voteNow(){
+	        $data['username'] = $this->general_model->getUsername();
+			$this->load->view('templates/header', $data);
+			$this->load->view('vote_now');
+			$this->load->view('templates/footer');
 		}
 }
 ?>
