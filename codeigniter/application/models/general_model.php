@@ -101,6 +101,16 @@ class General_Model extends CI_Model {
 		$query = $this->db->query($sql, $position);
 		return $query;
 	}*/
+		
+	public function getCandidate($userID){
+		$query = $this->db->query("SELECT candidate_id, description, position, first_name, last_name FROM candidates WHERE uacc_id = $userID");
+		return $query->row_array();
+	}
+	
+	public function updateCandidateDescription($userID){
+		$description = $this->input->post('description_field');
+		$this->db->query("UPDATE candidates SET description = '$description' WHERE uacc_id = $userID");
+	}
 	
 	public function getElectionDescription($electionID){
 		$query = $this->db->query("SELECT description FROM elections WHERE election_id = $electionID");

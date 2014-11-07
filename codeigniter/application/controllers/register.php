@@ -5,6 +5,7 @@ class Register extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 	    $this->auth = new stdClass;
+		$this->load->model('general_model');
 	}
 
 	public function index()
@@ -13,8 +14,6 @@ class Register extends CI_Controller {
 	}
 	
 	public function input(){
-		$this->load->model('general_model');
-		
 		if($this->input->post('mysubmit')){
 			$this->general_model->entry_insert();
 			redirect('/voter');
