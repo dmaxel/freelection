@@ -85,6 +85,13 @@ class General_Model extends CI_Model {
 		return $result['election_id'];
 	}
 	
+	/* this function is should work for Admin and monitor*/
+	public function getElectionInfoList($userID){
+		$query = $this->db->query("SELECT  election_id, election_title, description,voting_window_start, voting_window_end FROM elections");
+		return $query->row_array();;
+	}
+
+	
 	/*public function getPositionTitles($userID){
 		$sql = "SELECT b.title FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = ?";
 		$query = $this->db->query($sql, $userID);
