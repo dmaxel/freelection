@@ -13,6 +13,8 @@
     <link href="font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/sticky-footer.css" rel="stylesheet">
+    <link href="js/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    <link href="js/jquery-ui/jquery-ui.theme.css" rel="stylesheet">
 
     <link href='http://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
 
@@ -71,12 +73,94 @@
         <div id="election_description_container" style="margin-top:20px">
           <input type="text" name="election_description" placeholder="Election Description" style="height:100px; width:200px">
         </div>
+        <div style="margin-top:20px">Registration</div>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="registration_window" placeholder="Registration Window">
+            <input style="width: 80px" type="text" class="datepicker" name="registration_start" placeholder="Start" readonly>
+            <select>
+              <option value="1">01:00</option>
+              <option value="2">02:00</option>
+              <option value="2">03:00</option>
+              <option value="2">04:00</option>
+              <option value="2">05:00</option>
+              <option value="2">06:00</option>
+              <option value="2">07:00</option>
+              <option value="2">08:00</option>
+              <option value="2">09:00</option>
+              <option value="2">10:00</option>
+              <option value="2">11:00</option>
+              <option value="2">12:00</option>
+            </select>
+            <select>
+              <option value="am">AM</option>
+              <option value="pm">PM</option>
+            </select>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="election_window" placeholder="Election Window">
+            <input style="width: 80px" type="text" class="datepicker" name="registration_end" placeholder="End" readonly>
+            <select>
+              <option value="1">01:00</option>
+              <option value="2">02:00</option>
+              <option value="2">03:00</option>
+              <option value="2">04:00</option>
+              <option value="2">05:00</option>
+              <option value="2">06:00</option>
+              <option value="2">07:00</option>
+              <option value="2">08:00</option>
+              <option value="2">09:00</option>
+              <option value="2">10:00</option>
+              <option value="2">11:00</option>
+              <option value="2">12:00</option>
+            </select>
+            <select>
+              <option value="am">AM</option>
+              <option value="pm">PM</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:20px">Election</div>
+        <div class="row">
+          <div class="col-sm-6" style="margin-top:20px">
+            <input style="width: 80px" type="text" class="datepicker" name="election_start" placeholder="Start" readonly>
+            <select>
+              <option value="1">01:00</option>
+              <option value="2">02:00</option>
+              <option value="2">03:00</option>
+              <option value="2">04:00</option>
+              <option value="2">05:00</option>
+              <option value="2">06:00</option>
+              <option value="2">07:00</option>
+              <option value="2">08:00</option>
+              <option value="2">09:00</option>
+              <option value="2">10:00</option>
+              <option value="2">11:00</option>
+              <option value="2">12:00</option>
+            </select>
+            <select>
+              <option value="am">AM</option>
+              <option value="pm">PM</option>
+            </select>
+          </div>
+          <div class="col-sm-6" style="margin-top:20px">
+            <input style="width: 80px" type="text" class="datepicker" name="election_end" placeholder="End" readonly>
+            <select>
+              <option value="1">01:00</option>
+              <option value="2">02:00</option>
+              <option value="2">03:00</option>
+              <option value="2">04:00</option>
+              <option value="2">05:00</option>
+              <option value="2">06:00</option>
+              <option value="2">07:00</option>
+              <option value="2">08:00</option>
+              <option value="2">09:00</option>
+              <option value="2">10:00</option>
+              <option value="2">11:00</option>
+              <option value="2">12:00</option>
+            </select>
+            <select>
+              <option value="am">AM</option>
+              <option value="pm">PM</option>
+            </select>
           </div>
         </div>
         <div class="row">
@@ -117,7 +201,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-
+    <script src="js/jquery-ui/jquery-ui.min.js"></script>
+    <script>
+      $(function() {
+      $( ".datepicker" ).datepicker();
+  });
+  </script>
   </body>
 </html>
 
