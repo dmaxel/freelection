@@ -10,6 +10,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS elections;
 CREATE TABLE elections (
 	election_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+	election_title varchar(30) NOT NULL,
 	description varchar(150) NOT NULL,
 	registration_window_start datetime NOT NULL,
 	registration_window_end datetime NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE elections (
 DROP TABLE IF EXISTS ballots;
 CREATE TABLE ballots (
 	position int(10) unsigned NOT NULL AUTO_INCREMENT,
-	type BIT(1) NOT NULL DEFAULT b'0', -- (0 means candidate, 1 means y/n)
+	type BIT(2) NOT NULL DEFAULT b'0', -- (0 means candidate, 1 means y/n, 2 means proposition) Modified
 	election_id int(10) unsigned NOT NULL,
 	title varchar(40) NOT NULL,
 	write_ins BIT(1) NOT NULL DEFAULT b'0', -- (0 means no, 1 means yes)
@@ -47,11 +48,13 @@ DROP TABLE IF EXISTS votes;
 CREATE TABLE votes (
 	uacc_id int(11) unsigned NOT NULL,
 	position int(10) unsigned NOT NULL,
-	vote_type BIT(2) NOT NULL DEFAULT b'0', -- (0 means normal, 1 means write-in)
+	vote_type BIT(2) NOT NULL DEFAULT b'0', -- (0 means normal, 1 means write-in) MODIFIED
 	candidate_id int(11) unsigned,
+	proposition_id int(11) unsigned, -- New refers to a new table with proposition options
 	first_name varchar(20) DEFAULT '',
 	last_name varchar(20) DEFAULT '',
 	PRIMARY KEY (uacc_id, position),
+	FOREIGN KEY (proposition_id) REFERENCES propositions (proposition_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (candidate_id) REFERENCES candidates (candidate_id) ON UPDATE CASCADE ON DELETE CASCADE -- New
@@ -59,6 +62,22 @@ CREATE TABLE votes (
 	
 -- -----------------------------
 -- List of every vote
+-- -----------------------------
+
+-- -----------------------------
+-- Table structure for propositions
+-- -----------------------------
+DROP TABLE IF EXISTS propositions; -- New table
+CREATE TABLE propositions (
+	proposition_id int(11) unsigned NOT NULL AUTO_INCREMENT,
+	position int(11) unsigned NOT NULL,
+	proposition_description varchar(30) NOT NULL DEFAULT '',
+	PRIMARY KEY (proposition_id),
+	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+-- -----------------------------
+-- List of proposition options
 -- -----------------------------
 
 -- -----------------------------
@@ -87,7 +106,7 @@ CREATE TABLE candidates (
 	first_name varchar(20) NOT NULL,
 	last_name varchar(20) NOT NULL,
 	uacc_id int(11) unsigned NOT NULL,
-	description varchar(600) NOT NULL, -- New
+	description varchar(600) NOT NULL,
 	PRIMARY KEY (candidate_id),
 	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE -- New
@@ -126,11 +145,11 @@ CREATE TABLE user_accounts (
   uacc_id int(11) unsigned NOT NULL AUTO_INCREMENT,
   uacc_group_fk smallint(5) unsigned NOT NULL DEFAULT 0,
   uacc_email varchar(100) NOT NULL DEFAULT '',
-  uacc_firstname varchar(20) NOT NULL DEFAULT '', -- New
-  uacc_lastname varchar(20) NOT NULL DEFAULT '', -- New
+  uacc_firstname varchar(20) NOT NULL DEFAULT '',
+  uacc_lastname varchar(20) NOT NULL DEFAULT '',
   uacc_username varchar(15) NOT NULL DEFAULT '',
   uacc_password varchar(60) NOT NULL DEFAULT '',
-  uacc_password_plain varchar(60) DEFAULT NULL, -- New
+  uacc_password_plain varchar(60) DEFAULT NULL,
   uacc_ip_address varchar(40) NOT NULL DEFAULT '',
   uacc_salt varchar(40) NOT NULL DEFAULT '',
   uacc_activation_token varchar(40) NOT NULL DEFAULT '',
@@ -249,37 +268,6 @@ CREATE TABLE user_privilege_groups (
 -- -------------------------------------------------------------------------------------------------------------------
 
 -- ------------------------------
--- Test entries
+-- Other needed definitions or entries
 -- ------------------------------
-INSERT INTO user_accounts VALUES (1,1,'hi@hi.com','bob', 'barker', 'hi','$2a$08$UQr3d1apyqW8uqKDQjSzAewZkuojYz0.TUWK7laYB0jtvu8nZujpq',NULL,'50.97.94.38','P7QSdBGnwj'
-,'','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00 00:00:00','2014-11-04 16:49:53','2014-10-24 01:28:45'),(2,1,'mail@mail.com','jack', 'black','Adam','$2a$08$C6Mg
-r5XLfuZQf/RIk6BNxepk135Sw8bJ1v9i3yBH.0sgxfexuLDyy',NULL,'71.123.247.3','TY8pF6kGpY','','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00 00:00:00','2
-014-10-24 03:02:00','2014-10-24 03:02:00'),(3,1,'test','test','blah','blah','$2a$08$0UgfWwrDibpnrUvEzGR0Fe4xJI6Xdk3rGuv2dcWbeQUXw.jYgtOUG',NULL,'97.94.209.157','3Qc5
-rTf9zm','','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00 00:00:00','2014-10-29 01:21:28','2014-10-28 03:26:28'),(4,1,'lrjaif @yahoo.com','asdf','asdf','dklrk',
-'$2a$08$zjU8CmS.QpdJdnNh7q65Qu5mP9nzMXsUuozrsQV.qvqGXUKN2WF0q',NULL,'129.120.2.131','8s95Hxxcz5','','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00
- 00:00:00','2014-10-28 15:20:17','2014-10-28 15:20:17'),(5,1,'roshan_drn@yhaoo.com','roshan','shrestha','roshan','$2a$08$ImIOHoqvYZ30yyzM1vGHIedRV7cBP1n6eii/FNgh9Z/b5S9WKb
-iVK',NULL,'68.191.212.238','29RbGxNs4Y','','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00 00:00:00','2014-10-29 15:13:05','2014-10-28 15:20:53'),(
-6,4,'adminemail','bob','joe','admin','$2a$08$pVYV8wLxytgIhqTWInuZee6tPE.L8dxbXmxYx6giG7.z9ISCEgeKa',NULL,'129.120.2.130','XdKBKxnMgC','','','0000-00-00 00:00:00','
-','',1,0,0,'','0000-00-00 00:00:00','2014-11-04 16:41:16','2014-11-04 16:39:22');
 INSERT INTO `user_groups` VALUES (1,'Administrators','',0),(2,'Monitors','',0),(3,'Candidates','',0),(4,'Voters','',0);
-INSERT INTO voting_eligibility (position, uacc_id)
-	VALUES (1, 1);
-INSERT INTO voting_eligibility (position, uacc_id)
-	VALUES (2, 1);
-INSERT INTO elections (description, registration_window_start,
-	registration_window_end,voting_window_start, voting_window_end)
-	VALUES ('This election is for the engineering student body',
-	'2014-11-01 00:00:00','2014-11-10 00:00:00', '2014-11-02 00:00:00',
-	'2014-11-11 00:00:00');
-INSERT INTO ballots (election_id, title)
-	VALUES (1, 'President');
-INSERT INTO ballots (election_id, title)
-	VALUES (1, 'Chair');
-INSERT INTO candidates (position, first_name, last_name, uacc_id, description)
-	VALUES (1, 'Alfred', 'Denver', 1, 'Fake profile info');
-INSERT INTO candidates (position, first_name, last_name, uacc_id, description)
-	VALUES (1, 'Donald', 'Bedford', 2, 'Fake profile info again');
-INSERT INTO candidates (position, first_name, last_name, uacc_id, description)
-	VALUES (2, 'Rick', 'Patterson', 3, 'Fake profiles are cool');
-INSERT INTO candidates (position, first_name, last_name, uacc_id, description)
-	VALUES (2, 'Brent', 'Coulder', 4, 'Blah blah blah');
