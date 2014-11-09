@@ -1,3 +1,9 @@
+.remove_field {
+  background: none !important;
+  border: none !important;
+  margin-top: 13px;
+}
+
 .navbar {
    background-color: #0F161C;
    background: #0F161C;

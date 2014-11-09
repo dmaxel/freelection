@@ -163,30 +163,11 @@
             </select>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-4" style="margin-top:20px">
-            <input type="text" name="position1" placeholder="Position 1">
-          </div>
-          <div class="col-sm-4" style="margin-top:20px">
-            Allow Write-In <input type="checkbox">
-          </div>
-          <div class="col-sm-4" style="margin-top:20px">
-            Proposition <input type="checkbox">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4" style="margin-top:20px">
-            <input type="text" name="position2" placeholder="Position 2">
-          </div>
-          <div class="col-sm-4" style="margin-top:20px">
-            Allow Write-In <input type="checkbox">
-          </div>
-          <div class="col-sm-4" style="margin-top:20px">
-            Proposition <input type="checkbox">
-          </div>
+        <div class="input_fields_wrap" style="margin-top:10px">
+            <button class="add_field_button btn btn-xs btn-default">Add A Position</button>
         </div>
         </form>
-        <div id="create_button_container" style="margin-left: auto; margin-right: auto; margin-top: 40px">
+        <div id="create_button_container" style="margin-left: auto; margin-right: auto; margin-top: 20px">
           <a href="view_elections.html"><button class="btn btn-xs btn-default" id="create_election">Create</button></a>
         </div>
       </div>
@@ -205,8 +186,26 @@
     <script>
       $(function() {
       $( ".datepicker" ).datepicker();
+
+      $(document).ready(function() {
+          var max_fields      = 30; //maximum input boxes allowed
+          var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+          var add_button      = $(".add_field_button"); //Add button ID
+          
+          var x = 1; //initlal text box count
+          $(add_button).click(function(e){ //on add input button click
+              e.preventDefault();
+              if(x < max_fields){ //max input box allowed
+                  x++; //text box increment
+                  $(wrapper).append('<div class="row"><div class="col-sm-4" style="margin-top:20px"><input type="text" placeholder="Position"></div><div class="col-sm-3" style="margin-top:20px">Allow Write-In <input type="checkbox"></div><div class="col-sm-3" style="margin-top:20px">Proposition <input type="checkbox"></div><div class="col-sm-2" style="margin-top:6px"><button class="remove_field"><span class="fa fa-times"></span></button></div></div>'); //add input box
+              }
+          });
+          
+          $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+              e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+          })
+      });
   });
   </script>
   </body>
 </html>
-
