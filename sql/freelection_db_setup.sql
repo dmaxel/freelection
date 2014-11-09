@@ -9,7 +9,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- -----------------------------
 DROP TABLE IF EXISTS elections;
 CREATE TABLE elections (
-	election_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+	election_id int unsigned NOT NULL AUTO_INCREMENT,
 	election_title varchar(30) NOT NULL,
 	description varchar(150) NOT NULL,
 	registration_window_start datetime NOT NULL,
@@ -28,11 +28,11 @@ CREATE TABLE elections (
 -- -----------------------------
 DROP TABLE IF EXISTS ballots;
 CREATE TABLE ballots (
-	position int(10) unsigned NOT NULL AUTO_INCREMENT,
-	type BIT(2) NOT NULL DEFAULT b'0', -- (0 means candidate, 1 means y/n, 2 means proposition) Modified
-	election_id int(10) unsigned NOT NULL,
+	position int unsigned NOT NULL AUTO_INCREMENT,
+	type int NOT NULL DEFAULT 0, -- (0 means candidate, 1 means y/n, 2 means proposition) Modified
+	election_id int unsigned NOT NULL,
 	title varchar(40) NOT NULL,
-	write_ins BIT(1) NOT NULL DEFAULT b'0', -- (0 means no, 1 means yes)
+	write_ins int NOT NULL DEFAULT 0, -- (0 means no, 1 means yes)
 	PRIMARY KEY (position),
 	FOREIGN KEY (election_id) REFERENCES elections(election_id) ON UPDATE CASCADE ON DELETE CASCADE -- New
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
@@ -46,11 +46,11 @@ CREATE TABLE ballots (
 -- -----------------------------
 DROP TABLE IF EXISTS votes;
 CREATE TABLE votes (
-	uacc_id int(11) unsigned NOT NULL,
-	position int(10) unsigned NOT NULL,
-	vote_type BIT(2) NOT NULL DEFAULT b'0', -- (0 means normal, 1 means write-in) MODIFIED
-	candidate_id int(11) unsigned,
-	proposition_id int(11) unsigned, -- New refers to a new table with proposition options
+	uacc_id int unsigned NOT NULL,
+	position int unsigned NOT NULL,
+	vote_type int NOT NULL DEFAULT 0, -- (0 means normal, 1 means write-in) MODIFIED
+	candidate_id int unsigned,
+	proposition_id int unsigned, -- New refers to a new table with proposition options
 	first_name varchar(20) DEFAULT '',
 	last_name varchar(20) DEFAULT '',
 	PRIMARY KEY (uacc_id, position),
@@ -69,8 +69,8 @@ CREATE TABLE votes (
 -- -----------------------------
 DROP TABLE IF EXISTS propositions; -- New table
 CREATE TABLE propositions (
-	proposition_id int(11) unsigned NOT NULL AUTO_INCREMENT,
-	position int(11) unsigned NOT NULL,
+	proposition_id int unsigned NOT NULL AUTO_INCREMENT,
+	position int unsigned NOT NULL,
 	proposition_description varchar(30) NOT NULL DEFAULT '',
 	PRIMARY KEY (proposition_id),
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE
@@ -85,8 +85,8 @@ CREATE TABLE propositions (
 -- -----------------------------
 DROP TABLE IF EXISTS voting_eligibility;
 CREATE TABLE voting_eligibility (
-	position int(10) unsigned NOT NULL,
-	uacc_id int(11) unsigned NOT NULL,
+	position int unsigned NOT NULL,
+	uacc_id int unsigned NOT NULL,
 	PRIMARY KEY (position, uacc_id),
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE -- New
@@ -101,11 +101,11 @@ CREATE TABLE voting_eligibility (
 -- -----------------------------
 DROP TABLE IF EXISTS candidates;
 CREATE TABLE candidates (
-	candidate_id int(11) unsigned NOT NULL AUTO_INCREMENT,
-	position int(10) unsigned NOT NULL,
+	candidate_id int unsigned NOT NULL AUTO_INCREMENT,
+	position int unsigned NOT NULL,
 	first_name varchar(20) NOT NULL,
 	last_name varchar(20) NOT NULL,
-	uacc_id int(11) unsigned NOT NULL,
+	uacc_id int unsigned NOT NULL,
 	description varchar(600) NOT NULL,
 	PRIMARY KEY (candidate_id),
 	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
@@ -148,8 +148,10 @@ CREATE TABLE user_accounts (
   uacc_firstname varchar(20) NOT NULL DEFAULT '',
   uacc_lastname varchar(20) NOT NULL DEFAULT '',
   uacc_username varchar(15) NOT NULL DEFAULT '',
+  uacc_major varchar(20) DEFAULT '', -- New shows a user's major if applicable
   uacc_password varchar(60) NOT NULL DEFAULT '',
   uacc_password_plain varchar(60) DEFAULT NULL,
+  uacc_vote_weight int unsigned NOT NULL DEFAULT 1, -- New vote weight
   uacc_ip_address varchar(40) NOT NULL DEFAULT '',
   uacc_salt varchar(40) NOT NULL DEFAULT '',
   uacc_activation_token varchar(40) NOT NULL DEFAULT '',

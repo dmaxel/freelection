@@ -3,8 +3,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ------------------------------
 -- Test entries
 -- ------------------------------
-INSERT INTO user_accounts VALUES (1,1,'hi@hi.com','bob', 'barker', 'hi','$2a$08$UQr3d1apyqW8uqKDQjSzAewZkuojYz0.TUWK7laYB0jtvu8nZujpq',NULL,'50.97.94.38','P7QSdBGnwj'
-,'','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00 00:00:00','2014-11-04 16:49:53','2014-10-24 01:28:45'),(2,1,'mail@mail.com','jack', 'black','Adam','$2a$08$C6Mg
+INSERT INTO user_accounts VALUES (2,1,'mail@mail.com','jack', 'black','Adam','$2a$08$C6Mg
 r5XLfuZQf/RIk6BNxepk135Sw8bJ1v9i3yBH.0sgxfexuLDyy',NULL,'71.123.247.3','TY8pF6kGpY','','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00 00:00:00','2
 014-10-24 03:02:00','2014-10-24 03:02:00'),(3,1,'test','test','blah','blah','$2a$08$0UgfWwrDibpnrUvEzGR0Fe4xJI6Xdk3rGuv2dcWbeQUXw.jYgtOUG',NULL,'97.94.209.157','3Qc5
 rTf9zm','','','0000-00-00 00:00:00','','',1,0,0,'','0000-00-00 00:00:00','2014-10-29 01:21:28','2014-10-28 03:26:28'),(4,1,'lrjaif @yahoo.com','asdf','asdf','dklrk',
