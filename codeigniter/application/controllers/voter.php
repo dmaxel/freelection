@@ -51,8 +51,36 @@ class Voter extends CI_Controller {
 		public function voteNow(){
 	        $data['username'] = $this->general_model->getUsername();
 			$this->load->view('templates/header', $data);
-			$this->load->view('vote_now');
+			
+			$userID = $this->general_model->getUserID();
+			$data['positions'] = $this->general_model->getPositions($userID);
+			foreach($data['positions'] as $positions)
+			{
+				$position_id = $positions['position'];
+				if($positions['type'] = 0)
+				{
+					$data['list[$position_id]'] = $this->general_model->getCandidatesForPosition($position_id);
+				}
+				else if($positions['type'] = 1)
+				{
+					$data['list[$position_id]'] = array("Yes", "No");
+				}
+				else if($positions['type'] = 2)
+				{
+					$data['list[$position_id]'] = $this->general_model->getPropsForPosition($position_id);
+				}
+			}
+			$data['userID'] = $userID;
+			$this->load->view('vote_now', $data);
+			
 			$this->load->view('templates/footer');
+		}
+		
+		public function processBallot(){
+			if($this->input->post('submitballot'))
+			{
+				//something
+			}
 		}
 }
 ?>

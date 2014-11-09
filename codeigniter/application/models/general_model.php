@@ -87,27 +87,29 @@ class General_Model extends CI_Model {
 	
 	/* this function is should work for Admin and monitor*/
 	public function getElectionInfoList($userID){
-		$query = $this->db->query("SELECT  election_id, election_title, description,voting_window_start, voting_window_end FROM elections");
+		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end FROM elections");
 		return $query->row_array();;
 	}
-
 	
-	/*public function getPositionTitles($userID){
-		$sql = "SELECT b.title FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = ?";
-		$query = $this->db->query($sql, $userID);
-		return $query;
-	}*/
+	public function getPositions($userID){
+		$query = $this->db->query("SELECT position, type, title, write_ins FROM ballots NATURAL JOIN voting_eligibility WHERE uacc_id = $userID");
+		return $query->result_array();
+	}
+	
+	public function getCandidatesForPosition($position){
+		$query = $this->db->query("SELECT candidate_id, first_name, last_name FROM candidates WHERE position =  $position");
+		return $query->result_array();
+	}
+	
+	public function getPropsForPosition($position){
+		$query = $this->db->query("SELECT proposition_id, proposition_description FROM propositions WHERE position = $position");
+		return $query->result_array();
+	}
 	
 	public function getAllCandidates($electionID){
 		$query = $this->db->query("SELECT candidate_id, first_name, last_name, description FROM ballots NATURAL JOIN candidates WHERE election_id = $electionID");
 		return $query->result_array();
 	}
-	
-	/*public function getCandidates($position){
-		$sql = "SELECT first_name, last_name FROM candidates c, voting_eligibility v WHERE c.position = v.position AND v.position = ?";
-		$query = $this->db->query($sql, $position);
-		return $query;
-	}*/
 		
 	public function getCandidate($userID){
 		$query = $this->db->query("SELECT candidate_id, description, position, first_name, last_name FROM candidates WHERE uacc_id = $userID");
@@ -119,6 +121,12 @@ class General_Model extends CI_Model {
 		$this->db->query("UPDATE candidates SET description = '$description' WHERE uacc_id = $userID");
 	}
 	
+	public function checkUserVoted($userID){
+		$query = $this->db->query("SELECT position, vote_type, candidate_id, proposition_id, first_name, last_name FROM votes WHERE uacc_id = $userID");
+		//user voted if info is returned; user did not vote if empty
+		return $query->results_array();
+	}
+	
 	public function getElectionDescription($electionID){
 		$query = $this->db->query("SELECT description FROM elections WHERE election_id = $electionID");
 		$result = $query->row_array();
@@ -128,6 +136,30 @@ class General_Model extends CI_Model {
 	public function getElectionWindow($electionID){
 		$query = $this->db->query("SELECT voting_window_start, voting_window_end FROM elections WHERE election_id = $electionID");
 		return $query->row_array();
+	}
+	
+	public function addWriteinVote($userID, $position, $first_name, $last_name){
+		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, first_name, last_name) VALUES ($userID, $position, 1, ‘$first_name’, ‘$last_name’)");
+	}
+	
+	public function addCandidateVote($userID, $position, $candidate_id){
+		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, candidate_id) VALUES ($userID, $position, 0, $candidate_id)");
+	}
+	
+	public function addPropositionVote($userID, $position, $proposition_id){
+		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, proposition_id) VALUES ($uacc_id, $position, 0, $proposition_id)");
+	}
+	
+	public function updateWriteinVote($userID, $position, $first_name, $last_name){
+		$this->db->query("UPDATE votes SET vote_type=1, first_name=’$first_name’, last_name=’$last_name’ WHERE uacc_id = $userID and position = $position");
+	}
+	
+	public function updateCandidateVote($userID, $position, $candidate_id){
+		$this->db->query("UPDATE votes SET vote_type=0, candidate_id=$candidate_id WHERE uacc_id = $userID AND position = $position");
+	}
+	
+	public function updatePropositionVote($userID, $position, $proposition_id){
+		$this->db->query("UPDATE votes SET vote_type=0, proposition_id=$proposition_id WHERE uacc_id = $uacc_id AND position = $position");
 	}
 }
 ?>
