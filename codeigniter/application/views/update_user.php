@@ -42,6 +42,14 @@
             <input type="text" name="email" placeholder="Email">
           </div>
         </div>
+        <div id="candidate_position_container" style="margin-top:20px">
+          <select name="role">
+            <option value="position1">Position 1</option>
+            <option value="position2">Position 2</option>
+            <option value="position3">Position 3</option>
+            <option value="position4">Position 4</option>
+          </select>
+        </div>
         <div id="candidate_description_container" style="margin-top:20px">
           <input type="text" name="candidate_description" placeholder="Candidate Description" style="height:70px; width:200px">
         </div>
