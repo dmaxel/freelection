@@ -130,6 +130,21 @@ class General_Model extends CI_Model {
 		$this->db->query("UPDATE candidates SET description = '$description' WHERE uacc_id = $userID");
 	}
 	
+	public function getPendingUsers(){
+		$query = $this->db->query("SELECT DISTINCT uacc_id, uacc_group_fk, uacc_firstname, uacc_lastname, uacc_major FROM user_accounts WHERE uacc_active = 0");
+		return $query->result_array();
+	}
+	
+	public function getPendingVoter($userID){
+		$query = $this->db->query("SELECT DISTINCT election_title FROM voting_eligibility NATURAL JOIN elections WHERE uacc_id = $userID");
+		return $query->row_result();
+	}
+	
+	public function getPendingCandidate($userID){
+		$query = $this->db->query("SELECT DISTINCT election_title, title FROM elections NATURAL JOIN (SELECT election_id, title FROM ballots NATURAL JOIN candidates WHERE uacc_id = $userID) AS alpha");
+		return $query->row_result();
+	}
+	
 	public function checkUserVoted($userID){
 		$query = $this->db->query("SELECT position, vote_type, candidate_id, proposition_id, first_name, last_name FROM votes WHERE uacc_id = $userID");
 		//user voted if info is returned; user did not vote if empty

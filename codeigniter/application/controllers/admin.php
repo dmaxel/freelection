@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
     
 	public function index(){
 
-        $data['username'] = "admin";
+        $data['username'] = $this->general_model->getUsername();
         
         // load the view
         $this->load->view('templates/header', $data);
@@ -41,14 +41,26 @@ class Admin extends CI_Controller {
     }
     
     public function view_pending() {
-        $result = $this->db->query("select uacc_username from user_accounts where uacc_password_plain is not NULL and uacc_date_last_login = uacc_date_added;");
-        echo '<pre>';
-        var_dump($result->row());
-        echo '</pre>';
-        exit;
         
+		$data['username'] = $this->general_model->getUsername();
         $this->load->view('templates/header', $data);
-        $this->load->view('view_pending');
+		
+		$userID = $this->general_model->getUserID();
+		$data['p_user'] = $this->general_model->getPendingUsers();
+		foreach($data['p_user'] as $pendingUser)
+		{
+			if($pendingUser['uacc_group_fk'] = 3)
+			{
+				$pendingUser[] = $this->general_model->getPendingCandidate($userID);
+			}
+			else if($pendingUser['uacc_group_fk'] = 4)
+			{
+				$pendingUser[] = $this->general_model->getPendingVoter($userID);
+				$pendingUser['position'] = '';
+			}
+		}
+        $this->load->view('view_pending', $data);
+		
         $this->load->view('templates/footer');
     }
     
