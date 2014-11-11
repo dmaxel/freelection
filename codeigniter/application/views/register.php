@@ -53,39 +53,60 @@
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
-          <?php echo form_open('register/input'); 
-             $data = array(
-            'name' => 'name_field',
+          <?php echo form_open('register/reload');
+		  $dropdown_js = 'onChange="this.form.submit()" style="margin-bottom:10px"';
+		  echo form_checkbox('candidate', 'Check if you\'re registering as a candidate.', $checkbox_value, 'onChange="this.form.submit()"');
+	   $options = array();
+   	   foreach($elections as $election)
+   	   {
+   		   $options[$election['election_id']] = $election['election_title'];
+   	   }
+	   $options[-1] = "Please select an election.";
+   	   echo form_dropdown('available_elections', $options, $election_value, $dropdown_js);
+	   if($checkbox_value == TRUE)
+	   {
+		   $options = array();
+	   	   foreach($select_positions as $_positions)
+	   	   {
+	   		   $options[$_positions['position']] = $_positions['title'];
+	   	   }
+	   	   echo form_dropdown('available_positions', $options, $election_value, 'style="margin-bottom:10px"');
+	   }
+       $data = array(
+            'name' => 'firstname_field',
             'class' => 'form-control login-input',
-            'placeholder' => 'Name',
+            'placeholder' => 'First Name',
             'required' => 'required',
-            'autofocus' => 'autofocus'
+            'autofocus' => 'autofocus',
+			'value' => $firstname_value
+            );
+       echo form_input($data);
+       $data = array(
+            'name' => 'lastname_field',
+            'class' => 'form-control login-input',
+            'placeholder' => 'Last Name',
+            'required' => 'required',
+			'value' => $lastname_value
             );
        echo form_input($data);
        $data = array(
             'name' => 'email_field',
             'class' => 'form-control login-input',
             'placeholder' => 'Email',
-            'required' => 'required'
+            'required' => 'required',
+			'value' => $email_value
             );
        echo form_input($data);
        $data = array(
-            'name' => 'password_field',
-            'type' => 'password',
+            'name' => 'major_field',
             'class' => 'form-control login-input',
-            'placeholder' => 'Password',
-            'required' => 'required'
+            'placeholder' => 'Major',
+            'required' => 'required',
+			'value' => $major_value
             );
        echo form_input($data);?>
 	   <div style="margin-left:auto; margin-right:auto; width:63px">
 	   <?
-	   $options = array(
-		    'voter' => 'Voter',
-			'candidate' => 'Candidate',
-			'admin' => 'Administrator',
-			'monitor' => 'Election Monitor'
-	   		);
-	   echo form_dropdown('user_types', $options, 'voter', 'style="margin-bottom:10px"');
 	   $data = array(
           'name' => 'mysubmit',
           'value' => 'Register',

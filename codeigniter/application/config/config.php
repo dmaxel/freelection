@@ -366,6 +366,8 @@ $config['database']['settings']['primary_identity_col'] = 'uacc_username';
 // Defining which user table columns are used to identify a user via data submitted by a login form.
 $config['database']['settings']['identity_cols'] = array('uacc_email', 'uacc_username');
 
+$config['database']['user_accounts']['custom_columns'] = array('uacc_firstname', 'uacc_lastname', 'uacc_major');
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
