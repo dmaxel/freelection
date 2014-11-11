@@ -185,5 +185,19 @@ class General_Model extends CI_Model {
 	public function updatePropositionVote($userID, $position, $proposition_id){
 		$this->db->query("UPDATE votes SET vote_type=0, proposition_id=$proposition_id WHERE uacc_id = $uacc_id AND position = $position");
 	}
+	
+	public function deleteUser($userID){
+		$this->load->library('flexi_auth');
+		$this->flexi_auth->delete_user($userID);
+	}
+	
+	public function approveUser($userID){
+		$this->load->library('flexi_auth');
+		$this->flexi_auth->activate_user($userID);
+	}
+	
+	public function approveCandidate($userID){
+		$this->db->query("UPDATE candidates SET approved = 1 WHERE uacc_id = $userID");
+	}
 }
 ?>

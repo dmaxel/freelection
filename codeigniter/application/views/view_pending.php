@@ -19,7 +19,14 @@
 		echo '</div><div class="col-sm-3">';
 		echo $each['position'];
 		echo '</div><div class="col-sm-3">';
-		echo '<a href="index.php/admin/approve/$each[\'userID\']">';
+		if($each['position'] != '')
+		{
+			echo '<a href="index.php/admin/approve/$each[\'userID\']/1">';
+		}
+		else
+		{
+			echo '<a href="index.php/admin/approve/$each[\'userID\']/0">';
+		}
 		echo '<button class="btn btn-success btn-xs" id="approve" style="font-size:15px !important; margin-top:5px">Approve</button>';
 		echo '</a></div><div class="col-sm-3">';
 		echo '<a href="index.php/admin/deny/$each[\'userID\']">';

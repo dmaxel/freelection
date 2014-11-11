@@ -29,7 +29,7 @@ class Admin extends CI_Controller {
 	}
     
     public function view_users() {
-        $result = $this->db->query("select uacc_username from user_accounts where uacc_date_last_login != uacc_date_added;");
+        /*$result = $this->db->query("select uacc_username from user_accounts where uacc_date_last_login != uacc_date_added;");
         echo '<pre>';
         var_dump($result);
         echo '</pre>';
@@ -37,7 +37,7 @@ class Admin extends CI_Controller {
         
         $this->load->view('templates/header', $data);
         $this->load->view('view_users');
-        $this->load->view('templates/footer');
+        $this->load->view('templates/footer');*/
     }
     
     public function view_pending() {
@@ -68,5 +68,17 @@ class Admin extends CI_Controller {
         
     
     }
+	
+	public function approve($userID, $candidate){
+		$this->general_model->approveUser($userID);
+		if($candidate = 1)
+		{
+			$this->general_model->approveCandidate($userID);
+		}
+	}
+	
+	public function deny($userID){
+		$this->general_model->deleteUser($userID);
+	}
 }
 ?>
