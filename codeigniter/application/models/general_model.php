@@ -33,17 +33,17 @@ class General_Model extends CI_Model {
 		{
 			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
 			
-			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname=’$first_name’ AND uacc_lastname=’$last_name’");
+			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname='$firstname' AND uacc_lastname='$lastname'");
 			$temp = $query->row_array();
 			$new_userID = $temp['uacc_id'];
 			
-			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, $firstname, $lastname, $new_userID, ‘No description yet’)");
+			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, '$firstname', '$lastname', $new_userID, 'No description yet')");
 		}
 		else
 		{
 			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, FALSE);
 			
-			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname=’$first_name’ AND uacc_lastname=’$last_name’");
+			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname='$firstname' AND uacc_lastname='$lastname'");
 			$temp = $query->row_array();
 			$new_userID = $temp['uacc_id'];
 			
@@ -138,12 +138,12 @@ class General_Model extends CI_Model {
 	
 	public function getPendingVoter($userID){
 		$query = $this->db->query("SELECT DISTINCT election_title FROM voting_eligibility NATURAL JOIN elections WHERE uacc_id = $userID");
-		return $query->row_result();
+		return $query->row_array();
 	}
 	
 	public function getPendingCandidate($userID){
 		$query = $this->db->query("SELECT DISTINCT election_title, title FROM elections NATURAL JOIN (SELECT election_id, title FROM ballots NATURAL JOIN candidates WHERE uacc_id = $userID) AS alpha");
-		return $query->row_result();
+		return $query->row_array();
 	}
 	
 	public function checkUserVoted($userID){
@@ -164,7 +164,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function addWriteinVote($userID, $position, $first_name, $last_name){
-		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, first_name, last_name) VALUES ($userID, $position, 1, ‘$first_name’, ‘$last_name’)");
+		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, first_name, last_name) VALUES ($userID, $position, 1, ‘$first_name', ‘$last_name')");
 	}
 	
 	public function addCandidateVote($userID, $position, $candidate_id){
@@ -176,7 +176,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function updateWriteinVote($userID, $position, $first_name, $last_name){
-		$this->db->query("UPDATE votes SET vote_type=1, first_name=’$first_name’, last_name=’$last_name’ WHERE uacc_id = $userID and position = $position");
+		$this->db->query("UPDATE votes SET vote_type=1, first_name='$first_name', last_name='$last_name' WHERE uacc_id = $userID and position = $position");
 	}
 	
 	public function updateCandidateVote($userID, $position, $candidate_id){

@@ -205,7 +205,7 @@
 	$config['database']['settings']['identity_cols'] = array('uacc_email', 'uacc_username');
 	
 	
-	$config['database']['user_accounts']['custom_columns'] = array('uacc_firstname', 'uacc_lastname', 'uacc_major');
+	$config['database']['user_acc']['custom_columns'] = array('uacc_firstname', 'uacc_lastname', 'uacc_major');
 	/**
 	 * User Search Query Columns
 	 * Set the table columns that are looked-up by the libraries search_users() function to match users against submitted search query terms.
@@ -441,7 +441,7 @@
 	 *	Do NOT change this salt once users have started registering accounts as their passwords will not work without the original salt.
 	 *	CHANGE THE DEFAULT STATIC SALT SET BELOW TO YOUR OWN RANDOM SET OF CHARACTERS.
 	*/
-	$config['security']['static_salt'] = 'change-me!';
+	$config['security']['static_salt'] = 'change-me!';	//we should try to change this if possible
 	
 	/**
 	 * Set whether a salt is stored in the database and then used for password and hash token generation.
@@ -552,7 +552,7 @@
 	 *
 	 * Note: This only applies if the username is not set as the primary identity column ($config['database']['settings']['primary_identity_col'])
 	*/
-	$config['settings']['auto_increment_username'] = FALSE;
+	$config['settings']['auto_increment_username'] = TRUE;
 	
 	/**
 	 * Set whether accounts are suspended by default on registration / inserting user.

@@ -25,6 +25,26 @@ class Admin extends CI_Controller {
 	public function index(){
         // get all the elections
         $this->data['elections'] = $this->general_model->getElectionInfoList();
+        
+        // check for form input
+        if(!$this->input->post('elections'))
+        {
+            $this->data['selected_election'] = -1;
+        }
+        else
+        {
+            $selected_election = $this->input->post('elections');
+          
+            $this->data['selected_election'] = $selected_election;
+            $this->data['election_description'] = $this->general_model->getElectionDescription($selected_election);
+            $this->data['election_window'] = $this->general_model->getElectionWindow($selected_election);
+            echo '<pre>';
+            var_dump($this->data);
+            echo '</pre>';
+            exit;
+        }
+
+
 
         $this->load->view('templates/header', $this->data);
         $this->load->view('admin', $this->data);
@@ -43,18 +63,21 @@ class Admin extends CI_Controller {
 		$data['username'] = $this->general_model->getUsername();
         $this->load->view('templates/header', $data);
 		
-		$userID = $this->general_model->getUserID();
-		$data['p_user'] = $this->general_model->getPendingUsers();
-		foreach($data['p_user'] as $pendingUser)
+		$pending_users = $this->general_model->getPendingUsers();
+		$data['p_user'] = array();
+		foreach($pending_users as $pendingUser)
 		{
+			$userID = $pendingUser['uacc_id'];
 			if($pendingUser['uacc_group_fk'] = 3)
 			{
-				$pendingUser[] = $this->general_model->getPendingCandidate($userID);
+				$temp = $this->general_model->getPendingCandidate($userID);
+				$data['p_user'][] = array_merge($pendingUser, $temp);
 			}
 			else if($pendingUser['uacc_group_fk'] = 4)
 			{
-				$pendingUser[] = $this->general_model->getPendingVoter($userID);
-				$pendingUser['position'] = '';
+				$temp = $this->general_model->getPendingVoter($userID);
+				$temp['title'] = '';
+				$data['p_user'][] = array_merge($pendingUser, $temp);
 			}
 		}
         $this->load->view('view_pending', $data);
@@ -85,10 +108,12 @@ class Admin extends CI_Controller {
 		{
 			$this->general_model->approveCandidate($userID);
 		}
+		redirect('/admin/view_pending');
 	}
 	
 	public function deny($userID){
 		$this->general_model->deleteUser($userID);
+		redirect('/admin/view_pending');
 	}
 }
 ?>

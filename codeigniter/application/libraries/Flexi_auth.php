@@ -575,7 +575,7 @@ class Flexi_auth extends Flexi_auth_lite
 			$identity = $user->{$this->CI->auth->db_settings['primary_identity_col']};
 			$activation_token = $user->{$this->CI->auth->database_config['user_acc']['columns']['activation_token']};
 			
-			// Prepare account activation email.
+			/*// Prepare account activation email.
 			// If the $activation_token is not empty, the account must be activated via email before the user can login.
 			if (!empty($activation_token))
 			{
@@ -598,7 +598,7 @@ class Flexi_auth extends Flexi_auth_lite
 
 				$this->CI->flexi_auth_model->set_error_message('activation_email_unsuccessful', 'config');
 				return FALSE;
-			}
+			}*/
 			
 			$this->CI->flexi_auth_model->set_status_message('account_creation_successful', 'config');
 			return $user_id;

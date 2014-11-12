@@ -11,25 +11,25 @@
 		foreach($p_user as $each)
 		{
 		echo '<div class="row" style="margin-top:10px"><div class="col-sm-3">';
-		echo $each['firstname']." ".$each['lastname'];
+		echo $each['uacc_firstname']." ".$each['uacc_lastname'];
 		echo '</div><div class="col-sm-3">';
-		echo $each['major'];
+		echo $each['uacc_major'];
 		echo '</div><div class="col-sm-3">';
-		echo $each['election'];
+		echo $each['election_title'];
 		echo '</div><div class="col-sm-3">';
-		echo $each['position'];
+		echo $each['title'];
 		echo '</div><div class="col-sm-3">';
-		if($each['position'] != '')
+		if($each['title'] != '')
 		{
-			echo '<a href="index.php/admin/approve/$each[\'userID\']/1">';
+			echo '<a href="index.php/admin/approve/'.$each['uacc_id'].'/1">';
 		}
 		else
 		{
-			echo '<a href="index.php/admin/approve/$each[\'userID\']/0">';
+			echo '<a href="index.php/admin/approve/'.$each['uacc_id'].'/0">';
 		}
 		echo '<button class="btn btn-success btn-xs" id="approve" style="font-size:15px !important; margin-top:5px">Approve</button>';
 		echo '</a></div><div class="col-sm-3">';
-		echo '<a href="index.php/admin/deny/$each[\'userID\']">';
+		echo '<a href="index.php/admin/deny/'.$each['uacc_id'].'">';
 		echo '<button class="btn btn-danger btn-xs" id="deny" style="font-size:15px !important; margin-top:5px">Deny</button></div></div>';
 		}
 		?>
