@@ -1,11 +1,11 @@
         <div class="row" style="margin-top:-20px">
           <div class="col-sm-4">
-            <a href="admin.html"><button class="btn btn-default btn-xs" id="back">Back</button></a>
+            <a href="index.php/admin"><button class="btn btn-default btn-xs" id="back">Back</button></a>
           </div>
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4">
-            <a href="new_election.html"><button class="btn btn-default btn-xs" id="back">New Election</button></a>
+            <a href="index.php/admin/new_election"><button class="btn btn-default btn-xs" id="back">New Election</button></a>
           </div>
         </div>
         <div class="row">
@@ -14,9 +14,10 @@
           </div>
           <div class="col-sm-4" style="margin-top:10px">
             <select name="election" style="margin-bottom:10px">
-              <option value="candidate1">Election 1</option>
-              <option value="candidate2">Election 2</option>
-              <option value="candidate3">Election 3</option>
+              <?php
+              foreach ($elections as $election)
+                echo "<option value=" . $election['election_id'] . ">" . $election['election_title'] . "</option>";
+              ?>
             </select>
           </div>
           <div class="col-sm-4">
