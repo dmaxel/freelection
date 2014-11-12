@@ -53,32 +53,44 @@
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
+          <div style="width: 227px; margin-left: auto; margin-right: auto;">
           <?php echo form_open('register/reload');
-		  $dropdown_js = 'onChange="this.form.submit()" style="margin-bottom:10px"';
-		  echo form_checkbox('candidate', 'Check if you\'re registering as a candidate.', $checkbox_value, 'onChange="this.form.submit()"');
-	   $options = array();
-   	   foreach($elections as $election)
-   	   {
-   		   $options[$election['election_id']] = $election['election_title'];
-   	   }
-	   $options[-1] = "Please select an election.";
-   	   echo form_dropdown('available_elections', $options, $election_value, $dropdown_js);
-	   if($checkbox_value == TRUE)
-	   {
-		   $options = array();
-	   	   foreach($select_positions as $_positions)
-	   	   {
-	   		   $options[$_positions['position']] = $_positions['title'];
-	   	   }
-	   	   echo form_dropdown('available_positions', $options, $election_value, 'style="margin-bottom:10px"');
-	   }
+      $dropdown_js = 'onChange="this.form.submit()" style="margin-bottom:10px"';
+      echo "<label style='margin-right:5px'>Registering as a candidate? </label>";
+      echo form_checkbox('candidate', ' ', $checkbox_value, 'onChange="this.form.submit()"');
+       ?>
+      </div>
+   <div style="width: 164px; margin-left: auto; margin-right: auto;">
+    <?
+     $options = array();
+       foreach($elections as $election)
+       {
+         $options[$election['election_id']] = $election['election_title'];
+       }
+     $options[-1] = "Please select an election.";
+       echo form_dropdown('available_elections', $options, $election_value, $dropdown_js);
+     if($checkbox_value == TRUE)
+     {
+       $options = array();
+         foreach($select_positions as $_positions)
+         {
+           $options[$_positions['position']] = $_positions['title'];
+         }
+         ?>
+       </div>
+         <div style="width: 81px; margin-left:auto; margin-right: auto;">
+         <?
+         echo form_dropdown('available_positions', $options, $election_value, 'style="margin-bottom:10px"');
+     } ?>
+   </div>
+     <?
        $data = array(
             'name' => 'firstname_field',
             'class' => 'form-control login-input',
             'placeholder' => 'First Name',
             'required' => 'required',
             'autofocus' => 'autofocus',
-			'value' => $firstname_value
+      'value' => $firstname_value
             );
        echo form_input($data);
        $data = array(
@@ -86,7 +98,7 @@
             'class' => 'form-control login-input',
             'placeholder' => 'Last Name',
             'required' => 'required',
-			'value' => $lastname_value
+      'value' => $lastname_value
             );
        echo form_input($data);
        $data = array(
@@ -94,7 +106,7 @@
             'class' => 'form-control login-input',
             'placeholder' => 'Email',
             'required' => 'required',
-			'value' => $email_value
+      'value' => $email_value
             );
        echo form_input($data);
        $data = array(
@@ -102,12 +114,12 @@
             'class' => 'form-control login-input',
             'placeholder' => 'Major',
             'required' => 'required',
-			'value' => $major_value
+      'value' => $major_value
             );
        echo form_input($data);?>
-	   <div style="margin-left:auto; margin-right:auto; width:63px">
-	   <?
-	   $data = array(
+     <div style="margin-left:auto; margin-right:auto; width:63px">
+     <?
+     $data = array(
           'name' => 'mysubmit',
           'value' => 'Register',
           'class' => 'btn btn-xs btn-default'
