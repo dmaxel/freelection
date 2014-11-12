@@ -55,14 +55,18 @@
           </div>
           <?php echo form_open('register/reload');
 		  $dropdown_js = 'onChange="this.form.submit()" style="margin-bottom:10px"';
-		  echo form_checkbox('candidate', 'Check if you\'re registering as a candidate.', $checkbox_value, 'onChange="this.form.submit()"');
+		  echo "<label>";
+		  echo form_checkbox('candidate', 'candidate', $checkbox_value, 'onChange="this.form.submit()"');
+		  echo " Are you applying as a candidate?</label><br>";
 	   $options = array();
    	   foreach($elections as $election)
    	   {
-   		   $options[$election['election_id']] = $election['election_title'];
+   		   $_election_id = $election['election_id'];
+		   
+		   $options[$election['election_id']] = $election['election_title'];
    	   }
-	   $options[-1] = "Please select an election.";
    	   echo form_dropdown('available_elections', $options, $election_value, $dropdown_js);
+	   echo "<br>";
 	   if($checkbox_value == TRUE)
 	   {
 		   $options = array();
