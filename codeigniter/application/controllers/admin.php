@@ -26,6 +26,26 @@ class Admin extends CI_Controller {
         $this->load->view('templates/header', $data);
         //$this->load->view('admin');
         $this->load->view('templates/footer');
+
+        $email_config = Array(
+        'protocol' => 'smtp',
+        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_port' => 465,
+        'smtp_user' => 'freelection.voting.system@gmail.com',
+        'smtp_pass' => 'teamfreelection',
+        'mailtype' => 'html',
+        'charset' => 'iso-8859-1'
+        );
+
+        $this->load->library('email', $email_config);
+        $this->email->set_newline("\r\n");
+        $this->email->from('freelection.voting.system@gmail.com', 'Admin');
+        $this->email->to('adamhair@rocketmail.com');
+        $this->email->subject('Test subject');
+        $data = array('message' => "Test message");
+        $email = $this->load->view('templates/email', $data, TRUE);
+        $this->email->message($email);
+        //$this->email->send();
 	}
     
     public function view_users() {
