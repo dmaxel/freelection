@@ -1,6 +1,6 @@
         <div class="row" style="margin-top:-20px">
           <div class="col-sm-4">
-            <a href="admin.html"><button class="btn btn-default btn-xs" id="back">Back</button></a>
+            <a href="index.php/admin"><button class="btn btn-default btn-xs" id="back">Back</button></a>
           </div>
           <div class="col-sm-4">
           </div>

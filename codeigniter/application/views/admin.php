@@ -1,22 +1,25 @@
 <div class="row" style="margin-top:-20px; margin-bottom:10px; font-size:10px">
           <div class="col-sm-4">
-            <a href="view_users.html"><button class="btn btn-xs btn-default" id="vote_button">View Users</button></a>
+            <a href="index.php/admin/view_users"><button class="btn btn-xs btn-default" id="vote_button">View Users</button></a>
           </div>
           <div class="col-sm-4">
-            <a href="view_pending.html"><button class="btn btn-xs btn-default" id="vote_button">View Pending</button></a>
+            <a href="index.php/admin/view_pending"><button class="btn btn-xs btn-default" id="vote_button">View Pending</button></a>
           </div>
           <div class="col-sm-4">
-            <a href="view_elections.html"><button class="btn btn-xs btn-default" id="vote_button">View Elections</button></a>
+            <a href="index.php/admin/view_elections"><button class="btn btn-xs btn-default" id="vote_button">View Elections</button></a>
           </div>
         </div>
         <form>
         <div class="row">
           <div class="col-sm-6">
-            <select name="candidates" style="margin-bottom:10px">
-              <option value="candidate1">Election 1</option>
-              <option value="candidate2">Election 2</option>
-              <option value="candidate3">Election 3</option>
-            </select>
+            <?php echo form_open('admin'); ?>
+              <select name="elections" style="margin-bottom:10px" onChange="this.form.submit()">
+              <?php
+                foreach ($elections as $election)
+                    echo '<option value="'.$election['election_id'].'">'.$election['election_title'].'</option>';
+              ?>
+              </select>
+            </form>
           </div>
           <div class="col-sm-6">
           </div>

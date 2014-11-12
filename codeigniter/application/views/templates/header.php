@@ -56,4 +56,4 @@
       </div>
     </div>
     <div class="container">
-      <div class="jumbotron" style="height: 550px; margin-top:10%;">
+      <div class="jumbotron" style="height: 500px">

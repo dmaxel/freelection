@@ -22,33 +22,37 @@ class General_Model extends CI_Model {
 		$this->flexi_auth->logout($input);
 	}
 	
-	public function entry_insert(){
+	public function entry_insert($username, $password, $candidate, $election, $position, $firstname, $lastname, $email, $major){
 		$this->load->library('flexi_auth');
-		
-		$username = $this->input->post('name_field');
-		$email = $this->input->post('email_field');
-		$password = $this->input->post('password_field');
-		$type = $this->input->post('user_types');
-		$type_num = 0;
-
-		if($type == 'voter')
+		$user_data = array(
+			'uacc_firstname' => $firstname,
+			'uacc_lastname' => $lastname,
+			'uacc_major' => $major
+		);
+		if(isset($candidate))
 		{
-			$type_num = 4;
+			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
+			
+			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname=’$first_name’ AND uacc_lastname=’$last_name’");
+			$temp = $query->row_array();
+			$new_userID = $temp['uacc_id'];
+			
+			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, $firstname, $lastname, $new_userID, ‘No description yet’)");
 		}
-		else if($type == 'candidate')
+		else
 		{
-			$type_num = 3;
+			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, FALSE);
+			
+			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname=’$first_name’ AND uacc_lastname=’$last_name’");
+			$temp = $query->row_array();
+			$new_userID = $temp['uacc_id'];
+			
+			$positions = $this->getPositionsForElection($election);
+			foreach($positions as $each)
+			{
+				$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($each['position'], $new_userID)");
+			}
 		}
-		else if($type == 'admin')
-		{
-			$type_num = 1;
-		}
-		else if($type == 'monitor')
-		{
-			$type_num = 2;
-		}
-		
-		$this->flexi_auth->insert_user($email, $username, $password, FALSE, $type_num, TRUE);
 	}
 	
 	public function checkIfLoggedIn(){
@@ -86,13 +90,18 @@ class General_Model extends CI_Model {
 	}
 	
 	/* this function is should work for Admin and monitor*/
-	public function getElectionInfoList($userID){
+	public function getElectionInfoList(){
 		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end FROM elections");
-		return $query->row_array();;
+		return $query->row_array();
 	}
 	
 	public function getPositions($userID){
 		$query = $this->db->query("SELECT position, type, title, write_ins FROM ballots NATURAL JOIN voting_eligibility WHERE uacc_id = $userID");
+		return $query->result_array();
+	}
+	
+	public function getPositionsForElection($election_id){
+		$query = $this->db->query("SELECT position, type, title FROM ballots WHERE election_id = $election_id");
 		return $query->result_array();
 	}
 	
@@ -119,6 +128,21 @@ class General_Model extends CI_Model {
 	public function updateCandidateDescription($userID){
 		$description = $this->input->post('description_field');
 		$this->db->query("UPDATE candidates SET description = '$description' WHERE uacc_id = $userID");
+	}
+	
+	public function getPendingUsers(){
+		$query = $this->db->query("SELECT DISTINCT uacc_id, uacc_group_fk, uacc_firstname, uacc_lastname, uacc_major FROM user_accounts WHERE uacc_active = 0");
+		return $query->result_array();
+	}
+	
+	public function getPendingVoter($userID){
+		$query = $this->db->query("SELECT DISTINCT election_title FROM voting_eligibility NATURAL JOIN elections WHERE uacc_id = $userID");
+		return $query->row_result();
+	}
+	
+	public function getPendingCandidate($userID){
+		$query = $this->db->query("SELECT DISTINCT election_title, title FROM elections NATURAL JOIN (SELECT election_id, title FROM ballots NATURAL JOIN candidates WHERE uacc_id = $userID) AS alpha");
+		return $query->row_result();
 	}
 	
 	public function checkUserVoted($userID){
@@ -160,6 +184,20 @@ class General_Model extends CI_Model {
 	
 	public function updatePropositionVote($userID, $position, $proposition_id){
 		$this->db->query("UPDATE votes SET vote_type=0, proposition_id=$proposition_id WHERE uacc_id = $uacc_id AND position = $position");
+	}
+	
+	public function deleteUser($userID){
+		$this->load->library('flexi_auth');
+		$this->flexi_auth->delete_user($userID);
+	}
+	
+	public function approveUser($userID){
+		$this->load->library('flexi_auth');
+		$this->flexi_auth->activate_user($userID);
+	}
+	
+	public function approveCandidate($userID){
+		$this->db->query("UPDATE candidates SET approved = 1 WHERE uacc_id = $userID");
 	}
 }
 ?>
