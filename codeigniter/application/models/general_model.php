@@ -23,6 +23,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function entry_insert($username, $password, $candidate, $election, $position, $firstname, $lastname, $email, $major){
+		$new_userID = NULL;
 		$this->load->library('flexi_auth');
 		$user_data = array(
 			'uacc_firstname' => $firstname,
@@ -31,11 +32,7 @@ class General_Model extends CI_Model {
 		);
 		if(isset($candidate))
 		{
-			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
-			
-			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname='$firstname' AND uacc_lastname='$lastname'");
-			$temp = $query->row_array();
-			$new_userID = $temp['uacc_id'];
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
 			
 			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, '$firstname', '$lastname', $new_userID, 'No description yet')");
 			
@@ -43,11 +40,7 @@ class General_Model extends CI_Model {
 		}
 		else
 		{
-			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, FALSE);
-			
-			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname='$firstname' AND uacc_lastname='$lastname'");
-			$temp = $query->row_array();
-			$new_userID = $temp['uacc_id'];
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
 			
 			$positions = $this->getPositionsForElection($election);
 			foreach($positions as $each)
@@ -56,6 +49,7 @@ class General_Model extends CI_Model {
 				$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($_position, $new_userID)");
 			}
 		}
+		return $new_userID;
 	}
 	
 	public function checkIfLoggedIn(){
@@ -78,6 +72,12 @@ class General_Model extends CI_Model {
 		$result = $query->row();
 		$username = $result->uacc_username;
 		return $username;
+	}
+	
+	public function getUsername($userID){
+		$query = $this->db->query("SELECT uacc_username FROM user_accounts WHERE uacc_id = $userID");
+		$result = $query->row_array();
+		return $result['uacc_username'];
 	}
 	
 	public function getRealName($userID){

@@ -36,7 +36,9 @@ class Register extends CI_Controller {
 		$email = $this->input->post('email_field');
 		$major = $this->input->post('major_field');
 		
-		$this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major);
+		$userID = $this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major);
+		
+		$actual_username = $this->general_model->getUsername($userID);
 		
 		$email_config = Array(
 		'protocol' => 'smtp',
@@ -53,7 +55,7 @@ class Register extends CI_Controller {
 		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
 		$this->email->to($email);
 		$this->email->subject('Freelection - Your Username and Password');
-		$this->email->message("Hello there!\r\n\r\nYour username is: $username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
+		$this->email->message("Hello there!\r\n\r\nYour username is: $actual_username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
 		$this->email->send();
 		
 		redirect('');
