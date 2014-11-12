@@ -25,35 +25,10 @@ class Admin extends CI_Controller {
 	public function index(){
         // get all the elections
         $this->data['elections'] = $this->general_model->getElectionInfoList();
-        
-        // echo '<pre>';
-        // var_dump($elections);
-        // echo '</pre>';
-        // exit;
 
         $this->load->view('templates/header', $this->data);
         $this->load->view('admin', $this->data);
         $this->load->view('templates/footer');
-	
-	$email_config = Array(
-	'protocol' => 'smtp',
-	'smtp_host' => 'ssl://smtp.googlemail.com',
-	'smtp_port' => 465,
-	'smtp_user' => 'freelection.voting.system@gmail.com',
-	'smtp_pass' => 'teamfreelection',
-	'mailtype' => 'html',
-	'charset' => 'iso-8859-1'
-	);
-
-	$this->load->library('email', $email_config);
-	$this->email->set_newline("\r\n");
-	$this->email->from('freelection.voting.system@gmail.com', 'Admin');
-	$this->email->to('adamhair@rocketmail.com');
-	$this->email->subject('Test subject');
-	$data = array('message' => "Test message");
-	$email = $this->load->view('templates/email', $data, TRUE);
-	$this->email->message($email);
-	//$this->email->send();
 
 	}
 	
@@ -102,7 +77,6 @@ class Admin extends CI_Controller {
     public function new_election(){
         $this->load->view('templates/header', $this->data);
         $this->load->view('new_election');
-        $this->load->view('templates/footer');     
     }
 	
 	public function approve($userID, $candidate){

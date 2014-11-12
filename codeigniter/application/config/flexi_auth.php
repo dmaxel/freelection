@@ -192,7 +192,7 @@
 	 *
 	 * Note: The column MUST be either the ['email'] or ['username'] columns from the main user account table, and must contain a unique column name.
 	*/ 
-	$config['database']['settings']['primary_identity_col'] = 'uacc_email';  
+	$config['database']['settings']['primary_identity_col'] = 'uacc_username';  
 	
 	/**
 	 * User Identity Columns
@@ -204,6 +204,8 @@
 	*/ 
 	$config['database']['settings']['identity_cols'] = array('uacc_email', 'uacc_username');
 	
+	
+	$config['database']['user_accounts']['custom_columns'] = array('uacc_firstname', 'uacc_lastname', 'uacc_major');
 	/**
 	 * User Search Query Columns
 	 * Set the table columns that are looked-up by the libraries search_users() function to match users against submitted search query terms.

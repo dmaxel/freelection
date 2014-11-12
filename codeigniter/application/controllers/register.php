@@ -38,6 +38,24 @@ class Register extends CI_Controller {
 		
 		$this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major);
 		
+		$email_config = Array(
+		'protocol' => 'smtp',
+		'smtp_host' => 'ssl://smtp.googlemail.com',
+		'smtp_port' => 465,
+		'smtp_user' => 'freelection.voting.system@gmail.com',
+		'smtp_pass' => 'teamfreelection',
+		'mailtype' => 'html',
+		'charset' => 'iso-8859-1'
+		);
+
+		$this->load->library('email', $email_config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
+		$this->email->to($email);
+		$this->email->subject('Freelection - Your Username and Password');
+		$this->email->message("Hello there!\r\n\r\nYour username is: $username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
+		//$this->email->send();
+		
 		redirect('');
 	}
 	
