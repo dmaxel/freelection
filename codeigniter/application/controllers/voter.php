@@ -84,7 +84,7 @@ class Voter extends CI_Controller {
 				$userVoted = FALSE;
 				if($userVoted != NULL)
 				{
-					$userVoted = TRUE:
+					$userVoted = TRUE;
 				}
 				$data['positions'] = $this->general_model->getPositions($userID);
 				foreach($data['positions'] as $positions)

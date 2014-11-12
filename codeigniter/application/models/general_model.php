@@ -38,6 +38,8 @@ class General_Model extends CI_Model {
 			$new_userID = $temp['uacc_id'];
 			
 			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, '$firstname', '$lastname', $new_userID, 'No description yet')");
+			
+			$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($position, $new_userID)");
 		}
 		else
 		{
@@ -76,6 +78,11 @@ class General_Model extends CI_Model {
 		$result = $query->row();
 		$username = $result->uacc_username;
 		return $username;
+	}
+	
+	public function getRealName($userID){
+		$query = $this->db->query("SELECT uacc_firstname, uacc_lastname FROM user_accounts WHERE uacc_id = $userID");
+		return $query->row_array();
 	}
 	
 	public function getGroupID(){
@@ -128,7 +135,7 @@ class General_Model extends CI_Model {
 	
 	public function updateCandidateDescription($userID){
 		$description = $this->input->post('description_field');
-		$this->db->query("UPDATE candidates SET description = '$description' WHERE uacc_id = $userID");
+		$this->db->query("UPDATE candidates SET description = \"$description\" WHERE uacc_id = $userID");
 	}
 	
 	public function getPendingUsers(){

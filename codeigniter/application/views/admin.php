@@ -12,15 +12,20 @@
         <form>
         <div class="row">
           <div class="col-sm-6">
-            <?php echo form_open('admin'); ?>
-              <select name="elections" style="margin-bottom:10px" onChange="this.form.submit()">
-                <option value="-1">Select an Election</option>
-              <?php
-                foreach ($elections as $election)
-                    echo '<option value="'.$election['election_id'].'">'.$election['election_title'].'</option>';
-              ?>
-              </select>
-            </form>
+
+            <?php
+              echo form_open('admin');
+              $form_options = 'onChange="this.form.submit()" style="margin-bottom:10px"';
+              $options = array();
+              
+              foreach ($elections as $election)
+              {
+                $options[$election['election_id']] = $election['election_title'];
+              }
+              
+              echo form_dropdown('elections', $options, $selected_election, $form_options);
+              echo form_close();
+            ?>
           </div>
           <div class="col-sm-6">
           </div>
@@ -33,7 +38,7 @@
                 echo $election_description;
             else
                 echo 'Election Description';
-                //echo $selected_election;
+                echo $selected_election;
             ?>
           </div>
           <div class="col-sm-6">
