@@ -35,7 +35,7 @@ class General_Model extends CI_Model {
 			
 			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, '$firstname', '$lastname', $new_userID, 'No description yet')");
 			
-			$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($position, $new_userID)");
+			//$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($position, $new_userID)");
 		}
 		else
 		{
