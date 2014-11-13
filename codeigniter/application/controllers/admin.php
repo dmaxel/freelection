@@ -24,60 +24,32 @@ class Admin extends CI_Controller {
     
 	public function index(){
         // get all the elections
-        $this->data['elections'] = $this->general_model->getAllElections();
+        $this->data['elections'] = $this->general_model->getElectionInfoList();
         
-        // echo '<pre>';
-        // var_dump($elections);
-        // echo '</pre>';
-        // exit;
+        // check for form input
+        if(!$this->input->post('elections'))
+        {
+            $this->data['selected_election'] = -1;
+        }
+        else
+        {
+            $selected_election = $this->input->post('elections');
+          
+            $this->data['selected_election'] = $selected_election;
+            $this->data['election_description'] = $this->general_model->getElectionDescription($selected_election);
+            $this->data['election_window'] = $this->general_model->getElectionWindow($selected_election);
+            echo '<pre>';
+            var_dump($this->data);
+            echo '</pre>';
+            exit;
+        }
+
+
 
         $this->load->view('templates/header', $this->data);
         $this->load->view('admin', $this->data);
         $this->load->view('templates/footer');
-<<<<<<< HEAD
 
-        $email_config = Array(
-        'protocol' => 'smtp',
-        'smtp_host' => 'ssl://smtp.googlemail.com',
-        'smtp_port' => 465,
-        'smtp_user' => 'freelection.voting.system@gmail.com',
-        'smtp_pass' => 'teamfreelection',
-        'mailtype' => 'html',
-        'charset' => 'iso-8859-1'
-        );
-
-        $this->load->library('email', $email_config);
-        $this->email->set_newline("\r\n");
-        $this->email->from('freelection.voting.system@gmail.com', 'Admin');
-        $this->email->to('adamhair@rocketmail.com');
-        $this->email->subject('Test subject');
-        $data = array('message' => "Test message");
-        $email = $this->load->view('templates/email', $data, TRUE);
-        $this->email->message($email);
-        //$this->email->send();
-=======
-	
-	$email_config = Array(
-	'protocol' => 'smtp',
-	'smtp_host' => 'ssl://smtp.googlemail.com',
-	'smtp_port' => 465,
-	'smtp_user' => 'freelection.voting.system@gmail.com',
-	'smtp_pass' => 'teamfreelection',
-	'mailtype' => 'html',
-	'charset' => 'iso-8859-1'
-	);
-
-	$this->load->library('email', $email_config);
-	$this->email->set_newline("\r\n");
-	$this->email->from('freelection.voting.system@gmail.com', 'Admin');
-	$this->email->to('adamhair@rocketmail.com');
-	$this->email->subject('Test subject');
-	$data = array('message' => "Test message");
-	$email = $this->load->view('templates/email', $data, TRUE);
-	$this->email->message($email);
-	$this->email->send();
-
->>>>>>> f9a4fa5b59641a8c94d68da09288dbfcdfce7d2e
 	}
 	
     public function view_users() {
@@ -91,18 +63,21 @@ class Admin extends CI_Controller {
 		$data['username'] = $this->general_model->getUsername();
         $this->load->view('templates/header', $data);
 		
-		$userID = $this->general_model->getUserID();
-		$data['p_user'] = $this->general_model->getPendingUsers();
-		foreach($data['p_user'] as $pendingUser)
+		$pending_users = $this->general_model->getPendingUsers();
+		$data['p_user'] = array();
+		foreach($pending_users as $pendingUser)
 		{
+			$userID = $pendingUser['uacc_id'];
 			if($pendingUser['uacc_group_fk'] = 3)
 			{
-				$pendingUser[] = $this->general_model->getPendingCandidate($userID);
+				$temp = $this->general_model->getPendingCandidate($userID);
+				$data['p_user'][] = array_merge($pendingUser, $temp);
 			}
 			else if($pendingUser['uacc_group_fk'] = 4)
 			{
-				$pendingUser[] = $this->general_model->getPendingVoter($userID);
-				$pendingUser['position'] = '';
+				$temp = $this->general_model->getPendingVoter($userID);
+				$temp['title'] = '';
+				$data['p_user'][] = array_merge($pendingUser, $temp);
 			}
 		}
         $this->load->view('view_pending', $data);
@@ -125,7 +100,6 @@ class Admin extends CI_Controller {
     public function new_election(){
         $this->load->view('templates/header', $this->data);
         $this->load->view('new_election');
-        $this->load->view('templates/footer');     
     }
 	
 	public function approve($userID, $candidate){
@@ -134,10 +108,12 @@ class Admin extends CI_Controller {
 		{
 			$this->general_model->approveCandidate($userID);
 		}
+		redirect('/admin/view_pending');
 	}
 	
 	public function deny($userID){
 		$this->general_model->deleteUser($userID);
+		redirect('/admin/view_pending');
 	}
 }
 ?>

@@ -14,11 +14,13 @@ class Candidate extends CI_Controller {
 	}
 	
 	public function showProfile(){
-        $data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
 		
 		
-		$userID = $this->general_model->getUserID();
+		//$userID = $this->general_model->getUserID();
 		$electionID = $this->general_model->getElectionID($userID);
 		$data['candidate_info'] = $this->general_model->getCandidate($userID);
 		$data['election_description'] = $this->general_model->getElectionDescription($electionID);

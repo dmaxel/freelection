@@ -31,20 +31,32 @@ class Register extends CI_Controller {
 		}
 		$firstname = $this->input->post('firstname_field');
 		$lastname = $this->input->post('lastname_field');
-		$username = $firstname[0].$lastname.$this->getRandomNum();
+		$username = strtolower($firstname[0]).strtolower($lastname).$this->getRandomNum();
 		$password = $this->randomPassword();
 		$email = $this->input->post('email_field');
 		$major = $this->input->post('major_field');
 		
-		$this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major);
+		$userID = $this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major);
 		
-		$this->load->library('email');
-		$this->email->from('freelection.voting.system@gmail.com', 'Freelection');
+		$actual_username = $this->general_model->getUsername($userID);
+		
+		$email_config = Array(
+		'protocol' => 'smtp',
+		'smtp_host' => 'ssl://smtp.googlemail.com',
+		'smtp_port' => 465,
+		'smtp_user' => 'freelection.voting.system@gmail.com',
+		'smtp_pass' => 'teamfreelection',
+		'mailtype' => 'html',
+		'charset' => 'iso-8859-1'
+		);
+
+		$this->load->library('email', $email_config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
 		$this->email->to($email);
-		$this->email->subject("Freelection - Your Username and Password");
-		$this->email->message("Hello there!\n\nYour username is: $username\nYour password is: $password\n\nThank you for registering!\n\nFreelection");
+		$this->email->subject('Freelection - Your Username and Password');
+		$this->email->message("Hello there!\r\n\r\nYour username is: $actual_username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
 		$this->email->send();
-		$this->email->clear();
 		
 		redirect('');
 	}

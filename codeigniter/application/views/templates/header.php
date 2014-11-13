@@ -43,9 +43,9 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="fa fa-bars fa-lg fa-inverse">
-          </button>-->
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="fa fa-angle-double-down fa-lg fa-inverse" style="color: #777">
+          </button>
           <div class="navbar-brand"><? echo $username ?></div>
         </div>
         <div class="navbar-collapse collapse">
@@ -56,4 +56,4 @@
       </div>
     </div>
     <div class="container">
-      <div class="jumbotron" style="height: 500px">
+      <div class="jumbotron" style="height: 550px">
