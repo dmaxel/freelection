@@ -15,6 +15,7 @@
 				echo $position['title'];
 				echo '</div><div class="col-sm-4">';
 				$options = array();
+<<<<<<< HEAD
 				if($position['type'] == 0)
 				{
 					foreach($list[$position] as $each)
@@ -39,14 +40,34 @@
 		  			  $tempID = $each['proposition_id'];
 		  			  $options[$tempID] = $each['proposition_description'];
 					}
+=======
+			if($positions['type'] == 0)
+			{
+				foreach($list[$position]['position'] as $each)
+				{
+	  			  $tempID = $each['candidate_id'];
+	  			  $candidate_name = $each['first_name'] . " " . $each['last_name'];
+	  			  $options[$tempID] = "$candidate_name";
+>>>>>>> 1c6a9af4d566448bf170b1eceb45476e9873c861
 				  if($position['write_ins'] == 1)
 				  {
 					  $options[-1] = "Write-In Proposition";
 				  }
 				}
+<<<<<<< HEAD
 				echo form_dropdown('choices'.$position['position'], $options, 0, $form_options);
 				echo "</div>";
 				if($position['write_ins'] == 1 && $position['type'] == 0)
+=======
+			}
+			else if($positions['type'] == 1)
+			{
+				$options = $list[$position]['position'];
+			}
+			else if($positions['type'] == 2)
+			{
+				foreach($list[$position]['position'] as $each)
+>>>>>>> 1c6a9af4d566448bf170b1eceb45476e9873c861
 				{
 					echo '<div class="col-sm-4">';
 	                $parameters = array(
@@ -61,6 +82,7 @@
 				 echo form_input($parameters);
 				 echo "</div>";
 				}
+<<<<<<< HEAD
 				else if($position['write_ins'] == 1 && $position['type'] = 2)
 				{
 					echo '<div class="col-sm-4">';
@@ -72,6 +94,39 @@
 				 echo "</div>";
 				}
 				echo "</div>";
+=======
+			  if($position['write_ins'] == 1)
+			  {
+				  $options[-1] = "Write-In Proposition";
+			  }
+			}
+			echo form_dropdown('choices'.$position['position'], $options, 0, $form_options);
+			echo "</div>";
+			if($position['write_ins'] == 1 && $position['type'] == 0)
+			{
+				echo '<div class="col-sm-4">';
+                $parameters = array(
+   						'name' => $position['position'].'_first_name',
+   						'placeholder' => 'First Name'
+   						);
+   			 echo form_input($parameters);
+             $parameters = array(
+						'name' => $position['position'].'_last_name',
+						'placeholder' => 'Last Name'
+						);
+			 echo form_input($parameters);
+			 echo "</div>";
+			}
+			else if($position['write_ins'] == 1 && $position['type'] == 2)
+			{
+				echo '<div class="col-sm-4">';
+                $parameters = array(
+   						'name' => $position['position'].'_description',
+   						'placeholder' => 'Proposition Description'
+   						);
+   			 echo form_input($parameters);
+			 echo "</div>";
+>>>>>>> 1c6a9af4d566448bf170b1eceb45476e9873c861
 			}
 			echo '<div id="vote_button_container" style="margin-left: auto; margin-right: auto; margin-top: 100px">';
 			$data = array(

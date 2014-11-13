@@ -53,8 +53,11 @@ class Admin extends CI_Controller {
 	}
 	
     public function view_users() {
-        $this->load->view('templates/header', $this->data);
-        $this->load->view('view_users');
+		$data['username'] = $this->general_model->getUsername();
+        $this->load->view('templates/header', $data);
+		
+		$data['users'] = $this->general_model->getActiveUsers();
+        $this->load->view('view_users', $data);
         $this->load->view('templates/footer');
     }
     
@@ -68,12 +71,12 @@ class Admin extends CI_Controller {
 		foreach($pending_users as $pendingUser)
 		{
 			$userID = $pendingUser['uacc_id'];
-			if($pendingUser['uacc_group_fk'] = 3)
+			if($pendingUser['uacc_group_fk'] == 3)
 			{
 				$temp = $this->general_model->getPendingCandidate($userID);
 				$data['p_user'][] = array_merge($pendingUser, $temp);
 			}
-			else if($pendingUser['uacc_group_fk'] = 4)
+			else if($pendingUser['uacc_group_fk'] == 4)
 			{
 				$temp = $this->general_model->getPendingVoter($userID);
 				$data['p_user'][] = array_merge($pendingUser, $temp);

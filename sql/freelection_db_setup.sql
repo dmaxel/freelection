@@ -67,7 +67,7 @@ CREATE TABLE votes (
 -- -----------------------------
 -- Table structure for propositions
 -- -----------------------------
-DROP TABLE IF EXISTS propositions; -- New table
+DROP TABLE IF EXISTS propositions;
 CREATE TABLE propositions (
 	proposition_id int unsigned NOT NULL AUTO_INCREMENT,
 	position int unsigned NOT NULL,
@@ -103,10 +103,11 @@ DROP TABLE IF EXISTS candidates;
 CREATE TABLE candidates (
 	candidate_id int unsigned NOT NULL AUTO_INCREMENT,
 	position int unsigned NOT NULL,
+	approved int unsigned NOT NULL DEFAULT 0, -- New
 	first_name varchar(20) NOT NULL,
 	last_name varchar(20) NOT NULL,
 	uacc_id int unsigned NOT NULL,
-	description varchar(600) NOT NULL,
+	description varchar(600) NOT NULL DEFAULT '',
 	PRIMARY KEY (candidate_id),
 	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE -- New
@@ -150,7 +151,7 @@ CREATE TABLE user_accounts (
   uacc_username varchar(15) NOT NULL DEFAULT '',
   uacc_major varchar(20) DEFAULT '', -- New shows a user's major if applicable
   uacc_password varchar(60) NOT NULL DEFAULT '',
-  uacc_password_plain varchar(60) DEFAULT NULL,
+  -- uacc_password_plain varchar(60) DEFAULT NULL,
   uacc_vote_weight int unsigned NOT NULL DEFAULT 1, -- New vote weight
   uacc_ip_address varchar(40) NOT NULL DEFAULT '',
   uacc_salt varchar(40) NOT NULL DEFAULT '',
@@ -215,7 +216,7 @@ CREATE TABLE user_login_sessions (
 -- ----------------------------
 -- Table structure for user_privileges
 -- ----------------------------
-DROP TABLE IF EXISTS user_privileges;
+DROP TABLE IF EXISTS user_privileges; -- Table appears unused
 CREATE TABLE user_privileges (
   upriv_id smallint(5) NOT NULL AUTO_INCREMENT,
   upriv_name varchar(20) NOT NULL DEFAULT '',
@@ -231,7 +232,7 @@ CREATE TABLE user_privileges (
 -- ----------------------------
 -- Table structure for user_privilege_users
 -- ----------------------------
-DROP TABLE IF EXISTS user_privilege_users;
+DROP TABLE IF EXISTS user_privilege_users; -- Table appears unused
 CREATE TABLE user_privilege_users (
   upriv_users_id smallint(5) NOT NULL AUTO_INCREMENT,
   upriv_users_uacc_fk int(11) NOT NULL DEFAULT 0,
@@ -251,7 +252,7 @@ CREATE TABLE user_privilege_users (
 -- Table structure for user_privilege_groups
 -- ----------------------------
 
-DROP TABLE IF EXISTS user_privilege_groups;
+DROP TABLE IF EXISTS user_privilege_groups; -- Table appears unused
 CREATE TABLE user_privilege_groups (
   upriv_groups_id smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   upriv_groups_ugrp_fk smallint(5) unsigned NOT NULL DEFAULT 0,
