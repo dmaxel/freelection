@@ -49,10 +49,10 @@
 
     <div class="container" style="height: 100%">
       <div class="verticalalign">
-          <div class="bs-header text-center title-font" >
+          <!--<div class="bs-header text-center title-font" >
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
-          </div>
+          </div>-->
           <div style="width: 227px; margin-left: auto; margin-right: auto;">
           <?php echo form_open('register/reload');
       $dropdown_js = 'onChange="this.form.submit()" style="margin-bottom:10px"';
@@ -67,10 +67,9 @@
        {
          $options[$election['election_id']] = $election['election_title'];
        }
-<<<<<<< HEAD
+
      $options[-1] = "Please select an election.";
-=======
->>>>>>> 15f7ba2fb135c95342249c4c165ffdb85274337d
+
        echo form_dropdown('available_elections', $options, $election_value, $dropdown_js);
      if($checkbox_value == TRUE)
      {
