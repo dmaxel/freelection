@@ -21,7 +21,7 @@ class Candidate extends CI_Controller {
 		
 		
 		//$userID = $this->general_model->getUserID();
-		$electionID = $this->general_model->getElectionID($userID);
+		$electionID = $this->general_model->getElectionIDFromCandidate($userID);
 		$data['candidate_info'] = $this->general_model->getCandidate($userID);
 		$data['election_description'] = $this->general_model->getElectionDescription($electionID);
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
