@@ -17,9 +17,16 @@
 		echo '</div><div class="col-sm-2">';
 		echo $each['election_title'];
 		echo '</div><div class="col-sm-2">';
-		echo $each['title'];
+		if($each['uacc_group_fk'] == 3)
+		{
+			echo $each['title'];
+		}
+		else if($each['uacc_group_fk'] == 4)
+		{
+			echo " ";
+		}
 		echo '</div><div class="col-sm-2">';
-		if($each['title'] != '')
+		if($each['uacc_group_fk'] == 3)
 		{
 			echo '<a href="index.php/admin/approve/'.$each['uacc_id'].'/1">';
 		}

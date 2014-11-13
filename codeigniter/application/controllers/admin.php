@@ -76,7 +76,6 @@ class Admin extends CI_Controller {
 			else if($pendingUser['uacc_group_fk'] = 4)
 			{
 				$temp = $this->general_model->getPendingVoter($userID);
-				$temp['title'] = '';
 				$data['p_user'][] = array_merge($pendingUser, $temp);
 			}
 		}

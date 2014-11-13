@@ -29,7 +29,7 @@ class General_Model extends CI_Model {
 			'uacc_lastname' => $lastname,
 			'uacc_major' => $major
 		);
-		if($candidate == 1)
+		if($candidate == TRUE)
 		{
 			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
 			
@@ -136,7 +136,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getPendingVoter($userID){
-		$query = $this->db->query("SELECT DISTINCT election_title FROM voting_eligibility NATURAL JOIN elections WHERE uacc_id = $userID");
+		$query = $this->db->query("SELECT DISTINCT election_title FROM voting_eligibility NATURAL JOIN ballots NATURAL JOIN elections WHERE uacc_id = $userID");
 		return $query->row_array();
 	}
 	

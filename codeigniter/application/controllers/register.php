@@ -11,7 +11,8 @@ class Register extends CI_Controller {
 	public function index()
 	{
 		$data['checkbox_value'] = FALSE;
-		$data['election_value'] = 0;
+		$data['election_value'] = -1;
+		$data['position_value'] = -1;
 		$data['firstname_value'] = "";
 		$data['lastname_value'] = "";
 		$data['email_value'] = "";
@@ -24,8 +25,8 @@ class Register extends CI_Controller {
 	public function input(){
 		$checkbox = $this->input->post('candidate');
 		$election = $this->input->post('available_elections');
-		$position = NULL;
-		if(isset($checkbox) == TRUE)
+		$position = -1;
+		if($checkbox == TRUE)
 		{
 			$position = $this->input->post('available_positions');
 		}
@@ -75,7 +76,7 @@ class Register extends CI_Controller {
 		$lastname = $this->input->post('lastname_field');
 		$email = $this->input->post('email_field');
 		$major = $this->input->post('major_field');
-		if($firstname == NULL || $lastname == NULL || $email == NULL || $major == NULL)
+		if($election == -1 || $position == -1 || $firstname == NULL || $lastname == NULL || $email == NULL || $major == NULL)
 		{
 			//reload the page
 			$data['checkbox_value'] = $checkbox;

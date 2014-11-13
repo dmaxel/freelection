@@ -63,6 +63,7 @@
    <div style="width: 164px; margin-left: auto; margin-right: auto;">
     <?
      $options = array();
+	 $options[-1] = "Please choose an election.";
        foreach($elections as $election)
        {
          $options[$election['election_id']] = $election['election_title'];
@@ -71,6 +72,7 @@
      if($checkbox_value == TRUE)
      {
        $options = array();
+	   $options[-1] = "Please choose a position.";
          foreach($select_positions as $_positions)
          {
            $options[$_positions['position']] = $_positions['title'];
