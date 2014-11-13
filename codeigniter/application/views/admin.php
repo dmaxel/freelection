@@ -55,9 +55,6 @@
             <canvas id="position2" height="100" width="100"></canvas>
           </div>
         </div>
-        <div id="votes_graph" style="margin-top:10px">
-          <canvas id="votes" height="200" width="400"></canvas>
-        </div>
       </div>
     </div>
     <div class="footer">
@@ -75,7 +72,6 @@
     <script>
       var ctx1 = document.getElementById("position1").getContext("2d");
       var ctx2 = document.getElementById("position2").getContext("2d");
-      var ctx3 = document.getElementById("votes").getContext("2d");
       var data1 = [
           {
               value: 300,
@@ -116,34 +112,8 @@
               label: "Candidate 3"
           }
       ]
-      var data3 = {
-          labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          datasets: [
-              {
-                  label: "Election 1",
-                  fillColor: "rgba(220,220,220,0.2)",
-                  strokeColor: "rgba(220,220,220,1)",
-                  pointColor: "rgba(220,220,220,1)",
-                  pointStrokeColor: "#fff",
-                  pointHighlightFill: "#fff",
-                  pointHighlightStroke: "rgba(220,220,220,1)",
-                  data: [10, 33, 41, 57, 80, 90, 105]
-              },
-              {
-                  label: "Election 2",
-                  fillColor: "rgba(151,187,205,0.2)",
-                  strokeColor: "rgba(151,187,205,1)",
-                  pointColor: "rgba(151,187,205,1)",
-                  pointStrokeColor: "#fff",
-                  pointHighlightFill: "#fff",
-                  pointHighlightStroke: "rgba(151,187,205,1)",
-                  data: [5, 12, 26, 40, 57, 80, 97]
-              }
-          ]
-      };
       var position1 = new Chart(ctx1).Doughnut(data1,{height:100,width:100});
       var position2 = new Chart(ctx2).Doughnut(data2,{height:100,width:100});
-      var votes = new Chart(ctx3).Line(data3,{height:200,width:400});
     </script>
   </body>
 </html>
