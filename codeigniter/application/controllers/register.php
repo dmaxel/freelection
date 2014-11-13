@@ -31,7 +31,7 @@ class Register extends CI_Controller {
 		}
 		$firstname = $this->input->post('firstname_field');
 		$lastname = $this->input->post('lastname_field');
-		$username = strtolower($firstname[0]).strtolower($lastname);
+		$username = strtolower($firstname[0]).strtolower($lastname).$this->getRandomNum();
 		$password = $this->randomPassword();
 		$email = $this->input->post('email_field');
 		$major = $this->input->post('major_field');
@@ -117,6 +117,17 @@ class Register extends CI_Controller {
 	    $pass = array(); //remember to declare $pass as an array
 	    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
 	    for ($i = 0; $i < 10; $i++) {
+	        $n = mt_rand(0, $alphaLength);
+	        $pass[] = $alphabet[$n];
+	    }
+	    return implode($pass); //turn the array into a string
+	}
+	
+	public function getRandomNum() {
+	    $alphabet = "0123456789";
+	    $pass = array(); //remember to declare $pass as an array
+	    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+	    for ($i = 0; $i < 4; $i++) {
 	        $n = mt_rand(0, $alphaLength);
 	        $pass[] = $alphabet[$n];
 	    }
