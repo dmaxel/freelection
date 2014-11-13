@@ -33,6 +33,6 @@
 					echo 'Voter';
 				}
 				echo '</div><div class="col-sm-3">';
-				echo '<a href="index.php/admin/update_user/'.$user['uacc_id'].'"><button class="btn btn-default btn-xs" style="font-size:12px !important">Edit</button></a></div></div>';
+				echo '<a href="index.php/admin/edit_user/'.$user['uacc_id'].'"><button class="btn btn-default btn-xs" style="font-size:12px !important">Edit</button></a></div></div>';
 			}
 		?>
