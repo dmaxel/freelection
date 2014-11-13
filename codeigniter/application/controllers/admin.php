@@ -88,13 +88,19 @@ class Admin extends CI_Controller {
     public function view_elections(){
     
         // get all the elections
-        $result = $this->general_model->getAllElections();
+        $result = $this->general_model->getElectionInfoList();
         $this->data['elections'] = $result;
         
     
         $this->load->view('templates/header', $this->data);
         $this->load->view('view_elections', $this->data);
         $this->load->view('templates/footer');        
+    }
+
+    public function new_user(){
+        $this->load->view('templates/header', $this->data);
+        $this->load->view('new_user');
+        $this->load->view('templates/footer');
     }
     
     public function new_election(){

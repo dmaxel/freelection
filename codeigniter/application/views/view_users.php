@@ -5,7 +5,7 @@
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4">
-            <a href="new_user.html"><button class="btn btn-default btn-xs" id="back">New User</button></a>
+            <a href="index.php/admin/new_user"><button class="btn btn-default btn-xs" id="back">New User</button></a>
           </div>
         </div>
         <div class="row" style="margin-top:10px">
