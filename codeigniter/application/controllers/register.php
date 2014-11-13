@@ -38,8 +38,6 @@ class Register extends CI_Controller {
 		
 		$userID = $this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major);
 		
-		$actual_username = $this->general_model->getUsername($userID);
-		
 		$email_config = Array(
 		'protocol' => 'smtp',
 		'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -55,7 +53,7 @@ class Register extends CI_Controller {
 		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
 		$this->email->to($email);
 		$this->email->subject('Freelection - Your Username and Password');
-		$this->email->message("Hello there!\r\n\r\nYour username is: $actual_username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
+		$this->email->message("Hello there!\r\n\r\nYour username is: $username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
 		$this->email->send();
 		
 		redirect('');
@@ -67,37 +65,22 @@ class Register extends CI_Controller {
 		$position = NULL;
 		if(isset($checkbox) == TRUE)
 		{
-			if($this->input->post('available_positions'))
-			{
-				//if this field already exists, get the value from it, otherwise leave it as null because the field didn't exist yet
-				$position = $this->input->post('available_positions');
-			}
+			$position = $this->input->post('available_positions');
 		}
 		else
 		{
-			//give it some random value so it'll pass the check later
 			$position = -1;
 		}
 		$firstname = $this->input->post('firstname_field');
 		$lastname = $this->input->post('lastname_field');
 		$email = $this->input->post('email_field');
 		$major = $this->input->post('major_field');
-		if($election == NULL || $position == NULL || $firstname == NULL || $lastname == NULL || $email == NULL || $major == NULL)
+		if($firstname == NULL || $lastname == NULL || $email == NULL || $major == NULL)
 		{
 			//reload the page
 			$data['checkbox_value'] = $checkbox;
 			$data['election_value'] = $election;
-			if($election == -1)
-			{
-				$data['select_positions'] = array(
-					'title' => "Please select an election first.",
-					'position' => -1
-				);
-			}
-			else
-			{
-				$data['select_positions'] = $this->general_model->getPositionsForElection($election);
-			}
+			$data['select_positions'] = $this->general_model->getPositionsForElection($election);
 			$data['firstname_value'] = $firstname;
 			$data['lastname_value'] = $lastname;
 			$data['email_value'] = $email;

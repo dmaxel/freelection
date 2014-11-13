@@ -114,13 +114,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model
 			$this->set_error_message('account_creation_insufficient_data', 'config');
 			return FALSE;
 		}
-				
+			/*	
 		// Check email is unique.
 		if (!$this->identity_available($email))
 		{
 			$this->set_error_message('account_creation_duplicate_email', 'config');
 			return FALSE;
-		}
+		}*/
 		
 		// If username is the primary identity column, check it is unique.
 		// If it isn't unique, auto incrementing the username (See next 'if' condition) cannot be used, as user must know their new username to login.

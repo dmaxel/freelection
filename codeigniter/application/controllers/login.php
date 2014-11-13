@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 	
 	public function doLogout(){
 		$this->load->model('general_model');
-		$this->general_model->logout(TRUE);
+		$this->general_model->logout(FALSE);
         redirect('');
 		//$this->loadLoginPage();
 	}

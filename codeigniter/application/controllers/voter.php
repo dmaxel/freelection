@@ -54,20 +54,21 @@ class Voter extends CI_Controller {
 			
 			$userID = $this->general_model->getUserID();
 			$data['positions'] = $this->general_model->getPositions($userID);
+			$data['list'] = array();
 			foreach($data['positions'] as $positions)
 			{
 				$position_id = $positions['position'];
 				if($positions['type'] = 0)
 				{
-					$data['list[$position_id]'] = $this->general_model->getCandidatesForPosition($position_id);
+					$data['list'][$position_id] = $this->general_model->getCandidatesForPosition($position_id);
 				}
 				else if($positions['type'] = 1)
 				{
-					$data['list[$position_id]'] = array("Yes", "No");
+					$data['list'][$position_id] = array("Yes", "No");
 				}
 				else if($positions['type'] = 2)
 				{
-					$data['list[$position_id]'] = $this->general_model->getPropsForPosition($position_id);
+					$data['list'][$position_id] = $this->general_model->getPropsForPosition($position_id);
 				}
 			}
 			$data['userID'] = $userID;

@@ -67,9 +67,6 @@
        {
          $options[$election['election_id']] = $election['election_title'];
        }
-
-     $options[-1] = "Please select an election.";
-
        echo form_dropdown('available_elections', $options, $election_value, $dropdown_js);
      if($checkbox_value == TRUE)
      {

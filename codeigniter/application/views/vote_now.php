@@ -17,7 +17,7 @@
 				$options = array();
 			if($positions['type'] = 0)
 			{
-				foreach($list[$position['position']] as $each)
+				foreach($list[$position]['position'] as $each)
 				{
 	  			  $tempID = $each['candidate_id'];
 	  			  $candidate_name = $each['first_name'] . " " . $each['last_name'];
@@ -30,11 +30,11 @@
 			}
 			else if($positions['type'] = 1)
 			{
-				$options = $list[$position['position']];
+				$options = $list[$position]['position'];
 			}
 			else if($positions['type'] = 2)
 			{
-				foreach($list[$position['position']] as $each)
+				foreach($list[$position]['position'] as $each)
 				{
 	  			  $tempID = $each['proposition_id'];
 	  			  $options[$tempID] = $each['proposition_description'];

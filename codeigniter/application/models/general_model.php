@@ -29,13 +29,9 @@ class General_Model extends CI_Model {
 			'uacc_lastname' => $lastname,
 			'uacc_major' => $major
 		);
-		if(isset($candidate))
+		if($candidate == 1)
 		{
-			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
-			
-			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname='$firstname' AND uacc_lastname='$lastname'");
-			$temp = $query->row_array();
-			$new_userID = $temp['uacc_id'];
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
 			
 			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, '$firstname', '$lastname', $new_userID, 'No description yet')");
 			
@@ -43,11 +39,7 @@ class General_Model extends CI_Model {
 		}
 		else
 		{
-			$this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, FALSE);
-			
-			$query = $this->db->query("SELECT uacc_id FROM user_accounts WHERE uacc_firstname='$firstname' AND uacc_lastname='$lastname'");
-			$temp = $query->row_array();
-			$new_userID = $temp['uacc_id'];
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, FALSE);
 			
 			$positions = $this->getPositionsForElection($election);
 			foreach($positions as $each)
