@@ -89,6 +89,11 @@ class General_Model extends CI_Model {
 		return $result['election_id'];
 	}
 	
+	public function getActiveUsers(){
+		$query = $this->db->query("SELECT uacc_firstname, uacc_lastname, election_title FROM user_accounts NATURAL JOIN (SELECT DISTINCT uacc_id, election_title FROM voting_eligibility NATURAL JOIN (SELECT a.position, election_title FROM ballots AS a NATURAL JOIN elections) AS alpha) AS bravo WHERE uacc_active = 1");
+		return $query->result_array();
+	}
+	
 	/* this function is should work for Admin and monitor*/
 	public function getElectionInfoList(){
 		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end FROM elections");
