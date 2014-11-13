@@ -117,7 +117,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getCandidatesForPosition($position){
-		$query = $this->db->query("SELECT candidate_id, first_name, last_name FROM candidates WHERE position =  $position");
+		$query = $this->db->query("SELECT candidate_id, first_name, last_name FROM candidates WHERE position =  $position AND approved = 1");
 		return $query->result_array();
 	}
 	
@@ -127,7 +127,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getAllCandidates($electionID){
-		$query = $this->db->query("SELECT candidate_id, first_name, last_name, description FROM ballots NATURAL JOIN candidates WHERE election_id = $electionID");
+		$query = $this->db->query("SELECT candidate_id, first_name, last_name, description FROM ballots NATURAL JOIN candidates WHERE approved = 1 AND election_id = $electionID");
 		return $query->result_array();
 	}
 		
