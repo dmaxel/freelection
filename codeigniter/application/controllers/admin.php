@@ -53,8 +53,11 @@ class Admin extends CI_Controller {
 	}
 	
     public function view_users() {
-        $this->load->view('templates/header', $this->data);
-        $this->load->view('view_users');
+		$data['username'] = $this->general_model->getUsername();
+        $this->load->view('templates/header', $data);
+		
+		$data['users'] = $this->general_model->getActiveUsers();
+        $this->load->view('view_users', $data);
         $this->load->view('templates/footer');
     }
     

@@ -90,7 +90,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getActiveUsers(){
-		$query = $this->db->query("SELECT uacc_firstname, uacc_lastname, election_title FROM user_accounts NATURAL JOIN (SELECT DISTINCT uacc_id, election_title FROM voting_eligibility NATURAL JOIN (SELECT a.position, election_title FROM ballots AS a NATURAL JOIN elections) AS alpha) AS bravo WHERE uacc_active = 1");
+		$query = $this->db->query("SELECT uacc_id, uacc_group_fk, uacc_firstname, uacc_lastname, election_title FROM user_accounts NATURAL JOIN (SELECT DISTINCT uacc_id, election_title FROM voting_eligibility NATURAL JOIN (SELECT a.position, election_title FROM ballots AS a NATURAL JOIN elections) AS alpha) AS bravo WHERE uacc_active = 1");
 		return $query->result_array();
 	}
 	
