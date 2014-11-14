@@ -78,8 +78,8 @@ class Voter extends CI_Controller {
 		}
 		
 		public function processBallot(){
-			if($this->input->post('submitballot'))
-			{
+			//if($this->input->post('submitballot'))
+			//{
 				$userID = $this->general_model->getUserID();
 				$userTempVoted = $this->general_model->checkUserVoted($userID);
 				$userVoted = FALSE;
@@ -90,23 +90,7 @@ class Voter extends CI_Controller {
 				$data['positions'] = $this->general_model->getPositions($userID);
 				foreach($data['positions'] as $positions)
 				{
-					$position_id = $positions['position'];
-					if($positions['type'] == 0)
-					{
-						$data['list[$position_id]'] = $this->general_model->getCandidatesForPosition($position_id);
-					}
-					else if($positions['type'] == 1)
-					{
-						$data['list[$position_id]'] = array("Yes", "No");
-					}
-					else if($positions['type'] == 2)
-					{
-						$data['list[$position_id]'] = $this->general_model->getPropsForPosition($position_id);
-					}
-				}
-				foreach($data['positions'] as $positions)
-				{
-					if($data['type'] == 0 && $userVoted == FALSE)
+					if($positions['type'] == 0 && $userVoted == FALSE)
 					{
 						$position = $poisitions['position'];
 						$candidate_id = $this->input->post('choices'.$positions['position']);
@@ -121,11 +105,11 @@ class Voter extends CI_Controller {
 							$this->general_model->addCandidateVote($userID, $position, $candidate_id);
 						}
 					}
-					else if($data['type'] == 1 && $userVoted == FALSE)
+					else if($positions['type'] == 1 && $userVoted == FALSE)
 					{
 						//
 					}
-					else if($data['type'] == 2 && $userVoted == FALSE)
+					else if($positions['type'] == 2 && $userVoted == FALSE)
 					{
 						$position = $poisitions['position'];
 						$proposition_id = $this->input->post('choices'.$positions['position']);
@@ -139,9 +123,9 @@ class Voter extends CI_Controller {
 							$this->general_model->addPropositionVote($userID, $position, $proposition_id);
 						}
 					}
-					else if($data['type'] == 0 && $userVoted == TRUE)
+					else if($positions['type'] == 0 && $userVoted == TRUE)
 					{
-						$position = $poisitions['position'];
+						$position = $positions['position'];
 						$candidate_id = $this->input->post('choices'.$positions['position']);
 						if($candidate_id == -1)
 						{
@@ -154,11 +138,11 @@ class Voter extends CI_Controller {
 							$this->general_model->updateCandidateVote($userID, $position, $candidate_id);
 						}
 					}
-					else if($data['type'] == 1 && $userVoted == TRUE)
+					else if($positions['type'] == 1 && $userVoted == TRUE)
 					{
 						//
 					}
-					else if($data['type'] == 2 && $userVoted == TRUE)
+					else if($positions['type'] == 2 && $userVoted == TRUE)
 					{
 						$position = $positions['position'];
 						$proposition_id = $this->input->post('choices'.$positions['position']);
@@ -173,7 +157,8 @@ class Voter extends CI_Controller {
 						}
 					}
 				}
-			}
+				//}
+			redirect('');
 		}
 }
 ?>

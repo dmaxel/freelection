@@ -159,7 +159,7 @@ class General_Model extends CI_Model {
 	public function checkUserVoted($userID){
 		$query = $this->db->query("SELECT position, vote_type, candidate_id, proposition_id, first_name, last_name FROM votes WHERE uacc_id = $userID");
 		//user voted if info is returned; user did not vote if empty
-		return $query->results_array();
+		return $query->result_array();
 	}
 	
 	public function getElectionDescription($electionID){
