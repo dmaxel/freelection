@@ -6,6 +6,7 @@ class Login extends CI_Controller {
 	    $this->auth = new stdClass;
 	}
 
+	// If the user is already logged in, take them to the appropriate landing page
 	public function index(){
 		$this->load->model('general_model');
 		$loggedIn = $this->general_model->checkIfLoggedIn();
@@ -20,6 +21,7 @@ class Login extends CI_Controller {
 		}
 	}
 	
+	// Log the user in if the credentials are correct
 	public function doLogin(){
 		$this->load->model('general_model');
 		
@@ -36,17 +38,19 @@ class Login extends CI_Controller {
 		}
 	}
 	
+	// Log the user out of the system and redirect to log-in page
 	public function doLogout(){
 		$this->load->model('general_model');
 		$this->general_model->logout(FALSE);
         redirect('');
-		//$this->loadLoginPage();
 	}
 	
+	// Redirects to the log-in page
 	public function loadLoginPage(){
 		$this->load->view('login');
 	}
 	
+	// Redirects a user based on which type of user they are (admin, candidate, etc.)
 	public function loadPage(){
 		$groupID = $this->general_model->getGroupID();
 		if($groupID == 1)
