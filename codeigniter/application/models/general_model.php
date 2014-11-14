@@ -83,10 +83,29 @@ class General_Model extends CI_Model {
 		return $result;
 	}
 	
+	public function getUserInfo($userID){
+		$query = $this->db->query("SELECT uacc_id, uacc_username, uacc_firstname, uacc_lastname, uacc_major, uacc_email, uacc_group_fk FROM user_accounts WHERE uacc_id = $userID");
+		return $query->row_array();
+	}
+	
 	public function getElectionID($userID){
 		$query = $this->db->query("SELECT DISTINCT b.election_id FROM ballots b, voting_eligibility v WHERE v.position = b.position AND v.uacc_id = $userID");
 		$result = $query->row_array();
 		return $result['election_id'];
+	}
+	
+	public function getElectionTitle($userID, $userType){
+		$query = NULL;
+		if($userType == 2 || $userType == 4)
+		{
+			$query = $this->db->query("SELECT DISTINCT election_title FROM elections NATUAL JOIN ballots NATURAL JOIN voting_eligibility WHERE uacc_id = $userID");
+		}
+		else if($userType == 3)
+		{
+			$query = $this->db->query("SELECT election_title FROM elections NATURAL JOIN (SELECT election_id FROM ballots NATURAL JOIN candidates WHERE uacc_id = $userID) alpha");
+		}
+		$result = $query->row_array();
+		return $result['election_title'];
 	}
 
 	public function getElectionIDFromCandidate($userID){
@@ -118,6 +137,11 @@ class General_Model extends CI_Model {
 	
 	public function getCandidatesForPosition($position){
 		$query = $this->db->query("SELECT candidate_id, first_name, last_name FROM candidates WHERE position =  $position AND approved = 1");
+		return $query->result_array();
+	}
+	
+	public function getPositionsForCandidate($userID){
+		$query = $this->db->query("SELECT position, type, title FROM ballots NATURAL JOIN (SELECT election_id FROM ballots NATURAL JOIN candidates WHERE uacc_id = $userID) as alpha");
 		return $query->result_array();
 	}
 	
