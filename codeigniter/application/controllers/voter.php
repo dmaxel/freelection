@@ -83,7 +83,7 @@ class Voter extends CI_Controller {
 				$userID = $this->general_model->getUserID();
 				$userTempVoted = $this->general_model->checkUserVoted($userID);
 				$userVoted = FALSE;
-				if($userVoted != NULL)
+				if($userTempVoted != NULL)
 				{
 					$userVoted = TRUE;
 				}
