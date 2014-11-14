@@ -4,32 +4,32 @@ class Candidate extends CI_Controller {
 	
 	public function __construct(){
 		parent::__construct();
-	    $this->auth = new stdClass;
+	   $this->auth = new stdClass;
 		$this->load->model('general_model');
 	}
 
-	public function index()
-	{
+	// Initiate the loading of the candidate page
+	public function index(){
 		$this->showProfile();
 	}
 	
+	// Load the page with all the current information on the candidate and their election
 	public function showProfile(){
 		$userID = $this->general_model->getUserID();
 		$realName = $this->general_model->getRealName($userID);
 		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
-        $this->load->view('templates/header', $data);
+      $this->load->view('templates/header', $data);
 		
-		
-		//$userID = $this->general_model->getUserID();
 		$electionID = $this->general_model->getElectionIDFromCandidate($userID);
 		$data['candidate_info'] = $this->general_model->getCandidate($userID);
 		$data['election_description'] = $this->general_model->getElectionDescription($electionID);
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
 		$this->load->view('candidate', $data);
 		
-        $this->load->view('templates/footer');
+      $this->load->view('templates/footer');
 		}
 	
+	// Update the candidate's description to reflect their changes
 	public function updateDescription(){
 		if($this->input->post('description_submit')){
 			$userID = $this->general_model->getUserID();

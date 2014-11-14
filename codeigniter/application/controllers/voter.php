@@ -2,8 +2,8 @@
 class Voter extends CI_Controller {
 	
 	public function __construct(){
-	    parent::__construct();
-	    $this->auth = new stdClass;
+		parent::__construct();
+	   $this->auth = new stdClass;
 		$this->load->model('general_model');
 	}
 	
@@ -50,7 +50,7 @@ class Voter extends CI_Controller {
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
 		$this->load->view('voter', $data);
 		
-        $this->load->view('templates/footer');
+      $this->load->view('templates/footer');
 	}
 
 	// Load the voting window with the ballot information for that election

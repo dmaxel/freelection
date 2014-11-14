@@ -4,7 +4,7 @@ class Register extends CI_Controller {
 	
 	public function __construct(){
 		parent::__construct();
-	    $this->auth = new stdClass;
+	   $this->auth = new stdClass;
 		$this->load->model('general_model');
 	}
 
