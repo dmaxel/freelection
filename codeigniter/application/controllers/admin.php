@@ -220,8 +220,22 @@ error_reporting(-1);
         $this->load->view('templates/footer');
 	}
 	
-	public function update_user(){
-		//
+	public function update_user($userID){
+		$firstname = $this->input->post('firstname_field');
+		$lastname = $this->input->post('lastname_field');
+		$major = $this->input->post('major_field');
+		$email = $this->input->post('email_field');
+		$user = $this->general_model->getUserInfo($userID);
+		$position = NULL;
+		$description = NULL;
+		if($user['uacc_group_fk'] == 3)
+		{
+			$position = $this->input->post('available_positions');
+			$description = $this->input->post('description_field');
+		}
+		$this->general_model->updateUser($user['uacc_id'], $user['uacc_group_fk'], $firstname, $lastname, $major, $email, $position, $description);
+		
+		redirect('/admin/view_users');
 	}
 
     public function new_election(){

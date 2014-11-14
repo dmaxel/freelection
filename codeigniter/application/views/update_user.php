@@ -8,7 +8,7 @@
             <a href="index.php/admin/deny/<? echo $user['uacc_id']; ?>"><button class="btn btn-danger btn-xs" id="delete">Delete</button></a>
           </div>
         </div>
-        <? echo form_open('admin/update_user'); ?>
+        <? echo form_open('admin/update_user/'.$user['uacc_id']); ?>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
             <?

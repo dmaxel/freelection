@@ -165,6 +165,14 @@ class General_Model extends CI_Model {
 		$this->db->query("UPDATE candidates SET description = \"$description\" WHERE uacc_id = $userID");
 	}
 	
+	public function updateUser($userID, $userGroup, $firstname, $lastname, $major, $email, $position, $description){
+		$this->db->query("UPDATE user_accounts SET uacc_email='$email', uacc_major='$major', uacc_firstname='$firstname', uacc_lastname='$lastname' WHERE uacc_id=$userID");
+		if($userGroup == 3)
+		{
+			$this->db->query("UPDATE candidates SET position=$position, description=\"$description\" where uacc_id=$userID");
+		}
+	}
+	
 	public function getPendingUsers(){
 		$query = $this->db->query("SELECT DISTINCT uacc_id, uacc_group_fk, uacc_firstname, uacc_lastname, uacc_major FROM user_accounts WHERE uacc_active = 0");
 		return $query->result_array();
