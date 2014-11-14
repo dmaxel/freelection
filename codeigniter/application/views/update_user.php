@@ -78,24 +78,29 @@
 			?>
           </div>
         </div>
+		<div id="candidate_position_container" style="margin-top:20px">
 		<?
 		if($user['uacc_group_fk'] == 3)
 		{
-			echo '<div id="candidate_position_container" style="margin-top:20px">';
 			foreach($positions as $position)
 			{
 	        	$options[$position['position']] = $position['title'];
 			}
 			echo form_dropdown('available_positions', $options, $candidate['position'], 'style="margin-bottom:10px"');
-			echo '</div>
-        <div id="candidate_description_container" style="margin-top:20px">';
+		}
+		?>
+		</div>
+        <div id="candidate_description_container" style="margin-top:20px">
+			<?
+			if($user['uacc_group_fk'] == 3)
+			{
 			$data = array(
 	             'name' => 'description_field',
 	             'placeholder' => 'Candidate Description',
 	       	  	 'value' => $candidate['description']
 	             );
 	        echo form_textarea($data);	
-		}
+			}
 			?>
           <!-- <input type="textarea" name="candidate_description" value="description" style="height:70px; width:200px"> -->
         </div>
@@ -106,7 +111,8 @@
 	           'value' => 'Update User',
 	           'class' => 'btn btn-xs btn-default'
 	           ); 
-	           echo form_submit($data, 'Update User');?>
-		   <? echo form_close(); ?>
+	      echo form_submit($data, 'Update User');
+		  echo form_close();
+		  ?>
         </div>
  
