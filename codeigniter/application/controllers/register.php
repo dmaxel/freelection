@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 class Register extends CI_Controller {
 	
 	public function __construct(){
@@ -7,7 +6,6 @@ class Register extends CI_Controller {
 	   $this->auth = new stdClass;
 		$this->load->model('general_model');
 	}
-
 	// Initialize the values for the registration page and load the view
 	public function index()
 	{
@@ -56,7 +54,6 @@ class Register extends CI_Controller {
 		'mailtype' => 'html',
 		'charset' => 'iso-8859-1'
 		);
-
 		$this->load->library('email', $email_config);
 		$this->email->set_newline("\r\n");
 		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');

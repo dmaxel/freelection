@@ -202,6 +202,7 @@ error_reporting(-1);
 		$data['saved_major'] = '';
 		$data['saved_email'] = '';
 		$data['saved_position'] = 1;
+		$data['saved_username'] = '';
         $this->load->view('new_user', $data);
         $this->load->view('templates/footer');
     }
@@ -218,22 +219,25 @@ error_reporting(-1);
 		$data['saved_major'] = $this->input->post('major_field');
 		$data['saved_email'] = $this->input->post('email_field');
 		$data['saved_position'] = $this->input->post('positions');
+		$data['saved_username'] = $this->input->post('username_field');
+		$data['saved_password'] = $this->input->post('password_field');
 		$data['positions'] = $this->general_model->getPositionsForElection($data['saved_election']);
 		
 		if($data['saved_type'] == 3)
 		{
-			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_position'] == NULL)
+			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_position'] == NULL || $data['saved_username'] == NULL)
 			{
-				$temp['username'] = $this->general_model->getUsername();
-		        $this->load->view('templates/header', $temp);
+				//$temp['username'] = $this->general_model->getUsername();
+		        //$this->load->view('templates/header', $temp);
 				$this->load->view('new_user', $data);
-				$this->load->view('templates/footer');
+				//$this->load->view('templates/footer');
 			}
 			else
 			{
-				$username = strtolower($data['saved_firstname'][0]).strtolower($data['saved_lastname']).$this->getRandomNum();;
-			    $password = $this->randomPassword();
-				$this->general_model->entry_insert($username, $password, TRUE, $data['saved_election'], $data['saved_position'], $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				$this->general_model->entry_insert($data['saved_username'], $data['saved_password'], TRUE, $data['saved_election'], $data['saved_position'], $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				
+				$username = $data['saved_username'];
+				$password = $data['saved_password'];
 				
 				$email_config = Array(
 				'protocol' => 'smtp',
@@ -258,18 +262,19 @@ error_reporting(-1);
 		}
 		else
 		{
-			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL)
+			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_username'] == NULL)
 			{
-				$temp['username'] = $this->general_model->getUsername();
-		        $this->load->view('templates/header', $temp);
+				//$temp['username'] = $this->general_model->getUsername();
+		        //$this->load->view('templates/header', $temp);
 				$this->load->view('new_user', $data);
-				$this->load->view('templates/footer');
+				//$this->load->view('templates/footer');
 			}
 			else
 			{
-				$username = strtolower($data['saved_firstname'][0]).strtolower($data['saved_lastname']).$this->getRandomNum();;
-			    $password = $this->randomPassword();
-				$this->general_model->entry_insert($username, $password, FALSE, $data['saved_election'], 0, $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				$this->general_model->entry_insert($data['saved_username'], $data['saved_password'], FALSE, $data['saved_election'], 0, $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				
+				$username = $data['saved_username'];
+				$password = $data['saved_password'];
 				
 				$email_config = Array(
 				'protocol' => 'smtp',
@@ -354,29 +359,6 @@ error_reporting(-1);
 	public function deny($userID){
 		$this->general_model->deleteUser($userID);
 		redirect('/admin/view_pending');
-	}
-	
-	public function randomPassword() {
-	    $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-	    $pass = array(); //remember to declare $pass as an array
-	    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-	    for ($i = 0; $i < 10; $i++) {
-	        $n = mt_rand(0, $alphaLength);
-	        $pass[] = $alphabet[$n];
-	    }
-	    return implode($pass); //turn the array into a string
-	}
-	
-	// Create a randomly generated number to add on the end of the username
-	public function getRandomNum() {
-	    $alphabet = "0123456789";
-	    $pass = array(); //remember to declare $pass as an array
-	    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-	    for ($i = 0; $i < 4; $i++) {
-	        $n = mt_rand(0, $alphaLength);
-	        $pass[] = $alphabet[$n];
-	    }
-	    return implode($pass); //turn the array into a string
 	}
 }
 ?>

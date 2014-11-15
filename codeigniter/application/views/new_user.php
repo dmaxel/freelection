@@ -37,6 +37,20 @@
         </div>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
+            <?
+	        $data = array(
+	             'name' => 'username_field',
+	             'placeholder' => 'Username',
+				 'value' => $saved_username
+	             );
+	        echo form_input($data);
+	        $data = array(
+	             'name' => 'password_field',
+				 'type' => 'password',
+	             'placeholder' => 'Password',
+	             );
+	        echo form_input($data);
+			?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
             <?
