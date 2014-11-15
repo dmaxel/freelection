@@ -104,6 +104,7 @@ error_reporting(-1);
 	
     public function view_users() {
 		$data['username'] = $this->general_model->getUsername();
+		$data['elections'] = $this->general_model->getElectionInfoList();
         $this->load->view('templates/header', $data);
 		
 		$data['users'] = $this->general_model->getActiveUsers();
@@ -192,9 +193,106 @@ error_reporting(-1);
     public function new_user(){
         $data['username'] = $this->general_model->getUsername();
         $this->load->view('templates/header', $data);
-        $this->load->view('new_user');
+		
+		$data['elections'] = $this->general_model->getElectionInfoList();
+		$data['saved_firstname'] = '';
+		$data['saved_lastname'] = '';
+		$data['saved_election'] = 0;
+		$data['saved_type'] = 1;
+		$data['saved_major'] = '';
+		$data['saved_email'] = '';
+		$data['saved_position'] = 1;
+        $this->load->view('new_user', $data);
         $this->load->view('templates/footer');
     }
+	
+	public function insert_user(){
+		$data['username'] = $this->general_model->getUsername();
+        $this->load->view('templates/header', $data);
+		
+		$data['elections'] = $this->general_model->getElectionInfoList();
+		$data['saved_firstname'] = $this->input->post('firstname_field');
+		$data['saved_lastname'] = $this->input->post('lastname_field');
+		$data['saved_election'] = $this->input->post('elections');
+		$data['saved_type'] = $this->input->post('user_type');
+		$data['saved_major'] = $this->input->post('major_field');
+		$data['saved_email'] = $this->input->post('email_field');
+		$data['saved_position'] = $this->input->post('positions');
+		$data['positions'] = $this->general_model->getPositionsForElection($data['saved_election']);
+		
+		if($data['saved_type'] == 3)
+		{
+			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_position'] == NULL)
+			{
+				$temp['username'] = $this->general_model->getUsername();
+		        $this->load->view('templates/header', $temp);
+				$this->load->view('new_user', $data);
+				$this->load->view('templates/footer');
+			}
+			else
+			{
+				$username = strtolower($data['saved_firstname'][0]).strtolower($data['saved_lastname']).$this->getRandomNum();;
+			    $password = $this->randomPassword();
+				$this->general_model->entry_insert($username, $password, TRUE, $data['saved_election'], $data['saved_position'], $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				
+				$email_config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'freelection.voting.system@gmail.com',
+				'smtp_pass' => 'teamfreelection',
+				'mailtype' => 'html',
+				'charset' => 'iso-8859-1'
+				);
+
+				$this->load->library('email', $email_config);
+				$this->email->set_newline("\r\n");
+				$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
+				$this->email->to($data['saved_email']);
+				$this->email->subject('Freelection - Your Username and Password');
+				$this->email->message("Hello there!\r\n\r\nYour username is: $username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
+				$this->email->send();
+				
+				redirect('admin/view_users');
+			}
+		}
+		else
+		{
+			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL)
+			{
+				$temp['username'] = $this->general_model->getUsername();
+		        $this->load->view('templates/header', $temp);
+				$this->load->view('new_user', $data);
+				$this->load->view('templates/footer');
+			}
+			else
+			{
+				$username = strtolower($data['saved_firstname'][0]).strtolower($data['saved_lastname']).$this->getRandomNum();;
+			    $password = $this->randomPassword();
+				$this->general_model->entry_insert($username, $password, FALSE, $data['saved_election'], 0, $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				
+				$email_config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.googlemail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'freelection.voting.system@gmail.com',
+				'smtp_pass' => 'teamfreelection',
+				'mailtype' => 'html',
+				'charset' => 'iso-8859-1'
+				);
+
+				$this->load->library('email', $email_config);
+				$this->email->set_newline("\r\n");
+				$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
+				$this->email->to($data['saved_email']);
+				$this->email->subject('Freelection - Your Username and Password');
+				$this->email->message("Hello there!\r\n\r\nYour username is: $username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
+				$this->email->send();
+				
+				redirect('admin/view_users');
+			}
+		}
+	}
     
 	public function edit_user($userID){
 		$data['username'] = $this->general_model->getUsername();
@@ -256,6 +354,29 @@ error_reporting(-1);
 	public function deny($userID){
 		$this->general_model->deleteUser($userID);
 		redirect('/admin/view_pending');
+	}
+	
+	public function randomPassword() {
+	    $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+	    $pass = array(); //remember to declare $pass as an array
+	    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+	    for ($i = 0; $i < 10; $i++) {
+	        $n = mt_rand(0, $alphaLength);
+	        $pass[] = $alphabet[$n];
+	    }
+	    return implode($pass); //turn the array into a string
+	}
+	
+	// Create a randomly generated number to add on the end of the username
+	public function getRandomNum() {
+	    $alphabet = "0123456789";
+	    $pass = array(); //remember to declare $pass as an array
+	    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+	    for ($i = 0; $i < 4; $i++) {
+	        $n = mt_rand(0, $alphaLength);
+	        $pass[] = $alphabet[$n];
+	    }
+	    return implode($pass); //turn the array into a string
 	}
 }
 ?>

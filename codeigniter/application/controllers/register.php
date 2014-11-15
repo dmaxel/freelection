@@ -41,9 +41,10 @@ class Register extends CI_Controller {
 		$password = $this->randomPassword();
 		$email = $this->input->post('email_field');
 		$major = $this->input->post('major_field');
+		$activate = FALSE;
 		
 		// Enter the user into the user accounts table (unactivated)
-		$userID = $this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major);
+		$userID = $this->general_model->entry_insert($username, $password, $checkbox, $election, $position, $firstname, $lastname, $email, $major, $activate);
 		
 		// Send a confirmation email with the username and password
 		$email_config = Array(

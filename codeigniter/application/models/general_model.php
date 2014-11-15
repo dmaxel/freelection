@@ -22,7 +22,7 @@ class General_Model extends CI_Model {
 		$this->flexi_auth->logout($input);
 	}
 	
-	public function entry_insert($username, $password, $candidate, $election, $position, $firstname, $lastname, $email, $major){
+	public function entry_insert($username, $password, $candidate, $election, $position, $firstname, $lastname, $email, $major, $activate){
 		$this->load->library('flexi_auth');
 		$user_data = array(
 			'uacc_firstname' => $firstname,
@@ -31,15 +31,23 @@ class General_Model extends CI_Model {
 		);
 		if($candidate == TRUE)
 		{
-			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, FALSE);
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, $activate);
 			
-			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, 0, '$firstname', '$lastname', $new_userID, 'No description yet')");
+			$t_activate = NULL;
+			if($activate == TRUE)
+			{
+				$t_activate = 1;
+			}
+			else
+			{
+				$t_activate = 0;
+			}
 			
-			//$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($position, $new_userID)");
+			$this->db->query("INSERT INTO candidates (position, approved, first_name, last_name, uacc_id, description) VALUES ($position, $t_activate, '$firstname', '$lastname', $new_userID, 'No description yet')");
 		}
 		else
 		{
-			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, FALSE);
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, $activate);
 			
 			$positions = $this->getPositionsForElection($election);
 			foreach($positions as $each)
