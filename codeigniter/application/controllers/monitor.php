@@ -29,6 +29,12 @@ class Monitor extends CI_Controller {
         {
             redirect('');
         }
+		
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+		$this->load->view('templates/header', $data);
         
         $data['username'] = $this->general_model->getUsername();  
 
@@ -95,8 +101,6 @@ class Monitor extends CI_Controller {
         // var_dump($data['election_positions']);
         // echo '</pre>';
         // exit;
-        
-        $this->load->view('templates/header', $data);
         $this->load->view('monitor', $data);
         $this->load->view('templates/footer');
     }

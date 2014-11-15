@@ -36,6 +36,14 @@ class Admin extends CI_Controller {
     ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
+
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+
+		$this->load->view('templates/header', $data);
+		
         $data['username'] = $this->general_model->getUsername();
         // get all the elections
         $data['elections'] = $this->general_model->getElectionInfoList();
@@ -96,15 +104,16 @@ error_reporting(-1);
                 $i++;
             }
         }
-
-        $this->load->view('templates/header', $data);
         $this->load->view('admin', $data);
         $this->load->view('templates/footer');
 
 	}
 	
     public function view_users() {
-		$data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
 		//$data['elections'] = $this->general_model->getElectionInfoList();
         $this->load->view('templates/header', $data);
 		
@@ -116,7 +125,10 @@ error_reporting(-1);
     
     public function view_pending() {
         
-		$data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
 		
 		$pending_users = $this->general_model->getPendingUsers();
@@ -142,6 +154,14 @@ error_reporting(-1);
     
     public function view_elections(){
         redirect('/view_elections');
+		
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+		
+		$this->load->view('templates/header', $data);
+		
         $data['username'] = $this->general_model->getUsername();
         
         // get all the elections
@@ -186,14 +206,15 @@ error_reporting(-1);
         // var_dump($data);
         // echo '</pre>';
         // exit;
-            
-        $this->load->view('templates/header', $data);
         $this->load->view('view_elections', $data);
         $this->load->view('templates/footer');        
     }
 
     public function new_user(){
-        $data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
 		
 		$data['elections'] = $this->general_model->getElectionInfoList();
@@ -210,7 +231,10 @@ error_reporting(-1);
     }
 	
 	public function insert_user(){
-		$data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
 		
 		$data['elections'] = $this->general_model->getElectionInfoList();
@@ -302,7 +326,10 @@ error_reporting(-1);
 	}
     
 	public function edit_user($userID){
-		$data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
 		
 		$data['user'] = $this->general_model->getUserInfo($userID);
@@ -345,7 +372,10 @@ error_reporting(-1);
 
     public function new_election(){
         redirect('/new_election');
-        $data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
         $this->load->view('new_election');
     }
@@ -356,12 +386,59 @@ error_reporting(-1);
 		{
 			$this->general_model->approveCandidate($userID);
 		}
+		
+		$user = $this->general_model->getUserInfo($userID);
+		$email = $user['uacc_email'];
+		
+		$email_config = Array(
+		'protocol' => 'smtp',
+		'smtp_host' => 'ssl://smtp.googlemail.com',
+		'smtp_port' => 465,
+		'smtp_user' => 'freelection.voting.system@gmail.com',
+		'smtp_pass' => 'teamfreelection',
+		'mailtype' => 'html',
+		'charset' => 'iso-8859-1'
+		);
+		$this->load->library('email', $email_config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
+		$this->email->to($email);
+		$this->email->subject('Freelection - Your Username and Password');
+		$this->email->message("Hello there! You have been approved by an admin!\r\n\r\nYou can now log into your Freelection account with the login credentials provided in our previous email.\r\n\r\nFreelection");
+		$this->email->send();
+		
 		redirect('/admin/view_pending');
 	}
 	
 	public function deny($userID){
 		$this->general_model->deleteUser($userID);
+		
+		$user = $this->general_model->getUserInfo($userID);
+		$email = $user['uacc_email'];
+		
+		$email_config = Array(
+		'protocol' => 'smtp',
+		'smtp_host' => 'ssl://smtp.googlemail.com',
+		'smtp_port' => 465,
+		'smtp_user' => 'freelection.voting.system@gmail.com',
+		'smtp_pass' => 'teamfreelection',
+		'mailtype' => 'html',
+		'charset' => 'iso-8859-1'
+		);
+		$this->load->library('email', $email_config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
+		$this->email->to($email);
+		$this->email->subject('Freelection - Your Username and Password');
+		$this->email->message("Hello there! You have been denied by an admin.\r\n\r\nIf you would like access to the system, please register again.\r\n\r\nFreelection");
+		$this->email->send();
+		
 		redirect('/admin/view_pending');
+	}
+	
+	public function delete($userID){
+		$this->general_model->deleteUser($userID);
+		redirect('/admin/view_users');
 	}
 }
 ?>

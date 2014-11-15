@@ -59,7 +59,7 @@ class Register extends CI_Controller {
 		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
 		$this->email->to($email);
 		$this->email->subject('Freelection - Your Username and Password');
-		$this->email->message("Hello there!\r\n\r\nYour username is: $username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
+		$this->email->message("Hello there! Here are your credentials, but you won't be able to log in until you receive another email mentioning that an admin has approved you.\r\n\r\nYour username is: $username\r\nYour password is: $password\r\n\r\nThank you for registering!\r\n\r\nFreelection");
 		$this->email->send();
 		
 		// Redirect to the log-in page

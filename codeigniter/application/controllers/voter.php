@@ -38,7 +38,11 @@ class Voter extends CI_Controller {
 
 	// Load the contents of the voter page
 	public function showPage(){
-		$data['username'] = $this->general_model->getUsername();
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+		
         
       // load the view
       $this->load->view('templates/header', $data);
@@ -71,7 +75,11 @@ class Voter extends CI_Controller {
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
 		// If the election is in the voting window, allow the voter to vote
 		if(strtotime($data['election_window']['voting_window_start']) < time() && strtotime($data['election_window']['voting_window_end']) > time()){
-			$data['username'] = $this->general_model->getUsername();
+			$userID = $this->general_model->getUserID();
+
+			$realName = $this->general_model->getRealName($userID);
+			$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+			
 			$this->load->view('templates/header', $data);
 			
 			$userID = $this->general_model->getUserID();

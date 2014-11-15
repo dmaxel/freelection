@@ -5,7 +5,7 @@
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4">
-            <a href="index.php/admin/deny/<? echo $user['uacc_id']; ?>"><button class="btn btn-danger btn-xs" id="delete">Delete</button></a>
+            <a href="index.php/admin/delete/<? echo $user['uacc_id']; ?>"><button class="btn btn-danger btn-xs" id="delete">Delete</button></a>
           </div>
         </div>
         <? echo form_open('admin/update_user/'.$user['uacc_id']); ?>

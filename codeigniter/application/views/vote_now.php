@@ -84,4 +84,5 @@
 			echo form_submit($data, 'Submit Ballot');
 			echo '</div>';
 			echo form_close();
+		
 			?>

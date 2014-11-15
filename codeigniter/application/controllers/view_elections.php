@@ -25,7 +25,6 @@ class View_Elections extends CI_Controller {
         
         $data['election_options'] = array();
         $data['election_options'][-1] = "Select an Election";
-
         foreach ($data['elections'] as $election)
         {
             $data['election_options'][$election['election_id']] = $election['election_title'];

@@ -44,7 +44,7 @@
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="fa fa-angle-double-down fa-lg fa-inverse" style="color: #777">
+              <span class="fa fa-angle-double-down fa-lg fa-inverse" style="color:#777">
           </button>
           <div class="navbar-brand"><? echo $username ?></div>
         </div>
