@@ -10,9 +10,31 @@ class Candidate extends CI_Controller {
 
 	// Initiate the loading of the candidate page
 	public function index(){
-		$this->showProfile();
+    
+      // check if logged in as candidate
+		$loggedIn = $this->general_model->checkIfLoggedIn();
+		$groupID = $this->general_model->getGroupID();
+        
+      // redirect to homepage if not logged in or incorrect id
+		if($loggedIn === FALSE || $groupID !== 3)
+      {
+      	redirect('');
+		}
+		else
+		{
+			$userID = $this->general_model->getUserID();
+			$electionID = $this->general_model->getElectionID($userID);
+			$data['election_window'] = $this->general_model->getElectionWindow($electionID);
+			// If the election is in the voting or registration window, go to the normal page
+			if(strtotime($data['election_window']['registration_window_start']) < time() && strtotime($data['election_window']['voting_window_end']) > time()){
+				$this->showProfile();
+			}
+			// Otherwise go to the election results page
+			else{
+				redirect('/election_finished')
+			}
+		}
 	}
-	
 	// Load the page with all the current information on the candidate and their election
 	public function showProfile(){
 		$userID = $this->general_model->getUserID();

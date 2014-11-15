@@ -21,7 +21,17 @@ class Voter extends CI_Controller {
 		}
 		else
 		{
-			$this->showPage();
+			$userID = $this->general_model->getUserID();
+			$electionID = $this->general_model->getElectionID($userID);
+			$data['election_window'] = $this->general_model->getElectionWindow($electionID);
+			// If the election is in the voting or registration window, go to the normal page
+			if(strtotime($data['election_window']['registration_window_start']) < time() && strtotime($data['election_window']['voting_window_end']) > time()){
+				$this->showPage();
+			}
+			// Otherwise go to the election results page
+			else{
+				redirect('/election_finished')
+			}
 		}
 	}
 
@@ -58,6 +68,7 @@ class Voter extends CI_Controller {
 		$userID = $this->general_model->getUserID();
 		$electionID = $this->general_model->getElectionID($userID);
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
+		// If the election is in the voting window, allow the voter to vote
 		if(strtotime($data['election_window']['voting_window_start']) < time() && strtotime($data['election_window']['voting_window_end']) > time()){
 			$data['username'] = $this->general_model->getUsername();
 			$this->load->view('templates/header', $data);
