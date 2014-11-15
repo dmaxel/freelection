@@ -9,12 +9,38 @@
           </div>
         </div>
 		<?
-			foreach($users as $user)
+			foreach($activeusers as $user)
 			{
 				echo '<div class="row" style="margin-top:10px"><div class="col-sm-3">';
 				echo $user['uacc_firstname']." ".$user['uacc_lastname'];
 				echo '</div><div class="col-sm-3">';
 				echo $user['election_title'];
+				echo '</div><div class="col-sm-3">';
+				if($user['uacc_group_fk'] == 1)
+				{
+					echo 'Admin';
+				}
+				else if($user['uacc_group_fk'] == 2)
+				{
+					echo 'Election Monitor';
+				}
+				else if($user['uacc_group_fk'] == 3)
+				{
+					echo 'Candidate';
+				}
+				else if($user['uacc_group_fk'] == 4)
+				{
+					echo 'Voter';
+				}
+				echo '</div><div class="col-sm-3">';
+				echo '<a href="index.php/admin/edit_user/'.$user['uacc_id'].'"><button class="btn btn-default btn-xs" style="font-size:12px !important">Edit</button></a></div></div>';
+			}
+			foreach($admins as $user)
+			{
+				echo '<div class="row" style="margin-top:10px"><div class="col-sm-3">';
+				echo $user['uacc_firstname']." ".$user['uacc_lastname'];
+				echo '</div><div class="col-sm-3">';
+				echo 'All Elections';
 				echo '</div><div class="col-sm-3">';
 				if($user['uacc_group_fk'] == 1)
 				{

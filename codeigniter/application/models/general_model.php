@@ -123,9 +123,14 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getActiveUsers(){
-		$query = $this->db->query("SELECT uacc_id, uacc_group_fk, uacc_firstname, uacc_lastname, election_title FROM user_accounts NATURAL JOIN (SELECT DISTINCT uacc_id, election_title FROM voting_eligibility NATURAL JOIN (SELECT a.position, election_title FROM ballots AS a NATURAL JOIN elections) AS alpha) AS bravo WHERE uacc_active = 1");
+		$query = $this->db->query("SELECT * FROM (SELECT uacc_firstname, uacc_lastname, election_title, uacc_group_fk, uacc_id FROM user_accounts NATURAL JOIN (SELECT DISTINCT uacc_id, election_title FROM voting_eligibility NATURAL JOIN (SELECT a.position, election_title FROM ballots AS a NATURAL JOIN elections) AS alpha) AS bravo WHERE uacc_active = 1) AS epsilon UNION (SELECT uacc_firstname, uacc_lastname, election_title, uacc_group_fk, uacc_id FROM user_accounts NATURAL JOIN (SELECT uacc_id, election_title FROM candidates NATURAL JOIN (SELECT a.position, election_title FROM ballots AS a NATURAL JOIN elections) AS charlie) AS delta WHERE uacc_active = 1)");
 		return $query->result_array();
 	}
+	
+    public function getAdmins(){
+        $query = $this->db->query("SELECT uacc_firstname, uacc_lastname, uacc_group_fk, uacc_id FROM user_accounts WHERE uacc_group_fk = 1");
+        return $query->result_array();
+    }
 	
 	/* this function is should work for Admin and monitor*/
 	public function getElectionInfoList(){

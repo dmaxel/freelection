@@ -31,6 +31,7 @@ class Admin extends CI_Controller {
 		$result = $query->row_array();
         return $result['election_title'];
 	}
+    
 	public function index(){
     ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
@@ -104,10 +105,11 @@ error_reporting(-1);
 	
     public function view_users() {
 		$data['username'] = $this->general_model->getUsername();
-		$data['elections'] = $this->general_model->getElectionInfoList();
+		//$data['elections'] = $this->general_model->getElectionInfoList();
         $this->load->view('templates/header', $data);
 		
-		$data['users'] = $this->general_model->getActiveUsers();
+		$data['activeusers'] = $this->general_model->getActiveUsers();
+		$data['admins'] = $this->general_model->getAdmins();
         $this->load->view('view_users', $data);
         $this->load->view('templates/footer');
     }
@@ -342,6 +344,7 @@ error_reporting(-1);
 	}
 
     public function new_election(){
+        redirect('/new_election');
         $data['username'] = $this->general_model->getUsername();
         $this->load->view('templates/header', $data);
         $this->load->view('new_election');
