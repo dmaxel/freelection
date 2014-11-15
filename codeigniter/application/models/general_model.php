@@ -255,5 +255,10 @@ class General_Model extends CI_Model {
 	public function approveCandidate($userID){
 		$this->db->query("UPDATE candidates SET approved = 1 WHERE uacc_id = $userID");
 	}
+	
+	public function getWinner($positionID){
+		$query = $this->db->query("SELECT first_name, last_name, max(votes) FROM (SELECT first_name, last_name, sum(uacc_vote_weight) AS votes FROM candidates NATURAL JOIN (SELECT candidate_id, uacc_vote_weight FROM votes NATURAL JOIN user_accounts WHERE position = $positionID AND vote_type = 0) AS alpha GROUP BY candidate_id) AS bravo");
+		return $query->row_array();
+	}
 }
 ?>
