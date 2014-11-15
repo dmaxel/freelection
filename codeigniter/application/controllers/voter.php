@@ -31,7 +31,7 @@ class Voter extends CI_Controller {
 			}
 			// Otherwise go to the election results page
 			else{
-				redirect('/election_results');
+				redirect('/election_results/showForVoter');
 			}
 		}
 	}
