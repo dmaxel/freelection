@@ -23,14 +23,15 @@ class Voter extends CI_Controller {
 		{
 			$userID = $this->general_model->getUserID();
 			$electionID = $this->general_model->getElectionID($userID);
+			$data['registration_window'] = $this->general_model->getRegistrationWindow($electionID);
 			$data['election_window'] = $this->general_model->getElectionWindow($electionID);
 			// If the election is in the voting or registration window, go to the normal page
-			if(strtotime($data['election_window']['registration_window_start']) < time() && strtotime($data['election_window']['voting_window_end']) > time()){
+			if(strtotime($data['registration_window']['registration_window_start']) < time() && strtotime($data['election_window']['voting_window_end']) > time()){
 				$this->showPage();
 			}
 			// Otherwise go to the election results page
 			else{
-				redirect('/election_finished')
+				redirect('/election_finished');
 			}
 		}
 	}
