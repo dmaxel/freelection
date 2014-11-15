@@ -121,7 +121,7 @@ class General_Model extends CI_Model {
 	
 	/* this function is should work for Admin and monitor*/
 	public function getElectionInfoList(){
-		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end FROM elections");
+		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end, registration_window_start, registration_window_end FROM elections");
 		return $query->result_array();
 	}
 	
@@ -202,6 +202,11 @@ class General_Model extends CI_Model {
 	
 	public function getElectionWindow($electionID){
 		$query = $this->db->query("SELECT voting_window_start, voting_window_end FROM elections WHERE election_id = $electionID");
+		return $query->row_array();
+	}
+    
+    public function getRegistrationWindow($electionID){
+		$query = $this->db->query("SELECT registration_window_start, registration_window_end FROM elections WHERE election_id = $electionID");
 		return $query->row_array();
 	}
 	
