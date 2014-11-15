@@ -55,34 +55,42 @@ class Voter extends CI_Controller {
 
 	// Load the voting window with the ballot information for that election
 	public function voteNow(){
-		$data['username'] = $this->general_model->getUsername();
-		$this->load->view('templates/header', $data);
-			
 		$userID = $this->general_model->getUserID();
-		// Get the list of positions for the election
-		$data['positions'] = $this->general_model->getPositions($userID);
-		$data['list'] = array();
-		// For each position, get the list of candidates (or propositions) for that position
-		foreach($data['positions'] as $positions)
-		{
-			$position_id = $positions['position'];
-			if($positions['type'] == 0)
-			{
-				$data['list'][$position_id] = $this->general_model->getCandidatesForPosition($position_id);
-			}
-			else if($positions['type'] == 1)
-			{
-				$data['list'][$position_id] = array("Yes", "No");
-			}
-			else if($positions['type'] == 2)
-			{
-				$data['list'][$position_id] = $this->general_model->getPropsForPosition($position_id);
-			}
-		}
-		$data['userID'] = $userID;
-		$this->load->view('vote_now', $data);
+		$electionID = $this->general_model->getElectionID($userID);
+		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
+		if(strtotime($data['election_window']['voting_window_start']) < time() && strtotime($data['election_window']['voting_window_end']) > time()){
+			$data['username'] = $this->general_model->getUsername();
+			$this->load->view('templates/header', $data);
 			
-		$this->load->view('templates/footer');
+			$userID = $this->general_model->getUserID();
+			// Get the list of positions for the election
+			$data['positions'] = $this->general_model->getPositions($userID);
+			$data['list'] = array();
+			// For each position, get the list of candidates (or propositions) for that position
+			foreach($data['positions'] as $positions)
+			{
+				$position_id = $positions['position'];
+				if($positions['type'] == 0)
+				{
+					$data['list'][$position_id] = $this->general_model->getCandidatesForPosition($position_id);
+				}
+				else if($positions['type'] == 1)
+				{
+					$data['list'][$position_id] = array("Yes", "No");
+				}
+				else if($positions['type'] == 2)
+				{
+					$data['list'][$position_id] = $this->general_model->getPropsForPosition($position_id);
+				}
+			}
+			$data['userID'] = $userID;
+			$this->load->view('vote_now', $data);
+			
+			$this->load->view('templates/footer');
+		}
+		else{
+			redirect('/voter');
+		}
 	}
 
 	// Submit the user's vote information

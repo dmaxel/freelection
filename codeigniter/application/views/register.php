@@ -66,7 +66,9 @@
 	 $options[-1] = "Please choose an election.";
        foreach($elections as $election)
        {
-         $options[$election['election_id']] = $election['election_title'];
+			if(strtotime($election['registration_window_start']) < time() && strtotime($election['registration_window_end']) > time()){
+         	$options[$election['election_id']] = $election['election_title'];
+         }
        }
        echo form_dropdown('available_elections', $options, $election_value, $dropdown_js);
      if($checkbox_value == TRUE)
