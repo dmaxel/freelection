@@ -18,14 +18,14 @@
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
             <label for="registration_start">Start</label>
-            <input style="width: 100px" type="text" name="registration_start" placeholder="YYYY-MM-DD">
+            <input style="width: 80px" type="text" class="datepicker" name="registration_start" placeholder="Start" readonly>
             <?php
               echo form_dropdown('reg_hour_start_dropdown', $hour_options);
             ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
           <label for="registration_end">End</label>
-            <input style="width: 100px" type="text" name="registration_end" placeholder="YYYY-MM-DD">
+            <input style="width: 80px" type="text" class="datepicker" name="registration_end" placeholder="End" readonly>
             <?php
               echo form_dropdown('reg_hour_end_dropdown', $hour_options);
             ?>
@@ -35,14 +35,14 @@
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
           <label for="election_start">Start</label>
-            <input style="width: 100px" type="text" name="election_start" placeholder="YYYY-MM-DD">
+            <input style="width: 80px" type="text" class="datepicker" name="election_start" placeholder="Start" readonly>
             <?php
               echo form_dropdown('vote_hour_start_dropdown', $hour_options);
             ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
             <label for="election_end">End</label>
-            <input style="width: 100px" type="text" name="election_end" placeholder="YYYY-MM-DD">
+            <input style="width: 80px" type="text" class="datepicker" name="election_end" placeholder="End" readonly>
             <?php
               echo form_dropdown('vote_hour_end_dropdown', $hour_options);
             ?>
@@ -70,6 +70,7 @@
     <script src="js/jquery-ui/jquery-ui.min.js"></script>
     <script>
       $(function() {
+      $( ".datepicker" ).datepicker();
 
       $(document).ready(function() {
           var max_fields      = 30; //maximum input boxes allowed
