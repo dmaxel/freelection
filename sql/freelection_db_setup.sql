@@ -53,7 +53,7 @@ CREATE TABLE votes (
 	proposition_id int unsigned, -- Refers to a new table with proposition options
 	first_name varchar(20) DEFAULT '',
 	last_name varchar(20) DEFAULT '',
-	date_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP -- Keeps the submissions timestamp
+	date_time datetime NOT NULL, -- Keeps the submissions timestamp
 	PRIMARY KEY (uacc_id, position),
 	FOREIGN KEY (proposition_id) REFERENCES propositions (proposition_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE, -- New
