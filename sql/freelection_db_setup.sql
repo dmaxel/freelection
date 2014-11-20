@@ -29,7 +29,7 @@ CREATE TABLE elections (
 DROP TABLE IF EXISTS ballots;
 CREATE TABLE ballots (
 	position int unsigned NOT NULL AUTO_INCREMENT,
-	type int NOT NULL DEFAULT 0, -- (0 means candidate, 1 means y/n, 2 means proposition) Modified
+	type int NOT NULL DEFAULT 0, -- (0 means candidate, 1 means y/n, 2 means proposition)
 	election_id int unsigned NOT NULL,
 	title varchar(40) NOT NULL,
 	write_ins int NOT NULL DEFAULT 0, -- (0 means no, 1 means yes)
@@ -48,11 +48,12 @@ DROP TABLE IF EXISTS votes;
 CREATE TABLE votes (
 	uacc_id int unsigned NOT NULL,
 	position int unsigned NOT NULL,
-	vote_type int NOT NULL DEFAULT 0, -- (0 means normal, 1 means write-in) MODIFIED
+	vote_type int NOT NULL DEFAULT 0, -- (0 means normal, 1 means write-in)
 	candidate_id int unsigned,
-	proposition_id int unsigned, -- New refers to a new table with proposition options
+	proposition_id int unsigned, -- Refers to a new table with proposition options
 	first_name varchar(20) DEFAULT '',
 	last_name varchar(20) DEFAULT '',
+	date_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP -- Keeps the submissions timestamp
 	PRIMARY KEY (uacc_id, position),
 	FOREIGN KEY (proposition_id) REFERENCES propositions (proposition_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE, -- New
@@ -88,8 +89,8 @@ CREATE TABLE voting_eligibility (
 	position int unsigned NOT NULL,
 	uacc_id int unsigned NOT NULL,
 	PRIMARY KEY (position, uacc_id),
-	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE, -- New
-	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE -- New
+	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- -----------------------------
@@ -103,14 +104,14 @@ DROP TABLE IF EXISTS candidates;
 CREATE TABLE candidates (
 	candidate_id int unsigned NOT NULL AUTO_INCREMENT,
 	position int unsigned NOT NULL,
-	approved int unsigned NOT NULL DEFAULT 0, -- New
+	approved int unsigned NOT NULL DEFAULT 0,
 	first_name varchar(20) NOT NULL,
 	last_name varchar(20) NOT NULL,
 	uacc_id int unsigned NOT NULL,
 	description varchar(600) NOT NULL DEFAULT '',
 	PRIMARY KEY (candidate_id),
-	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
-	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE -- New
+	FOREIGN KEY (uacc_id) REFERENCES user_accounts (uacc_id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- -----------------------------

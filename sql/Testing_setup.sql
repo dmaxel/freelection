@@ -10,7 +10,7 @@ SET FOREIGN_KEY_CHECKS=0;
 	INSERT INTO elections (election_id, election_title, description, registration_window_start,
 	registration_window_end, voting_window_start, voting_window_end)
 	VALUES (1, 'Eng Student Body \'14','This election is for the engineering student body',
-	'2014-11-01 00:00:00','2014-11-06 00:00:00', '2014-11-07 00:00:00',
+	'2014-11-01 00:00:00','2014-12-20 00:00:00', '2014-11-07 00:00:00',
 	'2014-12-25 00:00:00');
 	INSERT INTO ballots (position, type, election_id, title, write_ins)
 	VALUES (1, 0, 1, 'President', 0);
