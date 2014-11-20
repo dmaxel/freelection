@@ -105,6 +105,12 @@ class Admin extends CI_Controller {
         $this->load->view('templates/footer');
     }
     
+    public function edit_user(){
+        $this->load->view('templates/header', $this->data);
+        $this->load->view('update_user');
+        $this->load->view('templates/footer');
+    }
+
     public function new_election(){
         $this->load->view('templates/header', $this->data);
         $this->load->view('new_election');
