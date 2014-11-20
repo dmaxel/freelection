@@ -54,6 +54,7 @@
             <h1 class="btn-custom">Freelection</h1>
             <i class="fa fa-check-square-o fa-5x btn-custom"></i>
           </div>
+		 
 		  <?php echo form_open('login/doLogin'); 
              $data = array(
 						'name' => 'username_field',

@@ -5,56 +5,114 @@
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4">
-            <a href="view_users.html"><button class="btn btn-danger btn-xs" id="delete">Delete</button></a>
+            <a href="index.php/admin/delete/<? echo $user['uacc_id']; ?>"><button class="btn btn-danger btn-xs" id="delete">Delete</button></a>
           </div>
         </div>
-        <form>
+        <? echo form_open('admin/update_user/'.$user['uacc_id']); ?>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
-            User Real Name
+            <?
+			//echo $user['uacc_firname']." ".$user['uacc_lastname'];
+	        $data = array(
+	             'name' => 'firstname_field',
+	             'placeholder' => 'First Name',
+	       	  	 'value' => $user['uacc_firstname']
+	             );
+	        echo form_input($data);
+	        $data = array(
+	             'name' => 'lastname_field',
+	             'placeholder' => 'Last Name',
+	       	  	 'value' => $user['uacc_lastname']
+	             );
+	        echo form_input($data);
+			?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
-            <select name="election">
-              <option value="candidate1">Election 1</option>
-              <option value="candidate2">Election 2</option>
-              <option value="candidate3">Election 3</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="username" placeholder="Username">
-          </div>
-          <div class="col-sm-6" style="margin-top:20px">
-            <select name="role">
-              <option value="voter">Voter</option>
-              <option value="candidate">Candidate</option>
-              <option value="monitor">Monitor</option>
-              <option value="admin">Admin</option>
-            </select>
+            <? echo $user['election_title']; ?>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="major" placeholder="Major">
+            <? echo $user['uacc_username']; ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="email" placeholder="Email">
+            <?
+			if($user['uacc_group_fk'] == 1)
+			{
+				echo "Admin";
+			}
+			else if($user['uacc_group_fk'] == 2)
+			{
+				echo "Election Monitor";
+			}
+			else if($user['uacc_group_fk'] == 3)
+			{
+				echo "Candidate";
+			}
+			else if($user['uacc_group_fk'] == 4)
+			{
+				echo "Voter";
+			}
+			?>
           </div>
         </div>
-        <div id="candidate_position_container" style="margin-top:20px">
-          <select name="role">
-            <option value="position1">Position 1</option>
-            <option value="position2">Position 2</option>
-            <option value="position3">Position 3</option>
-            <option value="position4">Position 4</option>
-          </select>
+        <div class="row">
+          <div class="col-sm-6" style="margin-top:20px"> 
+			<?
+			$data = array(
+	             'name' => 'major_field',
+	             'placeholder' => 'Major',
+	       	  	 'value' => $user['uacc_major']
+	             );
+	        echo form_input($data);
+			?>
+          </div>
+          <div class="col-sm-6" style="margin-top:20px">
+			<?
+			$data = array(
+	             'name' => 'email_field',
+	             'placeholder' => 'Email',
+	       	  	 'value' => $user['uacc_email']
+	             );
+	        echo form_input($data);
+			?>
+          </div>
         </div>
+		<div id="candidate_position_container" style="margin-top:20px">
+		<?
+		if($user['uacc_group_fk'] == 3)
+		{
+			foreach($positions as $position)
+			{
+	        	$options[$position['position']] = $position['title'];
+			}
+			echo form_dropdown('available_positions', $options, $candidate['position'], 'style="margin-bottom:10px"');
+		}
+		?>
+		</div>
         <div id="candidate_description_container" style="margin-top:20px">
-          <input type="text" name="candidate_description" placeholder="Candidate Description" style="height:70px; width:200px">
+			<?
+			if($user['uacc_group_fk'] == 3)
+			{
+			$data = array(
+	             'name' => 'description_field',
+	             'placeholder' => 'Candidate Description',
+	       	  	 'value' => $candidate['description']
+	             );
+	        echo form_textarea($data);	
+			}
+			?>
+          <!-- <input type="textarea" name="candidate_description" value="description" style="height:70px; width:200px"> -->
         </div>
-        </form>
         <div id="update_button_container" style="margin-left: auto; margin-right: auto; margin-top: 60px">
-          <a href="view_users.html"><button class="btn btn-xs btn-default" id="update_user">Update</button></a>
+	      <?
+	      $data = array(
+	           'name' => 'updateuser',
+	           'value' => 'Update User',
+	           'class' => 'btn btn-xs btn-default'
+	           ); 
+	      echo form_submit($data, 'Update User');
+		  echo form_close();
+		  ?>
         </div>
  

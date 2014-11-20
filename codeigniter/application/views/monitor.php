@@ -1,43 +1,70 @@
-        <form>
+        <form action="http://giogottardi.me/freelection/index.php/monitor" method="post">
         <div class="row">
           <div class="col-sm-6">
-            <select name="candidates">
-              <option value="candidate1">Election 1</option>
-              <option value="candidate2">Election 2</option>
-              <option value="candidate3">Election 3</option>
-            </select>
-            <div style="margin-top:10px">Election Description</div>
+            <?php
+            echo '<strong>' . $election_title . '</strong>';
+            ?>
+            <div style="margin-top:10px">
+            <?php 
+            echo $election_description;           
+            ?>
+            </div>
           </div>
           <div class="col-sm-6">
-            <select name="candidates">
-              <option value="candidate1">Candidate 1</option>
-              <option value="candidate2">Candidate 2</option>
-              <option value="candidate3">Candidate 3</option>
-            </select>
-            <div style="margin-top:10px">Candidate Description</div>
+            <?php
+            $form_options = 'onChange="this.form.submit()"';
+            echo form_dropdown('candidate_dropdown', $candidate_options, $selected_candidate_id, $form_options);
+            ?>
+            <div style="margin-top:10px">
+                <?php
+              if ($selected_candidate_id != -1)
+                echo $selected_cand_desc;
+              else
+                echo "Select a Candidate";
+              ?>
+            </div>
           </div>
         </div>
         </form>
         <div class="row" style="margin-top:10px">
           <div class="col-sm-6">
-            Election Window
+          <?php
+            $start_time = strtotime($election_window['voting_window_start']);
+			$formatted_start = date("M d, Y g:i A", $start_time);
+			
+			$end_time = strtotime($election_window['voting_window_end']);
+			$formatted_end = date("M d, Y g:i A", $end_time);
+			
+			echo "<strong>Voting Window:</strong><br>";
+			echo $formatted_start;
+			echo "<br>";
+			echo "until";
+			echo "<br>";
+			echo $formatted_end;
+          ?>
           </div>
           <div class="col-sm-6">
           </div>
         </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-sm-6">
-            <div>Position</div>
-            <canvas id="position1" height="100" width="100"></canvas>
-          </div>
-          <div class="col-sm-6">
-            <div>Position</div>
-            <canvas id="position2" height="100" width="100"></canvas>
-          </div>
-        </div>
-        <div id="votes_graph" style="margin-top:20px">
-          <canvas id="votes" height="200" width="400"></canvas>
-        </div>
+          <?php
+          $i = 0;
+          // display charts for each position in the election, two per row
+          foreach ($election_positions as $position)
+          {
+              if ($i == 0)
+                echo '<div class="row" style="margin-top:10px">';
+          
+              echo '<div class="col-sm-6">';
+              echo '<div>' . $position['title'] . '</div>';
+              echo '<canvas id="' . $position['position'] . '" height="125" width="125"></canvas>';
+              echo '</div>';
+              
+              if ($i == 0)
+                echo '</div">';
+              
+              $i = ($i + 1) % 2;
+          }
+          ?>   
       </div>
     </div>
     <div class="footer">
@@ -53,77 +80,35 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/Chart/Chart.js"></script>
     <script>
-      var ctx1 = document.getElementById("position1").getContext("2d");
-      var ctx2 = document.getElementById("position2").getContext("2d");
-      var ctx3 = document.getElementById("votes").getContext("2d");
-      var data1 = [
-          {
-              value: 300,
-              color:"#F7464A",
-              highlight: "#FF5A5E",
-              label: "Candidate 1"
-          },
-          {
-              value: 50,
-              color: "#46BFBD",
-              highlight: "#5AD3D1",
-              label: "Candidate 2"
-          },
-          {
-              value: 100,
-              color: "#FDB45C",
-              highlight: "#FFC870",
-              label: "Candidate 3"
-          }
-      ]
-      var data2 = [
-          {
-              value: 200,
-              color:"#F7464A",
-              highlight: "#FF5A5E",
-              label: "Candidate 1"
-          },
-          {
-              value: 100,
-              color: "#46BFBD",
-              highlight: "#5AD3D1",
-              label: "Candidate 2"
-          },
-          {
-              value: 80,
-              color: "#FDB45C",
-              highlight: "#FFC870",
-              label: "Candidate 3"
-          }
-      ]
-      var data3 = {
-          labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          datasets: [
-              {
-                  label: "Election 1",
-                  fillColor: "rgba(220,220,220,0.2)",
-                  strokeColor: "rgba(220,220,220,1)",
-                  pointColor: "rgba(220,220,220,1)",
-                  pointStrokeColor: "#fff",
-                  pointHighlightFill: "#fff",
-                  pointHighlightStroke: "rgba(220,220,220,1)",
-                  data: [10, 33, 41, 57, 80, 90, 105]
-              },
-              {
-                  label: "Election 2",
-                  fillColor: "rgba(151,187,205,0.2)",
-                  strokeColor: "rgba(151,187,205,1)",
-                  pointColor: "rgba(151,187,205,1)",
-                  pointStrokeColor: "#fff",
-                  pointHighlightFill: "#fff",
-                  pointHighlightStroke: "rgba(151,187,205,1)",
-                  data: [5, 12, 26, 40, 57, 80, 97]
-              }
-          ]
-      };
-      var position1 = new Chart(ctx1).Doughnut(data1,{height:100,width:100});
-      var position2 = new Chart(ctx2).Doughnut(data2,{height:100,width:100});
-      var votes = new Chart(ctx3).Line(data3,{height:200,width:400});
+      var i = 0;
+      var colors = ["#FF001A", "#005AFF", "#9AFF00", "#00FF35", "#FFA500", "#6500FF", "#FF00D9", "#9AFF00" ];
+      var position_charts = [];
+      
+      // create chart for each position
+      <?php foreach ($election_positions as $position): ?>
+        var ctx = document.getElementById("<? echo $position['position']; ?>").getContext("2d");
+        var data = [];
+        i = 0;
+        <?php foreach ($position['votes'] as $vote): ?> 
+            data.push({
+              value: <?php echo $vote['sum(uacc_vote_weight)']; ?>, // number of votes for this candidate
+              color: colors[i],
+              highlight: "",
+              label: "<?php echo $vote['first_name'] . ' ' . $vote['last_name']; ?>"
+            });
+            i = (i + 1) % colors.length;
+        <?php endforeach; ?>
+        <?php if ($position['writein_votes'] != NULL):?>
+            data.push({
+              value: <?php echo $position['writein_votes']; ?>, // number of votes for this candidate
+              color: colors[i],
+              highlight: "",
+              label: "write-in votes"
+            });
+            i = (i + 1) % colors.length;
+        <?php endif; ?>
+        position_charts.push(new Chart(ctx).Pie(data,{height:125,width:125}));
+      <?php endforeach; ?>
     </script>
   </body>
 </html>

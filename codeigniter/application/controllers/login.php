@@ -44,6 +44,7 @@ class Login extends CI_Controller {
 	}
 	
 	public function loadLoginPage(){
+
 		$this->load->view('login');
 	}
 	

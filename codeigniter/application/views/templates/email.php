@@ -1,1 +1,1 @@
-This is a test email
+This is an email

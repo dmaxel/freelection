@@ -7,53 +7,108 @@
           <div class="col-sm-4">
           </div>
         </div>
-        <form>
+        <? echo form_open('admin/insert_user'); ?>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
             <input type="text" name="first_name" placeholder="First Name">
             <input type="text" name="last_name" placeholder="Last Name">
+            <?
+	        $data = array(
+	             'name' => 'firstname_field',
+	             'placeholder' => 'First Name',
+				 'value' => $saved_firstname
+	             );
+	        echo form_input($data);
+	        $data = array(
+	             'name' => 'lastname_field',
+	             'placeholder' => 'Last Name',
+				 'value' => $saved_lastname
+	             );
+	        echo form_input($data);
+			?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
-            <select name="election">
-              <option value="candidate1">Election 1</option>
-              <option value="candidate2">Election 2</option>
-              <option value="candidate3">Election 3</option>
-            </select>
+			<?
+			foreach($elections as $election)
+			{
+		       	$options[$election['election_id']] = $election['election_title'];
+			}
+			echo form_dropdown('elections', $options, $saved_election, 'onChange="this.form.submit()" style="margin-bottom:10px"');
+			?>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="username" placeholder="Username">
+            <?
+	        $data = array(
+	             'name' => 'username_field',
+	             'placeholder' => 'Username',
+				 'value' => $saved_username
+	             );
+	        echo form_input($data);
+	        $data = array(
+	             'name' => 'password_field',
+				 'type' => 'password',
+	             'placeholder' => 'Password',
+	             );
+	        echo form_input($data);
+			?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
-            <select name="role">
-              <option value="voter">Voter</option>
-              <option value="candidate">Candidate</option>
-              <option value="monitor">Monitor</option>
-              <option value="admin">Admin</option>
-            </select>
+            <?
+            $options[1] = "Admin";
+			$options[2] = "Election Monitor";
+			$options[3] = "Candidate";
+			$options[4] = "Voter";
+			echo form_dropdown('user_type', $options, $saved_type, 'onChange="this.form.submit()" style="margin-bottom:10px"');
+            ?>
           </div>
         </div>
-        </form>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="major" placeholder="Major">
+            <?
+	        $data = array(
+	             'name' => 'major_field',
+	             'placeholder' => 'Major',
+				 'value' => $saved_major
+	             );
+	        echo form_input($data);
+            ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="email" placeholder="Email">
+            <?
+	        $data = array(
+	             'name' => 'email_field',
+	             'placeholder' => 'Email',
+				 'value' => $saved_email
+	             );
+	        echo form_input($data);
+            ?>
           </div>
         </div>
         <div id="candidate_position_container" style="margin-top:20px">
-          <select name="role">
-            <option value="position1">Position 1</option>
-            <option value="position2">Position 2</option>
-            <option value="position3">Position 3</option>
-            <option value="position4">Position 4</option>
-          </select>
+          <?
+          if($saved_type == 3)
+		  {
+			  $options = array();
+			  foreach($positions as $position)
+			  {
+				  $options[$position['position']] = $position['title'];
+			  }
+			  echo form_dropdown('positions', $options, 0, 'style="margin-bottom:10px"');
+		  }
+          ?>
         </div>
         <div id="candidate_description_container" style="margin-top:20px">
-          <input type="text" name="candidate_description" placeholder="Candidate Description" style="height:70px; width:200px">
         </div>
         <div id="create_button_container" style="margin-left: auto; margin-right: auto; margin-top: 60px">
-          <a href="view_users.html"><button class="btn btn-xs btn-default" id="create_user">Create</button></a>
+		<?
+     	 $data = array(
+     		  	'name' => 'createuser',
+     			'value' => 'Create',
+     		   	'class' => 'btn btn-xs btn-default'
+     			); 
+         echo form_submit($data, 'Create');
+	 	 echo form_close();		
+		?>
         </div>

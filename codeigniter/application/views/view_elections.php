@@ -9,61 +9,97 @@
           </div>
         </div>
         <div class="row">
-          <form>
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4" style="margin-top:10px">
-            <select name="election" style="margin-bottom:10px">
               <?php
-              foreach ($elections as $election)
-                echo "<option value=" . $election['election_id'] . ">" . $election['election_title'] . "</option>";
+              // $form_options = 'style="margin-bottom:10px" onChange="this.form.submit()"';
+              // echo form_open('view_elections');
+              // echo form_dropdown('election_dropdown', $election_options, $selected_election_id, $form_options);
+              // echo form_close();
               ?>
-            </select>
           </div>
           <div class="col-sm-4">
           </div>
         </div>
+        <form id="update" method="post" accept-charset="utf-8 action="http://giogottardi.me/freelection/index.php/view_elections">
+        <input name="current_election" type="hidden" value="<?php //echo $selected_election_id ?>"></input>
         <div id="election_description_container">
-          <input type="text" name="election_description" placeholder="Election Description" style="width:300px; height:70px; margin-bottom: 10px">
+          <textarea name="election_description" style="width:300px; height:70px; margin-bottom: 10px"><?php //echo $selected_elec_desc; ?></textarea>
         </div>
+        <div style="margin-top:20px">Registration Window</div>
         <div class="row">
-          <div class="col-sm-6" style="margin-top:10px">
-            <input type="text" name="election_window" placeholder="Election Window">
+          <div class="col-sm-6" style="margin-top:20px">
+            <label for="registration_start">Start</label>
+            <input style="width: 100px" type="text" name="registration_start" value="<?php //echo $reg_start_day_selected; ?>"></input>
+            <?php
+              // echo form_dropdown('reg_hour_start_dropdown', $hour_options, $reg_start_hour_selected);
+            ?>
           </div>
-          <div class="col-sm-6" style="margin-top:10px">
-            <input type="text" name="registration_window" placeholder="Registration Window">
-          </div>
-        </div>
-        <div class="row" style="margin-top:10px">
-          <div class="col-sm-6">
-            Position
-          </div>
-          <div class="col-sm-6">
-            <select name="candidates" style="margin-bottom:10px">
-              <option value="candidate1">Candidate 1</option>
-              <option value="candidate2">Candidate 2</option>
-              <option value="candidate3">Candidate 3</option>
-            </select>
+          <div class="col-sm-6" style="margin-top:20px">
+          <label for="registration_end">End</label>
+            <input style="width: 100px" type="text" name="registration_end" value="<?php //echo $reg_end_day_selected; ?>">
+            <?php
+             // echo form_dropdown('reg_hour_end_dropdown', $hour_options, $reg_end_hour_selected);
+            ?>
           </div>
         </div>
+        <div style="margin-top:20px">Voting Window</div>
         <div class="row">
-          <div class="col-sm-6">
-            Position
+          <div class="col-sm-6" style="margin-top:20px">
+            <label for="election_start">Start</label>
+            <input style="width: 100px" type="text" name="election_start" value="<?php //echo $vote_start_day_selected; ?>">
+            <?php
+             // echo form_dropdown('vote_hour_start_dropdown', $hour_options, $vote_start_hour_selected);
+            ?>
           </div>
-          <div class="col-sm-6">
-            <select name="candidates2" style="margin-bottom:10px">
-              <option value="candidate1">Candidate 1</option>
-              <option value="candidate2">Candidate 2</option>
-              <option value="candidate3">Candidate 3</option>
-            </select>
+          <div class="col-sm-6" style="margin-top:20px">
+            <label for="election_end">End</label>
+            <input style="width: 100px" type="text" name="election_end" value="<?php //echo $vote_end_day_selected; ?>">
+            <?php
+             // echo form_dropdown('vote_hour_end_dropdown', $hour_options, $vote_end_hour_selected);
+            ?>
           </div>
         </div>
         </form>
+        <div class="row" style="margin-top:10px">
+          <?php
+            // create positon + candidates dropdown rows
+            // if ($selected_election_id != -1)
+                // foreach ($election_positions as $position)
+                // {
+                    // echo '<div class="row" style="margin-top:10px">';
+                    
+                    // echo '<div class="col-sm-6">';
+                    // echo $position['title'];
+                    // echo '</div>';
+                    
+                    // echo '<div class="col-sm-6">';
+                    // // candidates in this position dropdown
+                    // echo '<select name="candidates" style="margin-bottom:10px">';
+                    // foreach ($position['candidates_list'] as $candidate)
+                    // {
+                        // echo '<option value="">'. $candidate['first_name'] . ' ' . $candidate['last_name'] . '</option>';
+                    // }
+                    // echo '</select>';
+                    // echo '</div>';
+                    
+                    // echo '</div>';
+                // }
+          ?>
+        </div>
         <div class="row" style="margin-top:20px">
           <div class="col-sm-6" style="margin-top:20px">
-            <a href="admin.html"><button class="btn btn-xs btn-danger" id="delete_button">Delete</button></a>
+            <?php if ($selected_election_id != -1): ?>
+            <a href="http://giogottardi.me/freelection/index.php/view_elections/delete_election/<?php //echo $selected_election_id ?>">
+            <?php endif; ?>
+            <button class="btn btn-xs btn-danger" id="delete_button">Delete</button>
+            <?php //if ($selected_election_id != -1): ?>
+            </a>
+            <?php //endif; ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
-            <a href="admin.html"><button class="btn btn-xs btn-default" id="update_button">Update</button></a>
+            <button class="btn btn-xs btn-default" id="update_button" onClick="document.forms['update'].submit();">Update</button>
           </div>
+          
         </div>
