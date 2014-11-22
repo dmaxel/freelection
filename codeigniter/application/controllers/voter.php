@@ -209,7 +209,7 @@ class Voter extends CI_Controller {
 			}
 		}
 		// Take the voter back to the voter page
-		redirect('');
+		$this->load->view('votingConfirmation');
 	}
 }
 ?>
