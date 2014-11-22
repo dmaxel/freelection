@@ -130,7 +130,7 @@ class Voter extends CI_Controller {
 			// Submit a new vote for a normal position
 			if($positions['type'] == 0 && $userVoted == FALSE)
 			{
-				$position = $poisitions['position'];
+				$position = $positions['position'];
 				$candidate_id = $this->input->post('choices'.$positions['position']);
 				// Write-in vote
 				if($candidate_id == -1)
