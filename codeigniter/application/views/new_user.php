@@ -10,8 +10,6 @@
         <? echo form_open('admin/insert_user'); ?>
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
-            <input type="text" name="first_name" placeholder="First Name">
-            <input type="text" name="last_name" placeholder="Last Name">
             <?
 	        $data = array(
 	             'name' => 'firstname_field',
