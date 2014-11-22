@@ -23,9 +23,9 @@
           </div>
         </div>
         <form id="update" method="post" accept-charset="utf-8 action="http://giogottardi.me/freelection/index.php/view_elections">
-        <input name="current_election" type="hidden" value="<?php //echo $selected_election_id ?>"></input>
+        <input name="current_election" type="hidden" value="<?php echo $selected_election_id ?>"></input>
         <div id="election_description_container">
-          <textarea name="election_description" style="width:300px; height:70px; margin-bottom: 10px"><?php //echo $selected_elec_desc; ?></textarea>
+          <textarea name="election_description" style="width:300px; height:70px; margin-bottom: 10px"><?php secho $selected_elec_desc; ?></textarea>
         </div>
         <div style="margin-top:20px">Registration Window</div>
         <div class="row">
