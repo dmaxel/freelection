@@ -325,11 +325,6 @@ error_reporting(-1);
 		}
 	}
     
-    public function edit_user(){
-        $this->load->view('templates/header', $this->data);
-        $this->load->view('update_user');
-        $this->load->view('templates/footer');
-    }
 	public function edit_user($userID){
 		$userID = $this->general_model->getUserID();
 
