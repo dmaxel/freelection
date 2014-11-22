@@ -13,10 +13,10 @@
           </div>
           <div class="col-sm-4" style="margin-top:10px">
               <?php
-              // $form_options = 'style="margin-bottom:10px" onChange="this.form.submit()"';
-              // echo form_open('view_elections');
-              // echo form_dropdown('election_dropdown', $election_options, $selected_election_id, $form_options);
-              // echo form_close();
+              $form_options = 'style="margin-bottom:10px" onChange="this.form.submit()"';
+              echo form_open('view_elections');
+              echo form_dropdown('election_dropdown', $election_options, $selected_election_id, $form_options);
+              echo form_close();
               ?>
           </div>
           <div class="col-sm-4">

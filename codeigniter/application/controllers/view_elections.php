@@ -1,81 +1,105 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-    
-class View_Elections extends CI_Controller {
-    public function __construct(){
-	    parent::__construct();
-	    $this->auth = new stdClass;
-		$this->load->model('general_model');
-        
-        // check if logged in as admin
-		$loggedIn = $this->general_model->checkIfLoggedIn();
-		$groupID = $this->general_model->getGroupID();
-        
-        // redirect to homepage if not logged in or incorrect id
-        if($loggedIn === FALSE || $groupID !== 1)
-        {
-            redirect('');
-        }
-	}
-    
-    public function index(){
-        $data['username'] = $this->general_model->getUsername();
-        
-        // get all the elections
-        $data['elections'] = $this->general_model->getElectionInfoList();
-        
-        $data['election_options'] = array();
-        $data['election_options'][-1] = "Select an Election";
-        foreach ($data['elections'] as $election)
-        {
-            $data['election_options'][$election['election_id']] = $election['election_title'];
-        }
-        
-        if ($this->input->post('election_dropdown'))
-        {
-            $data['selected_election_id'] = $this->input->post('election_dropdown');
-            foreach ($data['elections'] as $election)
-            {
-                if ($election['election_id'] == $data['selected_election_id'])
-                {
-                    $data['selected_elec_desc'] = $election['description'];
-                }
-                $data['election_options'][$election['election_id']] = $election['election_title'];
-            }
-        }
-        else
-        {
-            $data['selected_election_id'] = -1;
-        }
-//$data['selected_election_id'] = 1;
-        if ($data['selected_election_id'] != -1)
-        {
-            $data['election_positions'] = $this->general_model->getPositionsForElection($data['selected_election_id']);
-            $numPositions = count($data['election_positions']);
-            for ($i = 0; $i < $numPositions; $i++)
-            {   
-                $position_id = $data['election_positions'][$i]['position'];
-                $this_pos_candidates = $this->general_model->getCandidatesForPosition($position_id);
-                $data['election_positions'][$i]['candidates_list'] = $this_pos_candidates;
-            }
-        }
-        else
-            $data['selected_elec_desc'] = "Select an Election";
-            
-        // check for form input
-        if ($this->input->post('election_description'))
-        {
-            $new_description = $this->input->post('election_description');
-            echo $new_description;
-            exit;
-        }
-            
-        // echo '<pre>';
-        // var_dump($data);
-        // echo '</pre>';
-        // exit;
-            
-        $this->load->view('templates/header', $data);
-        $this->load->view('view_elections', $data);
-        $this->load->view('templates/footer');        
-    }
-}
+        <div class="row" style="margin-top:-20px">
+          <div class="col-sm-4">
+            <a href="index.php/admin"><button class="btn btn-default btn-xs" id="back">Back</button></a>
+          </div>
+          <div class="col-sm-4">
+          </div>
+          <div class="col-sm-4">
+            <a href="index.php/admin/new_election"><button class="btn btn-default btn-xs" id="back">New Election</button></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+          </div>
+          <div class="col-sm-4" style="margin-top:10px">
+              <?php
+              $form_options = 'style="margin-bottom:10px" onChange="this.form.submit()"';
+              echo form_open('view_elections');
+              echo form_dropdown('election_dropdown', $election_options, $selected_election_id, $form_options);
+              echo form_close();
+              ?>
+          </div>
+          <div class="col-sm-4">
+          </div>
+        </div>
+        <form id="update" method="post" accept-charset="utf-8 action="http://giogottardi.me/freelection/index.php/view_elections">
+        <input name="current_election" type="hidden" value="<?php echo $selected_election_id ?>"></input>
+        <div id="election_description_container">
+          <textarea name="election_description" style="width:300px; height:70px; margin-bottom: 10px"><?php echo $selected_elec_desc; ?></textarea>
+        </div>
+        <div style="margin-top:20px">Registration Window</div>
+        <div class="row">
+          <div class="col-sm-6" style="margin-top:20px">
+            <label for="registration_start">Start</label>
+            <input style="width: 100px" type="text" name="registration_start" value="<?php //echo $reg_start_day_selected; ?>"></input>
+            <?php
+              // echo form_dropdown('reg_hour_start_dropdown', $hour_options, $reg_start_hour_selected);
+            ?>
+          </div>
+          <div class="col-sm-6" style="margin-top:20px">
+          <label for="registration_end">End</label>
+            <input style="width: 100px" type="text" name="registration_end" value="<?php //echo $reg_end_day_selected; ?>">
+            <?php
+             // echo form_dropdown('reg_hour_end_dropdown', $hour_options, $reg_end_hour_selected);
+            ?>
+          </div>
+        </div>
+        <div style="margin-top:20px">Voting Window</div>
+        <div class="row">
+          <div class="col-sm-6" style="margin-top:20px">
+            <label for="election_start">Start</label>
+            <input style="width: 100px" type="text" name="election_start" value="<?php //echo $vote_start_day_selected; ?>">
+            <?php
+             // echo form_dropdown('vote_hour_start_dropdown', $hour_options, $vote_start_hour_selected);
+            ?>
+          </div>
+          <div class="col-sm-6" style="margin-top:20px">
+            <label for="election_end">End</label>
+            <input style="width: 100px" type="text" name="election_end" value="<?php //echo $vote_end_day_selected; ?>">
+            <?php
+             // echo form_dropdown('vote_hour_end_dropdown', $hour_options, $vote_end_hour_selected);
+            ?>
+          </div>
+        </div>
+        </form>
+        <div class="row" style="margin-top:10px">
+          <?php
+            // create positon + candidates dropdown rows
+            // if ($selected_election_id != -1)
+                // foreach ($election_positions as $position)
+                // {
+                    // echo '<div class="row" style="margin-top:10px">';
+                    
+                    // echo '<div class="col-sm-6">';
+                    // echo $position['title'];
+                    // echo '</div>';
+                    
+                    // echo '<div class="col-sm-6">';
+                    // // candidates in this position dropdown
+                    // echo '<select name="candidates" style="margin-bottom:10px">';
+                    // foreach ($position['candidates_list'] as $candidate)
+                    // {
+                        // echo '<option value="">'. $candidate['first_name'] . ' ' . $candidate['last_name'] . '</option>';
+                    // }
+                    // echo '</select>';
+                    // echo '</div>';
+                    
+                    // echo '</div>';
+                // }
+          ?>
+        </div>
+        <div class="row" style="margin-top:20px">
+          <div class="col-sm-6" style="margin-top:20px">
+            <?php if ($selected_election_id != -1): ?>
+            <a href="http://giogottardi.me/freelection/index.php/view_elections/delete_election/<?php //echo $selected_election_id ?>">
+            <?php endif; ?>
+            <button class="btn btn-xs btn-danger" id="delete_button">Delete</button>
+            <?php //if ($selected_election_id != -1): ?>
+            </a>
+            <?php //endif; ?>
+          </div>
+          <div class="col-sm-6" style="margin-top:20px">
+            <button class="btn btn-xs btn-default" id="update_button" onClick="document.forms['update'].submit();">Update</button>
+          </div>
+          
+        </div>
