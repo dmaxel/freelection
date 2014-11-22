@@ -260,7 +260,7 @@ error_reporting(-1);
 			}
 			else
 			{
-				$this->general_model->entry_insert($data['saved_username'], $data['saved_password'], TRUE, $data['saved_election'], $data['saved_position'], $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				$this->general_model->entry_insert($data['saved_username'], $data['saved_password'], $data['saved_type'], $data['saved_election'], $data['saved_position'], $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
 				
 				$username = $data['saved_username'];
 				$password = $data['saved_password'];
@@ -297,7 +297,7 @@ error_reporting(-1);
 			}
 			else
 			{
-				$this->general_model->entry_insert($data['saved_username'], $data['saved_password'], FALSE, $data['saved_election'], 0, $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
+				$this->general_model->entry_insert($data['saved_username'], $data['saved_password'], $data['saved_type'], $data['saved_election'], 0, $data['saved_firstname'], $data['saved_lastname'], $data['saved_email'], $data['saved_major'], TRUE);
 				
 				$username = $data['saved_username'];
 				$password = $data['saved_password'];
