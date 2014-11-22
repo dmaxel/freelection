@@ -325,13 +325,11 @@ error_reporting(-1);
 		}
 	}
     
-<<<<<<< HEAD
     public function edit_user(){
         $this->load->view('templates/header', $this->data);
         $this->load->view('update_user');
         $this->load->view('templates/footer');
     }
-=======
 	public function edit_user($userID){
 		$userID = $this->general_model->getUserID();
 
@@ -376,7 +374,7 @@ error_reporting(-1);
 		
 		redirect('/admin/view_users');
 	}
->>>>>>> fdc1b1e8a084a047a5edfe9082dedb5d140bd4c2
+
 
     public function new_election(){
         redirect('/new_election');
