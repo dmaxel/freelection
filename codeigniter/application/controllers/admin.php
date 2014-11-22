@@ -325,13 +325,14 @@ error_reporting(-1);
 		}
 	}
     
-	public function edit_user($userID){
+	public function edit_user($editUserID){
+		$userID = $this->general_model->getUserID();
 
 		$realName = $this->general_model->getRealName($userID);
 		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
 		
-		$data['user'] = $this->general_model->getUserInfo($userID);
+		$data['user'] = $this->general_model->getUserInfo($editUserID);
 		$data['candidate'] = NULL;
 		$data['positions'] = NULL;
 		if($data['user']['uacc_group_fk'] == 1)
@@ -344,8 +345,8 @@ error_reporting(-1);
 		}
 		if($data['user']['uacc_group_fk'] == 3)
 		{
-			$data['candidate'] = $this->general_model->getCandidate($userID);
-			$data['positions'] = $this->general_model->getPositionsForCandidate($userID);
+			$data['candidate'] = $this->general_model->getCandidate($editUserID);
+			$data['positions'] = $this->general_model->getPositionsForCandidate($editUserID);
 		}
         $this->load->view('update_user', $data);
         $this->load->view('templates/footer');
