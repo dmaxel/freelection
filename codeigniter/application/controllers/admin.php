@@ -326,7 +326,6 @@ error_reporting(-1);
 	}
     
 	public function edit_user($userID){
-		$userID = $this->general_model->getUserID();
 
 		$realName = $this->general_model->getRealName($userID);
 		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
