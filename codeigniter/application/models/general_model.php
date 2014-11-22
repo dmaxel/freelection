@@ -22,16 +22,16 @@ class General_Model extends CI_Model {
 		$this->flexi_auth->logout($input);
 	}
 	
-	public function entry_insert($username, $password, $candidate, $election, $position, $firstname, $lastname, $email, $major, $activate){
+	public function entry_insert($username, $password, $type, $election, $position, $firstname, $lastname, $email, $major, $activate){
 		$this->load->library('flexi_auth');
 		$user_data = array(
 			'uacc_firstname' => $firstname,
 			'uacc_lastname' => $lastname,
 			'uacc_major' => $major
 		);
-		if($candidate == TRUE)
+		if($type == 3)
 		{
-			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 3, $activate);
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, $type, $activate);
 			
 			$t_activate = NULL;
 			if($activate == TRUE)
@@ -47,13 +47,16 @@ class General_Model extends CI_Model {
 		}
 		else
 		{
-			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, 4, $activate);
+			$new_userID = $this->flexi_auth->insert_user($email, $username, $password, $user_data, $type, $activate);
 			
-			$positions = $this->getPositionsForElection($election);
-			foreach($positions as $each)
+			if($type == 2 || $type == 4)
 			{
-				$_position = $each['position'];
-				$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($_position, $new_userID)");
+				$positions = $this->getPositionsForElection($election);
+				foreach($positions as $each)
+				{
+					$_position = $each['position'];
+					$this->db->query("INSERT INTO voting_eligibility (position, uacc_id) VALUES ($_position, $new_userID)");
+				}
 			}
 		}
 	}
