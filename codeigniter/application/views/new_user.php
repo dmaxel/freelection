@@ -27,11 +27,14 @@
           </div>
           <div class="col-sm-6" style="margin-top:20px">
 			<?
-			foreach($elections as $election)
+			if($saved_type != 1)
 			{
-		       	$options[$election['election_id']] = $election['election_title'];
+				foreach($elections as $election)
+				{
+			       	$options[$election['election_id']] = $election['election_title'];
+				}
+				echo form_dropdown('elections', $options, $saved_election, 'onChange="this.form.submit()" style="margin-bottom:10px"');
 			}
-			echo form_dropdown('elections', $options, $saved_election, 'onChange="this.form.submit()" style="margin-bottom:10px"');
 			?>
           </div>
         </div>

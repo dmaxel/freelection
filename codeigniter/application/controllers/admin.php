@@ -288,7 +288,7 @@ error_reporting(-1);
 		}
 		else
 		{
-			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_username'] == NULL)
+			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_username'] == NULL)
 			{
 				//$temp['username'] = $this->general_model->getUsername();
 		        //$this->load->view('templates/header', $temp);
