@@ -62,6 +62,5 @@ class New_Election extends CI_Controller {
 		}
 		$this->load->view('templates/header', $data);
 		$this->load->view('new_election', $data);
-		$this->load->view('templates/footer');
 	}
 }
