@@ -31,16 +31,16 @@
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
             <label for="registration_start">Start</label>
-            <input style="width: 100px" type="text" name="registration_start" value="<?php //echo $reg_start_day_selected; ?>"></input>
+			<input style="width: 80px" type="text" class="datepicker" name="registration_start" value="<?php echo $reg_start_day_selected ?>" readonly>
             <?php
-              // echo form_dropdown('reg_hour_start_dropdown', $hour_options, $reg_start_hour_selected);
+            echo form_dropdown('reg_hour_start_dropdown', $hour_options, $reg_start_hour_selected);
             ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
           <label for="registration_end">End</label>
-            <input style="width: 100px" type="text" name="registration_end" value="<?php //echo $reg_end_day_selected; ?>">
+            <input style="width: 80px" type="text" class="datepicker" name="registration_end" value="<?php echo $reg_end_day_selected; ?>">
             <?php
-             // echo form_dropdown('reg_hour_end_dropdown', $hour_options, $reg_end_hour_selected);
+            echo form_dropdown('reg_hour_end_dropdown', $hour_options, $reg_end_hour_selected);
             ?>
           </div>
         </div>
@@ -48,16 +48,16 @@
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
             <label for="election_start">Start</label>
-            <input style="width: 100px" type="text" name="election_start" value="<?php //echo $vote_start_day_selected; ?>">
+            <input style="width: 80px" type="text" class="datepicker" name="election_start" value="<?php echo $vote_start_day_selected; ?>">
             <?php
-             // echo form_dropdown('vote_hour_start_dropdown', $hour_options, $vote_start_hour_selected);
+            echo form_dropdown('vote_hour_start_dropdown', $hour_options, $vote_start_hour_selected);
             ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
             <label for="election_end">End</label>
-            <input style="width: 100px" type="text" name="election_end" value="<?php //echo $vote_end_day_selected; ?>">
+            <input style="width: 80px" type="text" class="datepicker" name="election_end" value="<?php echo $vote_end_day_selected; ?>">
             <?php
-             // echo form_dropdown('vote_hour_end_dropdown', $hour_options, $vote_end_hour_selected);
+            echo form_dropdown('vote_hour_end_dropdown', $hour_options, $vote_end_hour_selected);
             ?>
           </div>
         </div>
@@ -65,27 +65,27 @@
         <div class="row" style="margin-top:10px">
           <?php
             // create positon + candidates dropdown rows
-            // if ($selected_election_id != -1)
-                // foreach ($election_positions as $position)
-                // {
-                    // echo '<div class="row" style="margin-top:10px">';
+            if ($selected_election_id != -1)
+                foreach ($election_positions as $position)
+                {
+                    echo '<div class="row" style="margin-top:10px">';
                     
-                    // echo '<div class="col-sm-6">';
-                    // echo $position['title'];
-                    // echo '</div>';
+                    echo '<div class="col-sm-6">';
+                    echo $position['title'];
+                    echo '</div>';
                     
-                    // echo '<div class="col-sm-6">';
-                    // // candidates in this position dropdown
-                    // echo '<select name="candidates" style="margin-bottom:10px">';
-                    // foreach ($position['candidates_list'] as $candidate)
-                    // {
-                        // echo '<option value="">'. $candidate['first_name'] . ' ' . $candidate['last_name'] . '</option>';
-                    // }
-                    // echo '</select>';
-                    // echo '</div>';
+                    echo '<div class="col-sm-6">';
+                    // candidates in this position dropdown
+                    echo '<select name="candidates" style="margin-bottom:10px">';
+                    foreach ($position['candidates_list'] as $candidate)
+                    {
+                        echo '<option value="">'. $candidate['first_name'] . ' ' . $candidate['last_name'] . '</option>';
+                    }
+                    echo '</select>';
+                    echo '</div>';
                     
-                    // echo '</div>';
-                // }
+                    echo '</div>';
+                }
           ?>
         </div>
         <div class="row" style="margin-top:20px">
@@ -103,3 +103,18 @@
           </div>
           
         </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui/jquery-ui.min.js"></script>
+    <script>
+      $(function() {
+      $( ".datepicker" ).datepicker({ 
+		  dateFormat: 'yy-mm-dd',
+		});
+  });
+  </script>
+  </body>
+</html>
