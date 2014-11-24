@@ -16,6 +16,7 @@ CREATE TABLE elections (
 	registration_window_end datetime NOT NULL,
 	voting_window_start datetime NOT NULL,
 	voting_window_end datetime NOT NULL,
+	last_emailed datetime NOT NULL DEFAULT '0000-00-00 00:00:00', -- New
 	PRIMARY KEY (election_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -53,7 +54,8 @@ CREATE TABLE votes (
 	proposition_id int unsigned, -- Refers to a new table with proposition options
 	first_name varchar(20) DEFAULT '',
 	last_name varchar(20) DEFAULT '',
-	date_time datetime NOT NULL, -- Keeps the submissions timestamp
+	date_time datetime NOT NULL DEFAULT '0000-00-00 00:00:00', -- Keeps the submissions timestamp
+	confirmation_number varchar(6) NOT NULL DEFAULT 0, -- New
 	PRIMARY KEY (uacc_id, position),
 	FOREIGN KEY (proposition_id) REFERENCES propositions (proposition_id) ON UPDATE CASCADE ON DELETE CASCADE, -- New
 	FOREIGN KEY (position) REFERENCES ballots (position) ON UPDATE CASCADE ON DELETE CASCADE, -- New
@@ -150,10 +152,9 @@ CREATE TABLE user_accounts (
   uacc_firstname varchar(20) NOT NULL DEFAULT '',
   uacc_lastname varchar(20) NOT NULL DEFAULT '',
   uacc_username varchar(15) NOT NULL DEFAULT '',
-  uacc_major varchar(20) DEFAULT '', -- New shows a user's major if applicable
+  uacc_major varchar(20) DEFAULT '',
   uacc_password varchar(60) NOT NULL DEFAULT '',
-  -- uacc_password_plain varchar(60) DEFAULT NULL,
-  uacc_vote_weight int unsigned NOT NULL DEFAULT 1, -- New vote weight
+  uacc_vote_weight int unsigned NOT NULL DEFAULT 1,
   uacc_ip_address varchar(40) NOT NULL DEFAULT '',
   uacc_salt varchar(40) NOT NULL DEFAULT '',
   uacc_activation_token varchar(40) NOT NULL DEFAULT '',
