@@ -101,7 +101,7 @@
         <div class="row" style="margin-top:20px">
           <div class="col-sm-6" style="margin-top:20px">
             <?php if ($selected_election_id != -1): ?>
-            <a href="http://giogottardi.me/freelection/index.php/view_elections/delete_election/<?php //echo $selected_election_id ?>">
+            <a href="http://giogottardi.me/freelection/index.php/view_elections/delete_election/<?php echo $selected_election_id ?>">
             <?php endif; ?>
             <button class="btn btn-xs btn-danger" id="delete_button">Delete</button>
             <?php //if ($selected_election_id != -1): ?>

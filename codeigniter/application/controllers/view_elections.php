@@ -50,6 +50,9 @@ class View_Elections extends CI_Controller {
         {
             $data['selected_election_id'] = -1;
         };
+		if ($this->input->post('current_election'))
+			$data['selected_election_id'] = $this->input->post('current_election');
+			
 		//$data['selected_election_id'] = 1;
 		//if an election is selected
         if ($data['selected_election_id'] != -1)
@@ -152,6 +155,10 @@ class View_Elections extends CI_Controller {
 	
 	public function delete_election($electionID)
 	{
-	
+		if ($electionID != -1)
+		{
+			$this->db->query("delete from elections where election_id = '$electionID'");
+		}
+		redirect('/view_elections');
 	}
 }
