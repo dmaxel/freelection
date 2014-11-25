@@ -101,7 +101,6 @@ var data3 = {
         var ctxs = document.getElementById("votes").getContext("2d");
         
         position_charts.push(new Chart(ctx).Pie(data,{height:125,width:125}));
-      <?php endforeach; ?>
       var votes = new Chart(ctx3).Bar(data3,{height:200,width:400});
     </script>
   </body>
