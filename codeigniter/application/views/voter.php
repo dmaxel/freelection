@@ -98,29 +98,7 @@ var data3 = {
       };
 
       // create chart for each position
-      <?php foreach ($election_positions as $position): ?>
-        var data = [];
-        i = 0;
-        <?php foreach ($position['votes'] as $vote): ?> 
-            data.push({
-              value: <?php echo $vote['sum(uacc_vote_weight)']; ?>, // number of votes for this candidate
-              color: colors[i],
-              highlight: "",
-              label: "<?php echo $vote['first_name'] . ' ' . $vote['last_name']; ?>"
-            });
-            i = (i + 1) % colors.length;
-        <?php endforeach; ?>
-        <?php if ($position['writein_votes'] != NULL):?>
-            data.push({
-              value: <?php echo $position['writein_votes']; ?>, // number of votes for this candidate
-              color: colors[i],
-              highlight: "",
-              label: "write-in votes"
-            });
-            i = (i + 1) % colors.length;
-        <?php endif; ?>
-        position_charts.push(new Chart(ctx).Pie(data,{height:125,width:125}));
-      <?php endforeach; ?>
+     
       var votes = new Chart(ctx3).Bar(data3,{height:200,width:400});
     </script>
   </body>
