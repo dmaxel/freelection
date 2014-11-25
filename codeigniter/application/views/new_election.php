@@ -85,7 +85,7 @@
                   $(wrapper).append('<div class="row"><div class="col-sm-4" style="margin-top:20px"><input type="text" placeholder="Position" name="pos[]"></div><div class="col-sm-3" style="margin-top:20px">Allow Write-In <input type="checkbox" name="writein[]"></div><div class="col-sm-3" style="margin-top:20px"></div><div class="col-sm-2" style="margin-top:6px"><button class="remove_field"><span class="fa fa-times"></span></button></div></div>'); //add input box
               }
           });
-          
+		  
           $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
               e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
           })
