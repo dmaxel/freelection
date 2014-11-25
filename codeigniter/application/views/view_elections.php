@@ -48,7 +48,7 @@
           </div>
           <div class="col-sm-6" style="margin-top:20px">
           <label for="registration_end">End</label>
-            <input style="width: 80px" type="text" class="datepicker" name="registration_end" value="<?php echo $reg_end_day_selected; ?>">
+            <input style="width: 80px" type="text" class="datepicker" name="registration_end" value="<?php echo $reg_end_day_selected; ?>" readonly>
             <?php
             echo form_dropdown('reg_hour_end_dropdown', $hour_options, $reg_end_hour_selected);
             ?>
@@ -58,14 +58,14 @@
         <div class="row">
           <div class="col-sm-6" style="margin-top:20px">
             <label for="election_start">Start</label>
-            <input style="width: 80px" type="text" class="datepicker" name="election_start" value="<?php echo $vote_start_day_selected; ?>">
+            <input style="width: 80px" type="text" class="datepicker" name="election_start" value="<?php echo $vote_start_day_selected; ?>" readonly>
             <?php
             echo form_dropdown('vote_hour_start_dropdown', $hour_options, $vote_start_hour_selected);
             ?>
           </div>
           <div class="col-sm-6" style="margin-top:20px">
             <label for="election_end">End</label>
-            <input style="width: 80px" type="text" class="datepicker" name="election_end" value="<?php echo $vote_end_day_selected; ?>">
+            <input style="width: 80px" type="text" class="datepicker" name="election_end" value="<?php echo $vote_end_day_selected; ?>" readonly>
             <?php
             echo form_dropdown('vote_hour_end_dropdown', $hour_options, $vote_end_hour_selected);
             ?>
