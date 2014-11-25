@@ -65,7 +65,6 @@ class Voter extends CI_Controller {
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
 		$this->load->view('voter', $data);
 		
-      $this->load->view('templates/footer');
 	}
 
 	// Load the voting window with the ballot information for that election
