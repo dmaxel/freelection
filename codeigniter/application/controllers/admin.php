@@ -31,7 +31,11 @@ class Admin extends CI_Controller {
 		$result = $query->row_array();
         return $result['election_title'];
 	}
-    
+	public function getVotesByHour($election_id, $begin_date_time, $end_date_time) {
+		$query = $this->db->query("select count(*) from votes where date_time between '$begin_date_time' and '$end_date_time' and position in (select position from ballots where election_id = '$election_id')");
+		$result = $query->row_array();
+		return $result["count(*)"];
+	}
 	public function index(){
     ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
@@ -141,7 +145,7 @@ error_reporting(-1);
 		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
 		$this->load->view('templates/header', $data);
 		$this->load->view('vote_search',$data);
-		$this->load->view('templates/footer' $data);
+		$this->load->view('templates/footer', $data);
 	}
 	
     public function view_users() {
