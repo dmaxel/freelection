@@ -103,6 +103,32 @@ error_reporting(-1);
                     $data['election_positions'][$i]['writein_votes'] = NULL;
                 $i++;
             }
+			// get previous 24 hours time-windows from current time
+			$date = new DateTime;
+
+			// subtract a day and add an hour to get start time for graph
+			$date->sub(new DateInterval('P1D'));
+			$date->add(new DateInterval('PT1H'));
+			$graph_time = $date->format("Y-m-d H:00:00");
+			$graph_time = new DateTime($graph_time);
+			
+			$data['votes_by_hour'] = array();
+			$data['vote_count_labels'] = array();
+			
+			for ($i = 0; $i < 24; $i++)
+			{
+				$interval_start = $graph_time->format("Y-m-d H:i:s");
+				$label = date("gA", strtotime($interval_start)) . "-";
+				
+				// increment by 1 hour
+				$graph_time->add(new DateInterval('PT1H'));
+				
+				$interval_end = $graph_time->format("Y-m-d H:i:s");
+				$label = $label . date("gA", strtotime($interval_end));
+
+				$data['votes_by_hour'][$i] = (int) $this->getVotesByHour($data['election_id'], $interval_start, $interval_end);
+				$data['vote_count_labels'][$i] = $label;
+			}
         }
         $this->load->view('admin', $data);
         $this->load->view('templates/footer');
