@@ -126,7 +126,7 @@ error_reporting(-1);
 				$interval_end = $graph_time->format("Y-m-d H:i:s");
 				$label = $label . date("gA", strtotime($interval_end));
 
-				$data['votes_by_hour'][$i] = (int) $this->getVotesByHour($data['election_id'], $interval_start, $interval_end);
+				$data['votes_by_hour'][$i] = (int) $this->getVotesByHour($data['selected_election_id'], $interval_start, $interval_end);
 				$data['vote_count_labels'][$i] = $label;
 			}
         }
