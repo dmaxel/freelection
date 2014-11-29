@@ -109,6 +109,15 @@ error_reporting(-1);
 
 	}
 	
+	public function vote_search(){
+		$userID = $this->general_model->getUserID();
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+		$this->load->view('templates/header', $data);
+		$this->load->view('vote_search',$data);
+		$this->load->view('templates/footer' $data);
+	}
+	
     public function view_users() {
 		$userID = $this->general_model->getUserID();
 
