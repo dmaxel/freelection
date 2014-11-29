@@ -30,7 +30,10 @@
           <div class="col-sm-6">
             <?php
             if ($selected_election_id != -1)
-                echo $election_description;
+            {
+				echo "<strong>Description:</strong><br>";
+				echo $election_description;
+			}
             else
                 echo "Pick an election to display its statistics";
             ?>
