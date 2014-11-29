@@ -1,12 +1,15 @@
 <div class="row" style="margin-top:-20px; margin-bottom:10px; font-size:10px">
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <a href="index.php/admin/view_users"><button class="btn btn-xs btn-default" id="vote_button">View Users</button></a>
           </div>
-          <div class="col-sm-4">
-            <a href="index.php/admin/view_pending"><button class="btn btn-xs btn-default" id="vote_button">View Pending</button></a>
+          <div class="col-sm-3">
+            <a href="index.php/admin/view_pending"><button class="btn btn-xs btn-default" id="pending_button">View Pending</button></a>
           </div>
-          <div class="col-sm-4">
-            <a href="index.php/admin/view_elections"><button class="btn btn-xs btn-default" id="vote_button">View Elections</button></a>
+          <div class="col=sm-3">
+            <a href="index.html/admin/vote_search"><button class="btn btn-xs btn-default" id="search_button">Search for Vote</button></a>
+          </div>
+          <div class="col-sm-3">
+            <a href="index.php/admin/view_elections"><button class="btn btn-xs btn-default" id="elections_button">View Elections</button></a>
           </div>
         </div>
         <div class="row">
