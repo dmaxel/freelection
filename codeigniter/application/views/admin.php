@@ -31,7 +31,7 @@
             <?php
             if ($selected_election_id != -1)
             {
-				echo "<strong>Description:</strong>";
+				echo "<strong>Description:</strong><br>";
 				echo $election_description;
 			}
             else
