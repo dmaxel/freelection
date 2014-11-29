@@ -123,6 +123,7 @@ class Voter extends CI_Controller {
 
 	// Submit the user's vote information
 	public function processBallot(){
+		$confirmation_number = $this->generateConfirmationNumber();
 		$userID = $this->general_model->getUserID();
 		// Check if user already voted
 		$userTempVoted = $this->general_model->checkUserVoted($userID);
@@ -217,7 +218,27 @@ class Voter extends CI_Controller {
 			}
 		}
 		// Take the voter back to the voter page
-		$this->load->view('votingConfirmation');
+		$userID = $this->general_model->getUserID();
+
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+		$this->load->view('templates/header', $data);
+		
+		$data['confirmation'] = $confirmation_number;
+		$this->load->view('votingConfirmation', $data);
+		
+		$this->load->view('templates/footer');
+	}
+	
+	public function generateConfirmationNumber(){
+		$alphabet = "ABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+	    $pass = array(); //remember to declare $pass as an array
+	    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+	    for ($i = 0; $i < 6; $i++) {
+	        $n = mt_rand(0, $alphaLength);
+	        $pass[] = $alphabet[$n];
+	    }
+	    return implode($pass); //turn the array into a string
 	}
 }
 ?>

@@ -13,7 +13,7 @@
         </div>
         <div>
           <p>Your confirmation code is:</p>
-          <p>CONFIRMATION CODE</p>
+          <p><? echo $confirmation; ?></p>
         </div>
         <div class="row" style="margin-top:20px">
           <div class="col-sm-6">Candidate Name</div>
