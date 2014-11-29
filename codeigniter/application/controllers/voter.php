@@ -67,15 +67,6 @@ class Voter extends CI_Controller {
 		
 	}
 
-	public function vote_search(){
-		$userID = $this->general_model->getUserID();
-		$realName = $this->general_model->getRealName($userID);
-		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
-		$this->load->view('templates/header', $data);
-		$this->load->view('vote_search',$data);
-		$this->load->view('templates/footer' $data);
-	}
-
 	// Load the voting window with the ballot information for that election
 	public function voteNow(){
 		$userID = $this->general_model->getUserID();
