@@ -115,6 +115,8 @@ class Voter extends CI_Controller {
 	// Submit the user's vote information
 	public function processBallot(){
 		$confirmation_number = $this->generateConfirmationNumber();
+		$timestamp = (new DateTime)->format("Y-m-d H:i:s");
+		
 		$userID = $this->general_model->getUserID();
 		// Check if user already voted
 		$userTempVoted = $this->general_model->checkUserVoted($userID);
@@ -137,12 +139,12 @@ class Voter extends CI_Controller {
 				{
 					$firstname = $this->input->post($positions['position'].'_first_name');
 					$lastname = $this->input->post($positions['position'].'_last_name');
-					$this->general_model->addWriteinVote($userID, $position, $firstname, $lastname);
+					$this->general_model->addWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number);
 				}
 				// Normal candidate selection
 				else
 				{
-					$this->general_model->addCandidateVote($userID, $position, $candidate_id);
+					$this->general_model->addCandidateVote($userID, $position, $candidate_id, $confirmation_number);
 				}
 			}
 			// Submit a new vote for a y/n position
@@ -177,12 +179,12 @@ class Voter extends CI_Controller {
 				{
 					$firstname = $this->input->post($positions['position'].'_first_name');
 					$lastname = $this->input->post($positions['position'].'_last_name');
-					$this->general_model->updateWriteinVote($userID, $position, $firstname, $lastname);
+					$this->general_model->updateWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number);
 				}
 				// Normal candidate selection
 				else
 				{
-					$this->general_model->updateCandidateVote($userID, $position, $candidate_id);
+					$this->general_model->updateCandidateVote($userID, $position, $candidate_id, $confirmation_number);
 				}
 			}
 			// Submit an overwrite for a y/n position
