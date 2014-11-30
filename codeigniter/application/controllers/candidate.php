@@ -7,7 +7,11 @@ class Candidate extends CI_Controller {
 	   $this->auth = new stdClass;
 		$this->load->model('general_model');
 	}
-
+	public function getVotesByHour($election_id, $begin_date_time, $end_date_time) {
+		$query = $this->db->query("select count(*) from votes where date_time between '$begin_date_time' and '$end_date_time' and position in (select position from ballots where election_id = '$election_id')");
+		$result = $query->row_array();
+		return $result["count(*)"];
+	}
 	// Initiate the loading of the candidate page
 	public function index(){
     
@@ -47,6 +51,34 @@ class Candidate extends CI_Controller {
 		$data['candidate_info'] = $this->general_model->getCandidate($userID);
 		$data['election_description'] = $this->general_model->getElectionDescription($electionID);
 		$data['election_window'] = $this->general_model->getElectionWindow($electionID);
+		
+		// get previous 24 hours time-windows from current time
+		$date = new DateTime;
+
+		// subtract a day and add an hour to get start time for graph
+		$date->sub(new DateInterval('P1D'));
+		$date->add(new DateInterval('PT1H'));
+		$graph_time = $date->format("Y-m-d H:00:00");
+		$graph_time = new DateTime($graph_time);
+		
+		$data['votes_by_hour'] = array();
+		$data['vote_count_labels'] = array();
+		
+		for ($i = 0; $i < 24; $i++)
+		{
+			$interval_start = $graph_time->format("Y-m-d H:i:s");
+			$label = date("gA", strtotime($interval_start)) . "-";
+			
+			// increment by 1 hour
+			$graph_time->add(new DateInterval('PT1H'));
+			
+			$interval_end = $graph_time->format("Y-m-d H:i:s");
+			$label = $label . date("gA", strtotime($interval_end));
+
+			$data['votes_by_hour'][$i] = (int) $this->getVotesByHour($electionID, $interval_start, $interval_end);
+			$data['vote_count_labels'][$i] = $label;
+	
+		}
 		$this->load->view('candidate', $data);
 		
       $this->load->view('templates/footer');
