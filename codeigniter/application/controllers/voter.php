@@ -153,7 +153,7 @@ class Voter extends CI_Controller {
 				// Normal candidate selection
 				else
 				{
-					$data['chosen_candidates'][$positions['position']]['candidate_name'] = $data['candidates'][$positions['position']['first_name']." ".$data['candidates'][$positions['position']['last_name'];
+					$data['chosen_candidates'][$positions['position']]['candidate_name'] = $data['candidates'][$positions['position']]['first_name']." ".$data['candidates'][$positions['position']]['last_name'];
 					$this->general_model->addCandidateVote($userID, $position, $candidate_id, $confirmation_number);
 				}
 			}
