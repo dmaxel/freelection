@@ -148,7 +148,8 @@ class Voter extends CI_Controller {
 	// Submit the user's vote information
 	public function processBallot(){
 		$confirmation_number = $this->generateConfirmationNumber();
-		$timestamp = (new DateTime)->format("Y-m-d H:i:s");
+		//$timestamp = (new DateTime)->format("Y-m-d H:i:s");
+		$timestamp = date('Y-m-d H:i:s', time());
 		
 		$userID = $this->general_model->getUserID();
 		// Check if user already voted
