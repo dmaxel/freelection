@@ -19,11 +19,8 @@
         foreach($positions as $position)
         {
 			echo '<div class="row" style="margin-top:20px">';
-			foreach($chosen_candidates[$position['position']] as $candidate)
-			{
-				echo '<div class="col-sm-6">'.$candidate['candidate_name'].'</div>';
-				echo '<div class="col-sm-6">'.$candidate['position_name'].'</div>';
-			}
+			echo '<div class="col-sm-6">'.$chosen_candidates[$position['position']]['candidate_name'].'</div>';
+			echo '<div class="col-sm-6">'.$chosen_candidates[$position['position']]['position_name'].'</div>';
 			echo '</div>';
 		}
         ?>
