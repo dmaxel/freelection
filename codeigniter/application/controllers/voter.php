@@ -159,34 +159,35 @@ class Voter extends CI_Controller {
 			$userVoted = TRUE;
 		}
 		$data['positions'] = $this->general_model->getPositions($userID);
-		$data['candidates'] = array();
-		foreach($data['positions'] as $positions)
+		$candidates = array();
+		foreach($data['positions'] as $position)
 		{
-			$data['candidates'][$positions['position']] = $this->general_model->getCandidatesForPosition($positions['position']);
+			$candidates[$position['position']] = $this->general_model->getCandidatesForPosition($position['position']);
 		}
 		$data['chosen_candidates'] = array();
 		// Submit the vote for each separate position on the ballot
 		foreach($data['positions'] as $positions)
 		{
-			$data['chosen_candidates'][$positions['position']]['position_name'] = $positions['title'];
+			$position = $positions['position'];
+			$data['chosen_candidates'][$position]['position_name'] = $positions['title'];
 			// Submit a new vote for a normal position
 			if($positions['type'] == 0 && $userVoted == FALSE)
 			{
-				$position = $positions['position'];
-				$candidate_id = $this->input->post('choices'.$positions['position']);
-				$data['chosen_candidates'][$positions['position']] = $candidate_id;
+
+				$candidate_id = $this->input->post('choices'.$position);
+				$data['chosen_candidates'][$position] = $candidate_id;
 				// Write-in vote
 				if($candidate_id == -1)
 				{
-					$firstname = $this->input->post($positions['position'].'_first_name');
-					$lastname = $this->input->post($positions['position'].'_last_name');
-					$data['chosen_candidates'][$positions['position']]['candidate_name'] = $firstname.' '.$lastname;
+					$firstname = $this->input->post($position.'_first_name');
+					$lastname = $this->input->post($position.'_last_name');
+					$data['chosen_candidates'][$position]['candidate_name'] = $firstname.' '.$lastname;
 					$this->general_model->addWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number);
 				}
 				// Normal candidate selection
 				else
 				{
-					$data['chosen_candidates'][$positions['position']]['candidate_name'] = $data['candidates'][$positions['position']]['first_name']." ".$data['candidates'][$positions['position']]['last_name'];
+					$data['chosen_candidates'][$position]['candidate_name'] = $candidates[$position]['first_name']." ".$candidates[$position]['last_name'];
 					$this->general_model->addCandidateVote($userID, $position, $candidate_id, $confirmation_number);
 				}
 			}
@@ -198,12 +199,11 @@ class Voter extends CI_Controller {
 			// Submit a new vote for a propositional position
 			else if($positions['type'] == 2 && $userVoted == FALSE)
 			{
-				$position = $positions['position'];
-				$proposition_id = $this->input->post('choices'.$positions['position']);
+				$proposition_id = $this->input->post('choices'.$position);
 				// Write-in propositional vote
 				if($proposition_id == -1)
 				{
-					$description = $this->input->post($positions['position'].'_description');
+					$description = $this->input->post($position.'_description');
 					$this->general_model->addWriteinVote($userID, $position, $description, NULL);
 				}
 				// Normal propositional selection
@@ -215,20 +215,19 @@ class Voter extends CI_Controller {
 			// Submit an overwrite for a normal position
 			else if($positions['type'] == 0 && $userVoted == TRUE)
 			{
-				$position = $positions['position'];
-				$candidate_id = $this->input->post('choices'.$positions['position']);
+				$candidate_id = $this->input->post('choices'.$position);
 				// Write-in vote
 				if($candidate_id == -1)
 				{
-					$firstname = $this->input->post($positions['position'].'_first_name');
-					$lastname = $this->input->post($positions['position'].'_last_name');
-					$data['chosen_candidates'][$positions['position']]['candidate_name'] = $firstname.' '.$lastname;
+					$firstname = $this->input->post($position.'_first_name');
+					$lastname = $this->input->post($position.'_last_name');
+					$data['chosen_candidates'][$position]['candidate_name'] = $firstname.' '.$lastname;
 					$this->general_model->updateWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number);
 				}
 				// Normal candidate selection
 				else
 				{
-					$data['chosen_candidates'][$positions['position']]['candidate_name'] = $data['candidates'][$positions['position']]['first_name']." ".$data['candidates'][$positions['position']]['last_name'];
+					$data['chosen_candidates'][$position]['candidate_name'] = $candidates[$position]['first_name']." ".$candidates[$position]['last_name'];
 					$this->general_model->updateCandidateVote($userID, $position, $candidate_id, $confirmation_number);
 				}
 			}
@@ -240,12 +239,11 @@ class Voter extends CI_Controller {
 			// Submit an overwrite for a propositional position
 			else if($positions['type'] == 2 && $userVoted == TRUE)
 			{
-				$position = $positions['position'];
-				$proposition_id = $this->input->post('choices'.$positions['position']);
+				$proposition_id = $this->input->post('choices'.$position);
 				// Propositional write-in vote
 				if($proposition_id == -1)
 				{
-					$description = $this->input->post($positions['position'].'_description');
+					$description = $this->input->post($position.'_description');
 					$this->general_model->updateWriteinVote($userID, $position, $description, NULL);
 				}
 				// Normal proposition selected
@@ -266,6 +264,7 @@ class Voter extends CI_Controller {
 		$this->load->view('votingConfirmation', $data);
 		
 		$this->load->view('templates/footer');
+		//goes back to voter homepage w/ back button
 	}
 	
 	public function generateConfirmationNumber(){
