@@ -159,11 +159,6 @@ class Voter extends CI_Controller {
 			$userVoted = TRUE;
 		}
 		$data['positions'] = $this->general_model->getPositions($userID);
-		$candidates = array();
-		foreach($data['positions'] as $position)
-		{
-			$candidates[$position['position']] = $this->general_model->getCandidatesForPosition($position['position']);
-		}
 		$data['chosen_candidates'] = array();
 		// Submit the vote for each separate position on the ballot
 		foreach($data['positions'] as $positions)
@@ -185,7 +180,8 @@ class Voter extends CI_Controller {
 				// Normal candidate selection
 				else
 				{
-					$data['chosen_candidates'][$position]['candidate_name'] = $candidates[$position]['first_name']." ".$candidates[$position]['last_name'];
+					$candidate = $this->general_model->getCandidateByCanID($candidate_id);
+					$data['chosen_candidates'][$position]['candidate_name'] = $candidate['first_name']." ".$candidate['last_name'];
 					$this->general_model->addCandidateVote($userID, $position, $candidate_id, $confirmation_number);
 				}
 			}
@@ -225,7 +221,8 @@ class Voter extends CI_Controller {
 				// Normal candidate selection
 				else
 				{
-					$data['chosen_candidates'][$position]['candidate_name'] = $candidates[$position]['first_name']." ".$candidates[$position]['last_name'];
+					$candidate = $this->general_model->getCandidateByCanID($candidate_id);
+					$data['chosen_candidates'][$position]['candidate_name'] = $candidate['first_name']." ".$candidate['last_name'];
 					$this->general_model->updateCandidateVote($userID, $position, $candidate_id, $confirmation_number);
 				}
 			}
