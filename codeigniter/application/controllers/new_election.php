@@ -47,14 +47,22 @@ class New_Election extends CI_Controller {
 			$new_reg_end = $new_reg_end_day . ' ' . sprintf("%02d:00:00", $new_reg_end_hour);
 			$new_vote_start = $new_vote_start_day . ' ' . sprintf("%02d:00:00", $new_vote_start_hour);
 			$new_vote_end = $new_vote_end_day . ' ' . sprintf("%02d:00:00", $new_vote_end_hour);
-			//$this->insertNewElection($new_title, trim($new_description), $new_reg_start, $new_reg_end, $new_vote_start, $new_vote_end);
+			//$new_election_id = $this->insertNewElection($new_title, trim($new_description), $new_reg_start, $new_reg_end, $new_vote_start, $new_vote_end);
 			
 			$new_positions = $this->input->post('pos');
-			$write_ins = $this->input->post('writein');
+			//$write_ins = $this->input->post('writein');
+			
+			// foreach ($new_positions as $position)
+			// {
+				// if (strlen($position) > 0)
+					// insertPositionIntoElection($new_election_id);
+			// }
 			
 			echo '<pre>';
 			var_dump($new_positions);
+			var_dump($new_vote_start);
 			var_dump($write_ins);
+			var_dump($new_election_id);
 			echo '</pre>';
 			exit;
 			//redirect(current_url(), 'refresh');

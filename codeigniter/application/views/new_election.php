@@ -70,7 +70,9 @@
     <script src="js/jquery-ui/jquery-ui.min.js"></script>
     <script>
       $(function() {
-      $( ".datepicker" ).datepicker();
+      $( ".datepicker" ).datepicker({ 
+		  dateFormat: 'yy-mm-dd',
+		});
 
       $(document).ready(function() {
           var max_fields      = 30; //maximum input boxes allowed
