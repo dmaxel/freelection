@@ -24,8 +24,9 @@ class New_Election extends CI_Controller {
 		$new_election_id = $new_election_id->row_array();
 		return $new_election_id['election_id'];
 	}
-	public function insertPositionIntoElection($election_id)
+	public function insertPositionIntoElection($election_id, $new_title, $write_ins = 0, $new_type = 0)
 	{
+		$this->db->query("insert into ballots (type, election_id, title, write_ins) values ('$new_type', '$election_id', '$new_title', '$write_ins')");
 	}
 	public function index(){
 		$data['username'] = $this->general_model->getUsername();
@@ -47,25 +48,20 @@ class New_Election extends CI_Controller {
 			$new_reg_end = $new_reg_end_day . ' ' . sprintf("%02d:00:00", $new_reg_end_hour);
 			$new_vote_start = $new_vote_start_day . ' ' . sprintf("%02d:00:00", $new_vote_start_hour);
 			$new_vote_end = $new_vote_end_day . ' ' . sprintf("%02d:00:00", $new_vote_end_hour);
-			//$new_election_id = $this->insertNewElection($new_title, trim($new_description), $new_reg_start, $new_reg_end, $new_vote_start, $new_vote_end);
+			$new_election_id = $this->insertNewElection($new_title, trim($new_description), $new_reg_start, $new_reg_end, $new_vote_start, $new_vote_end);
 			
 			$new_positions = $this->input->post('pos');
-			//$write_ins = $this->input->post('writein');
+			$write_ins = $this->input->post('writein');
+
 			
-			// foreach ($new_positions as $position)
-			// {
-				// if (strlen($position) > 0)
-					// insertPositionIntoElection($new_election_id);
-			// }
+			// // insert the new election's positions
+			foreach ($new_positions as $position)
+			{
+				if (strlen($position) > 0)
+					$this->insertPositionIntoElection($new_election_id, $position);
+			}
 			
-			echo '<pre>';
-			var_dump($new_positions);
-			var_dump($new_vote_start);
-			var_dump($write_ins);
-			var_dump($new_election_id);
-			echo '</pre>';
-			exit;
-			//redirect(current_url(), 'refresh');
+			redirect(current_url(), 'refresh');
 		}
 		// create time form options
 		for ($i = 0; $i <=23; $i++)

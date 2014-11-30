@@ -48,6 +48,7 @@
             ?>
           </div>
         </div>
+		<?php $i = 0 ?>
         <div class="input_fields_wrap" style="margin-top:10px">
             <button class="add_field_button btn btn-xs btn-default">Add A Position</button>
         </div>
@@ -80,11 +81,13 @@
           var add_button      = $(".add_field_button"); //Add button ID
           
           var x = 1; //initlal text box count
+		  var i = 0;
           $(add_button).click(function(e){ //on add input button click
               e.preventDefault();
               if(x < max_fields){ //max input box allowed
                   x++; //text box increment
-                  $(wrapper).append('<div class="row"><div class="col-sm-4" style="margin-top:20px"><input type="text" placeholder="Position" name="pos[]"></div><div class="col-sm-3" style="margin-top:20px">Allow Write-In <input type="checkbox" name="writein[]"></div><div class="col-sm-3" style="margin-top:20px"></div><div class="col-sm-2" style="margin-top:6px"><button class="remove_field"><span class="fa fa-times"></span></button></div></div>'); //add input box
+                  $(wrapper).append('<div class="row"><div class="col-sm-4" style="margin-top:20px"><input type="text" placeholder="Position" name="pos[]"></div><div class="col-sm-3" style="margin-top:20px">Allow Write-In <input type="checkbox" name="writein[]" value="'+i+'"></div><div class="col-sm-3" style="margin-top:20px"></div><div class="col-sm-2" style="margin-top:6px"><button class="remove_field"><span class="fa fa-times"></span></button></div></div>'); //add input box
+				  i++;
               }
           });
 		  
