@@ -56,6 +56,7 @@
 			?>
           </div>
         </div>
+		<div style="margin-top: 20px">Votes per Hour (Past 24 Hours)</div>
         <div id="votes_graph" style="margin-top:20px">
           <canvas id="votes" height="200" width="400"></canvas>
         </div>
