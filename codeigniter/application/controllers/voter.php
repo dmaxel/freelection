@@ -210,7 +210,7 @@ class Voter extends CI_Controller {
 				}
 			}
 		}
-		// Take the voter back to the voter page
+		// Take the voter to the vote confirmation page
 		$userID = $this->general_model->getUserID();
 
 		$realName = $this->general_model->getRealName($userID);

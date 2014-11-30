@@ -152,7 +152,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getCandidatesForPosition($position){
-		$query = $this->db->query("SELECT candidate_id, first_name, last_name FROM candidates WHERE position =  $position AND approved = 1");
+		$query = $this->db->query("SELECT candidate_id, first_name, last_name FROM candidates WHERE position = $position AND approved = 1");
 		return $query->result_array();
 	}
 	
@@ -178,7 +178,7 @@ class General_Model extends CI_Model {
 	
 	public function updateCandidateDescription($userID){
 		$description = $this->input->post('description_field');
-		$this->db->query("UPDATE candidates SET description = \"$description\" WHERE uacc_id = $userID");
+		$this->db->query("UPDATE candidates SET description = '$description' WHERE uacc_id = $userID");
 	}
 	
 	public function updateUser($userID, $userGroup, $firstname, $lastname, $major, $email, $position, $description){
