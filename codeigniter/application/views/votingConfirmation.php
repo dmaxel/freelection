@@ -15,7 +15,15 @@
           <p>Your confirmation code is:</p>
           <p><? echo $confirmation; ?></p>
         </div>
-        <div class="row" style="margin-top:20px">
-          <div class="col-sm-6">Candidate Name</div>
-          <div class="col-sm-6">Position</div>
-        </div>
+        <?
+        foreach($positions as $position)
+        {
+			echo '<div class="row" style="margin-top:20px">';
+			foreach($chosen_candidates[$position['position']] as $candidate)
+			{
+				echo '<div class="col-sm-6">'.$candidate['candidate_name'].'</div>';
+				echo '<div class="col-sm-6">'.$candidate['position_name'].'</div>';
+			}
+			echo '</div>';
+		}
+        ?>
