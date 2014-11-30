@@ -16,7 +16,7 @@
           <p><? echo $confirmation; ?></p>
         </div>
         <?
-        foreach($chosen_candidates[$positions['position']] as $each)
+        foreach($chosen_candidates[$positions] as $each)
         {
 			echo '<div class="row" style="margin-top:20px">';
 			echo '<div class="col-sm-6">'.$each['candidate_name'].'</div>';
