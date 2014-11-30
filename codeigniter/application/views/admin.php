@@ -6,7 +6,7 @@
             <a href="index.php/admin/view_pending"><button class="btn btn-xs btn-default" id="pending_button">Pending</button></a>
           </div>
           <div class="col-sm-3">
-            <a href="index.html/admin/vote_search"><button class="btn btn-xs btn-default" id="search_button">Search</button></a>
+            <a href="index.php/admin/vote_search"><button class="btn btn-xs btn-default" id="search_button">Search</button></a>
           </div>
           <div class="col-sm-3">
             <a href="index.php/admin/view_elections"><button class="btn btn-xs btn-default" id="elections_button">Elections</button></a>
@@ -76,13 +76,14 @@
               
               $i = ($i + 1) % 2;
           }
+		  echo '</div>';
 		  echo '<div>Votes per Hour (Past 24 Hours)</div>';
 	      echo '<div id="votes_graph" style="margin-top:20px">';
 		  echo '<canvas id="votes" height="200" width="400"></canvas>';
 		  echo '</div>';
           endif;
           ?>
-      </div>
+     
     </div>
     <div class="footer">
       <div class="container">
