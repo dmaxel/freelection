@@ -21,10 +21,10 @@
 		  			  $tempID = $each['candidate_id'];
 		  			  $candidate_name = $each['first_name'] . " " . $each['last_name'];
 		  			  $options[$tempID] = $candidate_name;
-					  if($position['write_ins'] == 1)
-					  {
-						  $options[-1] = "Write-In Candidate";
-					  }
+					}
+					if($position['write_ins'] == 1)
+					{
+					  $options[-1] = "Write-In Candidate";
 					}
 					echo form_dropdown('choices'.$position['position'], $options, 0, $form_options);
 					echo "</div>";
