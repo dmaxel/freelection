@@ -175,14 +175,14 @@ class Voter extends CI_Controller {
 					$firstname = $this->input->post($position.'_first_name');
 					$lastname = $this->input->post($position.'_last_name');
 					$data['chosen_candidates'][$position]['candidate_name'] = $firstname.' '.$lastname;
-					$this->general_model->addWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number);
+					$this->general_model->addWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number, $timestamp);
 				}
 				// Normal candidate selection
 				else
 				{
 					$candidate = $this->general_model->getCandidateByCanID($candidate_id);
 					$data['chosen_candidates'][$position]['candidate_name'] = $candidate['first_name']." ".$candidate['last_name'];
-					$this->general_model->addCandidateVote($userID, $position, $candidate_id, $confirmation_number);
+					$this->general_model->addCandidateVote($userID, $position, $candidate_id, $confirmation_number, $timestamp);
 				}
 			}
 			// Submit a new vote for a y/n position
@@ -216,14 +216,14 @@ class Voter extends CI_Controller {
 					$firstname = $this->input->post($position.'_first_name');
 					$lastname = $this->input->post($position.'_last_name');
 					$data['chosen_candidates'][$position]['candidate_name'] = $firstname.' '.$lastname;
-					$this->general_model->updateWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number);
+					$this->general_model->updateWriteinVote($userID, $position, $firstname, $lastname, $confirmation_number, $timestamp);
 				}
 				// Normal candidate selection
 				else
 				{
 					$candidate = $this->general_model->getCandidateByCanID($candidate_id);
 					$data['chosen_candidates'][$position]['candidate_name'] = $candidate['first_name']." ".$candidate['last_name'];
-					$this->general_model->updateCandidateVote($userID, $position, $candidate_id, $confirmation_number);
+					$this->general_model->updateCandidateVote($userID, $position, $candidate_id, $confirmation_number, $timestamp);
 				}
 			}
 			// Submit an overwrite for a y/n position

@@ -231,28 +231,28 @@ class General_Model extends CI_Model {
 		return $query->row_array();
 	}
 	
-	public function addWriteinVote($userID, $position, $first_name, $last_name, $confirmation){
-		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, first_name, last_name, confirmation_number) VALUES ($userID, $position, 1, ‘$first_name', ‘$last_name', '$confirmation')");
+	public function addWriteinVote($userID, $position, $first_name, $last_name, $confirmation, $timestamp){
+		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, first_name, last_name, confirmation_number, date_time) VALUES ($userID, $position, 1, ‘$first_name', ‘$last_name', '$confirmation', '$timestamp')");
 	}
 	
-	public function addCandidateVote($userID, $position, $candidate_id, $confirmation){
-		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, candidate_id, confirmation_number) VALUES ($userID, $position, 0, $candidate_id, '$confirmation')");
+	public function addCandidateVote($userID, $position, $candidate_id, $confirmation, $timestamp){
+		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, candidate_id, confirmation_number, date_time) VALUES ($userID, $position, 0, $candidate_id, '$confirmation', '$timestamp')");
 	}
 	
-	public function addPropositionVote($userID, $position, $proposition_id, $confirmation){
-		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, proposition_id, confirmation_number) VALUES ($uacc_id, $position, 0, $proposition_id, '$confirmation')");
+	public function addPropositionVote($userID, $position, $proposition_id, $confirmation, $timestamp){
+		$this->db->query("INSERT INTO votes (uacc_id, position, vote_type, proposition_id, confirmation_number, date_time) VALUES ($uacc_id, $position, 0, $proposition_id, '$confirmation', '$timestamp')");
 	}
 	
-	public function updateWriteinVote($userID, $position, $first_name, $last_name, $confirmation){
-		$this->db->query("UPDATE votes SET vote_type=1, first_name='$first_name', last_name='$last_name', confirmation_number='$confirmation' WHERE uacc_id = $userID and position = $position");
+	public function updateWriteinVote($userID, $position, $first_name, $last_name, $confirmation, $timestamp){
+		$this->db->query("UPDATE votes SET vote_type=1, first_name='$first_name', last_name='$last_name', confirmation_number='$confirmation', date_time='$timestamp' WHERE uacc_id = $userID and position = $position");
 	}
 	
-	public function updateCandidateVote($userID, $position, $candidate_id, $confirmation){
-		$this->db->query("UPDATE votes SET vote_type=0, candidate_id=$candidate_id, confirmation_number='$confirmation' WHERE uacc_id = $userID AND position = $position");
+	public function updateCandidateVote($userID, $position, $candidate_id, $confirmation, $timestamp){
+		$this->db->query("UPDATE votes SET vote_type=0, candidate_id=$candidate_id, confirmation_number='$confirmation', date_time='$timestamp' WHERE uacc_id = $userID AND position = $position");
 	}
 	
-	public function updatePropositionVote($userID, $position, $proposition_id, $confirmation){
-		$this->db->query("UPDATE votes SET vote_type=0, proposition_id=$proposition_id, confirmation_number='$confirmation' WHERE uacc_id = $uacc_id AND position = $position");
+	public function updatePropositionVote($userID, $position, $proposition_id, $confirmation, $timestamp){
+		$this->db->query("UPDATE votes SET vote_type=0, proposition_id=$proposition_id, confirmation_number='$confirmation', date_time='$timestamp' WHERE uacc_id = $uacc_id AND position = $position");
 	}
 	
 	public function deleteUser($userID){
