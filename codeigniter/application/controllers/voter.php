@@ -173,9 +173,7 @@ class Voter extends CI_Controller {
 			// Submit a new vote for a normal position
 			if($positions['type'] == 0 && $userVoted == FALSE)
 			{
-
 				$candidate_id = $this->input->post('choices'.$position);
-				$data['chosen_candidates'][$position] = $candidate_id;
 				// Write-in vote
 				if($candidate_id == -1)
 				{
