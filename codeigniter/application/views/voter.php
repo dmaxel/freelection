@@ -82,7 +82,12 @@
       var position_charts = [];
       
 var data3 = {
-          labels: ["12-1AM", "1-2AM", "2-3AM", "3-4AM", "4-5AM", "5-6AM", "6-7AM", "7-8AM", "8-9AM", "9-10AM", "10-11AM", "11-12PM", "12-1PM", "1-2PM", "2-3PM", "3-4PM", "4-5PM", "5-6PM", "6-7PM", "7-8PM", "8-9PM", "9-10PM", "10-11PM", "11-12PM"],
+		  labels:
+			[
+			<?php foreach ($vote_count_labels as $label)
+				    echo '"' . $label . '", ';
+			?>
+		    ],
           datasets: [
               {
                   label: "Election 1",
@@ -92,14 +97,18 @@ var data3 = {
                   pointStrokeColor: "#fff",
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(255,51,51,1)",
-                  data: [0,0,0,0,0,0,0,10, 33, 41, 57, 80, 90, 105, 3, 62, 76, 50, 43, 20, 21, 15, 10, 5]
+                  data: 
+				    [
+					<?php foreach ($votes_by_hour as $votes)
+						echo $votes . ',';
+					?>
+				    ]
               }
-          ]
+          ],
       };
-
-      // create chart for each position
-        var ctx3 = document.getElementById("votes").getContext("2d");
-        
+	  
+	  
+       var ctx3 = document.getElementById("votes").getContext("2d");
       var votes = new Chart(ctx3).Bar(data3,{height:200,width:400});
     </script>
   </body>
