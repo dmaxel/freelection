@@ -57,13 +57,12 @@ class View_Elections extends CI_Controller {
 		//if an election is selected
         if ($data['selected_election_id'] != -1)
         {
-            $last_emailed_query = $this->general_model->getLastEmailed($selected_election_id);
+            $last_emailed_query = $this->general_model->getLastEmailed($data['selected_election_id']);
 			$data['last_emailed'] = strtotime($last_emailed_query['last_emailed']);
-			if($data['last_emailed'] == NULL)
-			{
-				$data['last_emailed'] = 0;
-				
-			}
+			//if($data['last_emailed'] == NULL)
+			//{
+			//	$data['last_emailed'] = 0;
+			//}
             $usersNoVote = $this->general_model->getUsersNoVote($data['selected_election_id']);
             $i = 0;
             foreach($usersNoVote as $each)
