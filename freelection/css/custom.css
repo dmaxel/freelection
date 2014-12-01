@@ -80,20 +80,10 @@ a:active {
   display:none; 
 }
 
-@media (max-width: 520px) {
+@media  {
   .verticalalign {
     position: relative;
     margin-top:30%;
-  }
-}
-
-@media (min-width: 520px) {
-  .verticalalign {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -moz-transform: translateY(60%);
   }
 }
 
