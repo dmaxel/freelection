@@ -293,5 +293,9 @@ class General_Model extends CI_Model {
 		$query = $this->db->query("SELECT last_emailed FROM elections WHERE election_id = $electionID");
 		return $query->row_array();
 	}
+	
+	public function updateLastEmailed($timestamp, $electionID){
+		$this->db->query("UPDATE elections SET last_emailed='$timestamp' WHERE election_id=$electionID");
+	}
 }
 ?>
