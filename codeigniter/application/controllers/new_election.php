@@ -53,14 +53,20 @@ class New_Election extends CI_Controller {
 			$new_positions = $this->input->post('pos');
 			$write_ins = $this->input->post('writein');
 
-			
 			// // insert the new election's positions
+			$i = 0;
 			foreach ($new_positions as $position)
 			{
+				$allow_writein = 0;
+				foreach($write_ins as $write_in)
+					if ($write_in == $i)
+						$allow_writein = 1;
+						
 				if (strlen($position) > 0)
-					$this->insertPositionIntoElection($new_election_id, $position);
+					$this->insertPositionIntoElection($new_election_id, $position, $allow_writein);
+				$i++;
 			}
-			
+
 			redirect(current_url(), 'refresh');
 		}
 		// create time form options
