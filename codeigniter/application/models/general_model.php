@@ -146,6 +146,11 @@ class General_Model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	public function getPosition($positionID){
+		$query = $this->db->query("SELECT title FROM ballots WHERE position = $positionID");
+		return $query->row_array();
+	}
+	
 	public function getPositionsForElection($election_id){
 		$query = $this->db->query("SELECT position, type, title FROM ballots WHERE election_id = $election_id");
 		return $query->result_array();
@@ -272,6 +277,11 @@ class General_Model extends CI_Model {
 	public function getWinner($positionID){
 		$query = $this->db->query("SELECT first_name, last_name, max(votes) FROM (SELECT first_name, last_name, sum(uacc_vote_weight) AS votes FROM candidates NATURAL JOIN (SELECT candidate_id, uacc_vote_weight FROM votes NATURAL JOIN user_accounts WHERE position = $positionID AND vote_type = 0) AS alpha GROUP BY candidate_id) AS bravo");
 		return $query->row_array();
+	}
+	
+	public function getVotesByConfirm($confirmation){
+		$query = $this->db->query("SELECT * FROM votes WHERE confirmation_number = '$confirmation'");
+		return $query->result_array();
 	}
 }
 ?>

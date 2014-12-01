@@ -480,5 +480,42 @@ error_reporting(-1);
 		$this->general_model->deleteUser($userID);
 		redirect('/admin/view_users');
 	}
+	
+	public function searchVotes($confirmation_value = NULL){
+		$userID = $this->general_model->getUserID();
+		$realName = $this->general_model->getRealName($userID);
+		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
+        $this->load->view('templates/header', $data);
+        
+        if(!($this->input->post('confirmation_submit')))
+        {
+			$data['confirmation_value'] = NULL;
+		}
+		else
+		{
+			$confirmation_value = $this->input->post('confirmation_field');
+			$info = $this->general_model->getVotesByConfirm($confirmation_value);
+			$user = NULL;
+			foreach($info as $each)
+			{
+				if($info['vote_type'] == 0)
+				{
+					$candidate = $this->general_model->getCandidateByCanID($each['candidate_id']);
+					$data['votes'][$each['position']]['candidate_name'] = $candidate['first_name']." ".$candidate['last_name'];
+				}
+				else
+				{
+					$data['votes'][$each['position']]['candidate_name'] = $each['first_name']." ".$each['last_name'];
+				}
+				$position = $this->general_model->getPosition($each['position']);
+				$data['votes'][$each['position']]['position_name'] = $position['title'];
+				$user = $this->general_model->getUserInfo($each['uacc_id']);
+				$data['user_name'] = $user['uacc_firstname']." ".$user['uacc_lastname'];
+				$this->load->view('vote_search', $data);
+				
+				$this->load->view('templates/footer');
+			}
+		}
+	}
 }
 ?>

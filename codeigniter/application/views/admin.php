@@ -6,7 +6,7 @@
             <a href="index.php/admin/view_pending"><button class="btn btn-xs btn-default" id="pending_button">Pending</button></a>
           </div>
           <div class="col-sm-3">
-            <a href="index.php/admin/vote_search"><button class="btn btn-xs btn-default" id="search_button">Search</button></a>
+            <a href="index.php/admin/searchVotes"><button class="btn btn-xs btn-default" id="search_button">Search</button></a>
           </div>
           <div class="col-sm-3">
             <a href="index.php/admin/view_elections"><button class="btn btn-xs btn-default" id="elections_button">Elections</button></a>
