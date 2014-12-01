@@ -487,6 +487,8 @@ error_reporting(-1);
 		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
         
+        $data['votes'] = array();
+        $data['user_name'] = NULL;
         if(!($this->input->post('confirmation_submit')))
         {
 			$data['confirmation_value'] = NULL;
