@@ -7,9 +7,9 @@ class Voter extends CI_Controller {
 		$this->load->model('general_model');
 	}
 	public function getVotesByHour($election_id, $begin_date_time, $end_date_time) {
-		$query = $this->db->query("select count(*) from votes where date_time between '$begin_date_time' and '$end_date_time' and position in (select position from ballots where election_id = '$election_id')");
+		$query = $this->db->query("select count(distinct uacc_id) from votes where date_time between '$begin_date_time' and '$end_date_time' and position in (select position from ballots where election_id = '$election_id')");
 		$result = $query->row_array();
-		return $result["count(*)"];
+		return $result["count(distinct uacc_id)"];
 	}
 	
 	// Redirect to voter page if the user is actually a voter
