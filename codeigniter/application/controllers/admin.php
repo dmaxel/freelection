@@ -498,7 +498,7 @@ error_reporting(-1);
 			$user = NULL;
 			foreach($info as $each)
 			{
-				if($info['vote_type'] == 0)
+				if($each['vote_type'] == 0)
 				{
 					$candidate = $this->general_model->getCandidateByCanID($each['candidate_id']);
 					$data['votes'][$each['position']]['candidate_name'] = $candidate['first_name']." ".$candidate['last_name'];
