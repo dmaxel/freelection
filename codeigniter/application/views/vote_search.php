@@ -41,8 +41,8 @@
 		   foreach($votes as $vote)
 		   {
 			   echo '<div class="row" style="margin-top:20px">';
-			   echo '<div class="col-sm-6">'.$vote[candidate_name].'</div>';
-			   echo '<div class="col-sm-6">'.$vote[position_name].'</div>';
+			   echo '<div class="col-sm-6">'.$vote['candidate_name'].'</div>';
+			   echo '<div class="col-sm-6">'.$vote['position_name'].'</div>';
 			   echo '</div>';
 		   }
 		}
