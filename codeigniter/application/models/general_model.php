@@ -136,14 +136,9 @@ class General_Model extends CI_Model {
     }
 	
 	/* this function is should work for Admin and monitor*/
-	public function getElectionInfoList($electionID){
+	public function getElectionInfoList(){
 		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end, registration_window_start, registration_window_end FROM elections where election_id = '$election_id'");
 		return $query->row_array();
-	}
-	
-	public function getElectionInfoList(){
-		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end, registration_window_start, registration_window_end FROM elections");
-		return $query->result_array();
 	}
 	
 	public function getPositions($userID){
