@@ -23,7 +23,7 @@
 			); 
         echo form_submit($data, 'Search');
         echo form_close();
-        </div>
+        echo '</div>';
 		if($confirmation_value == NULL)
 		{
 		   echo '<div style="margin-top: 20px">';
