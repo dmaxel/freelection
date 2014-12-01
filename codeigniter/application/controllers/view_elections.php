@@ -62,6 +62,7 @@ class View_Elections extends CI_Controller {
 			if($data['last_emailed'] == NULL)
 			{
 				$data['last_emailed'] = 0;
+				
 			}
             $usersNoVote = $this->general_model->getUsersNoVote($data['selected_election_id']);
             $i = 0;
