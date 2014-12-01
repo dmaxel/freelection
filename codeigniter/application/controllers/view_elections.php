@@ -26,7 +26,7 @@ class View_Elections extends CI_Controller {
         $data['username'] = $this->general_model->getUsername();
         
         // get all the elections
-        $data['elections'] = $this->general_model->getElectionInfoList();
+        $data['elections'] = $this->general_model->getElectionList();
         
         $data['election_options'] = array();
         $data['election_options'][-1] = "Select an Election";
@@ -38,13 +38,6 @@ class View_Elections extends CI_Controller {
         if ($this->input->post('election_dropdown'))
         {
             $data['selected_election_id'] = $this->input->post('election_dropdown');
-            foreach ($data['elections'] as $election)
-            {
-                if ($election['election_id'] == $data['selected_election_id'])
-                {
-                    $data['selected_elec_desc'] = $election['description'];
-                }
-            }
         }
         else
         {
@@ -70,6 +63,15 @@ class View_Elections extends CI_Controller {
 				$i = $i + 1;
 			}
 			$data['numUsersNoVote'] = $i;
+			
+			foreach ($data['elections'] as $election)
+            {
+                if ($election['election_id'] == $data['selected_election_id'])
+                {
+                    $data['selected_elec_desc'] = $election['description'];
+                }
+            }
+			
             $data['election_positions'] = $this->general_model->getPositionsForElection($data['selected_election_id']);
             $numPositions = count($data['election_positions']);
             for ($i = 0; $i < $numPositions; $i++)
@@ -124,8 +126,9 @@ class View_Elections extends CI_Controller {
 			
 		}   
         // check for form input
-        if ($this->input->post('election_description'))
+        if ($this->input->post('election_description') && $this->input->post('election_start'))
         {
+			exit;
 			$electionID = $this->input->post('current_election');
 		
             $new_description = $this->input->post('election_description');

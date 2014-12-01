@@ -527,8 +527,11 @@ error_reporting(-1);
 		$this->general_model->updateLastEmailed($timestamp, $electionID);
 		
 		$users = $this->general_model->getUsersNoVote($electionID);
-		$electionInfo = $this->general_model->getElectionInfoList($electionID);
-		$electionTitle = $electionInfo['election_title'];
+		//$electionInfo = $this->general_model->getElectionInfoList($electionID);
+		// $electionDesc = $this->general_model->getElectionDescription($electionID);
+		$query = $this->db->query("select election_title from elections where election_id='$electionID'");
+		$result = $query->row_array();
+		$electionTitle = $result['election_title'];
 		
 		$email_config = Array(
 		'protocol' => 'smtp',
@@ -544,15 +547,15 @@ error_reporting(-1);
 		$this->email->set_newline("\r\n");
 		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
 		$this->email->subject('Freelection - A Reminder To Vote!');
-		$this->email->message("Hello there! It appears that you have not yet voted in the election you registered for! This is a reminder to go vote! Freelection");
-		
+		$this->email->message('Hello there! It appears that you have not yet voted in the election for "'.$electionTitle.'"! This is a reminder to go vote! Freelection');
+
 		foreach($users as $user)
 		{
 			$email = $user['uacc_email'];
 			$this->email->to($email);
 			$this->email->send();
 		}
-		
+		echo 'Hello there! It appears that you have not yet voted in the election for "'.$electionTitle.'"! This is a reminder to go vote! Freelection';
 		redirect('/view_elections');
 	}
 }
