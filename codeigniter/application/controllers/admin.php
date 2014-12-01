@@ -523,6 +523,9 @@ error_reporting(-1);
 	}
 	
 	public function send_reminder($electionID){
+		$timestamp = date('Y-m-d H:i:s', time());
+		$this->general_model->updateLastEmailed($timestamp, $electionID);
+		
 		$users = $this->general_model->getUsersNoVote($electionID);
 		$electionInfo = $this->general_model->getElectionInfoList($electionID);
 		$electionTitle = $electionInfo['election_title'];
@@ -549,9 +552,6 @@ error_reporting(-1);
 			$this->email->to($email);
 			$this->email->send();
 		}
-		
-		$timestamp = date('Y-m-d H:i:s', time());
-		$this->general_model->updateLastEmailed($timestamp, $electionID);
 		
 		redirect('/view_elections');
 	}
