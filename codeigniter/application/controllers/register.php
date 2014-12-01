@@ -77,6 +77,7 @@ class Register extends CI_Controller {
 	
 	// Reload with the new needed information (positions based on election selected, etc.)
 	public function reload(){
+		$submitted = $this->input->post('mysubmit');
 		$checkbox = $this->input->post('candidate');
 		$election = $this->input->post('available_elections');
 		$position = NULL;
@@ -92,7 +93,7 @@ class Register extends CI_Controller {
 		$lastname = $this->input->post('lastname_field');
 		$email = $this->input->post('email_field');
 		$major = $this->input->post('major_field');
-		if($election == -1 || $position == -1 || $firstname == NULL || $lastname == NULL || $email == NULL || $major == NULL)
+		if(!($submitted) || $election == -1 || $position == -1 || $firstname == NULL || $lastname == NULL || $email == NULL || $major == NULL)
 		{
 			//reload the page
 			$data['checkbox_value'] = $checkbox;
