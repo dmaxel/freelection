@@ -64,8 +64,6 @@ class New_Election extends CI_Controller {
 						
 				if (strlen($position) > 0)
 					$this->insertPositionIntoElection($new_election_id, $position, $allow_writein);
-				if ($allow_writein)
-					echo "writeins for pos ". $i . "\n";
 				$i++;
 			}
 
