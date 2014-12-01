@@ -54,11 +54,11 @@
           </div>
           <div class="col-sm-6" style="margin-top:20px">
             <?
-            $options[1] = "Admin";
-			$options[2] = "Election Monitor";
-			$options[3] = "Candidate";
-			$options[4] = "Voter";
-			echo form_dropdown('user_type', $options, $saved_type, 'onChange="this.form.submit()" style="margin-bottom:10px"');
+            $types[1] = "Admin";
+			$types[2] = "Election Monitor";
+			$types[3] = "Candidate";
+			$types[4] = "Voter";
+			echo form_dropdown('user_type', $types, $saved_type, 'onChange="this.form.submit()" style="margin-bottom:10px"');
             ?>
           </div>
         </div>
