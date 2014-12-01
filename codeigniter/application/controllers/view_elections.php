@@ -26,7 +26,7 @@ class View_Elections extends CI_Controller {
         $data['username'] = $this->general_model->getUsername();
         
         // get all the elections
-        $data['elections'] = $this->general_model->getElectionList();
+        $data['elections'] = $this->general_model->getElectionInfoList();
         
         $data['election_options'] = array();
         $data['election_options'][-1] = "Select an Election";

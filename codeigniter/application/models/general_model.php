@@ -141,7 +141,7 @@ class General_Model extends CI_Model {
 		return $query->row_array();
 	}
 	
-	public function getElectionList(){
+	public function getElectionInfoList(){
 		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end, registration_window_start, registration_window_end FROM elections");
 		return $query->result_array();
 	}
