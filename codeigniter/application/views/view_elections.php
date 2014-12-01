@@ -28,7 +28,7 @@
           <div class="col-sm-4">
 			  <?  if ($selected_election_id != -1)
 			{
-            echo $numUsersNoVote.' voters have not voted yet';
+            echo $numUsersNoVote.' voter(s) have not voted yet';
 			}
 			?>
           </div>
