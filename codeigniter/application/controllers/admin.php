@@ -537,14 +537,16 @@ error_reporting(-1);
 		'charset' => 'iso-8859-1'
 		);
 		
+		$this->load->library('email', $email_config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
+		$this->email->subject('Freelection - A Reminder To Vote!');
+		$this->email->message("Hello there! It appears that you have not yet voted in the election you registered for! This is a reminder to go vote! Freelection");
+		
 		foreach($users as $user)
 		{
-			$this->load->library('email', $email_config);
-			$this->email->set_newline("\r\n");
-			$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
-			$this->email->to($user['uacc_email']);
-			$this->email->subject('Freelection - A Reminder To Vote!');
-			$this->email->message("Hello there! It appears that you have not yet voted in the election you registered for! This is a reminder to go vote! Freelection");
+			$email = $user['uacc_email'];
+			$this->email->to($email);
 			$this->email->send();
 		}
 		
