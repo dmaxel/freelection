@@ -40,7 +40,7 @@
 			{
 			$available_time = $last_emailed + (24 * 60 * 60);
 			$current_time = time();
-				if($available_time < $current_time)
+				if($available_time < $current_time && $numUsersNoVote > 0)
 				{
 					echo '<a href="index.php/admin/send_reminder/'.$selected_election_id.'"><button class="btn btn-default btn-xs" id="send_email">Send Reminders</button></a>';
 				}
