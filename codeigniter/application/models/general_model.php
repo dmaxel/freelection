@@ -290,7 +290,7 @@ class General_Model extends CI_Model {
 	}
 	
 	public function getLastEmailed($electionID){
-		$query = $this->db->query("SELECT last_emailed FROM elections WHERE election_id = $selected_election_id");
+		$query = $this->db->query("SELECT last_emailed FROM elections WHERE election_id = $electionID");
 		return $query->row_array();
 	}
 }
