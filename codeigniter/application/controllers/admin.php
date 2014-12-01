@@ -511,11 +511,11 @@ error_reporting(-1);
 				$data['votes'][$each['position']]['position_name'] = $position['title'];
 				$user = $this->general_model->getUserInfo($each['uacc_id']);
 				$data['user_name'] = $user['uacc_firstname']." ".$user['uacc_lastname'];
-				$this->load->view('vote_search', $data);
-				
-				$this->load->view('templates/footer');
 			}
 		}
+		$this->load->view('vote_search', $data);
+				
+		$this->load->view('templates/footer');
 	}
 }
 ?>
