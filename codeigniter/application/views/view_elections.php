@@ -31,7 +31,11 @@
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4">
-            <a href="index.php/admin/send_reminder/<? echo $selected_election_id; ?>"><button class="btn btn-default btn-xs" id="send_email">Send Reminders</button></a>
+			<?  if ($selected_election_id != -1)
+			{
+				echo '<a href="index.php/admin/send_reminder/'.$selected_election_id.'"><button class="btn btn-default btn-xs" id="send_email">Send Reminders</button></a>';
+			}
+			?>
           </div>
         </div>
         <div id="election_description_container">
