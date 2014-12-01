@@ -520,5 +520,34 @@ error_reporting(-1);
 				
 		$this->load->view('templates/footer');
 	}
+	
+	public function send_reminder($electionID){
+		$users = $this->general_model->getUsersNoVote($electionID);
+		$electionInfo = $this->general_model->getElectionInfoList($electionID);
+		$electionTitle = $electionInfo['election_title'];
+		
+		$email_config = Array(
+		'protocol' => 'smtp',
+		'smtp_host' => 'ssl://smtp.googlemail.com',
+		'smtp_port' => 465,
+		'smtp_user' => 'freelection.voting.system@gmail.com',
+		'smtp_pass' => 'teamfreelection',
+		'mailtype' => 'html',
+		'charset' => 'iso-8859-1'
+		);
+		
+		foreach($users as $user)
+		{
+			$this->load->library('email', $email_config);
+			$this->email->set_newline("\r\n");
+			$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
+			$this->email->to($user['uacc_email']);
+			$this->email->subject('Freelection - A Reminder To Vote!');
+			$this->email->message("Hello there! It appears that you have not yet voted in the \"".$electionTitle."\" election you registered for! This is a reminder to go vote! Freelection");
+			$this->email->send();
+		}
+		
+		redirect('/admin');
+	}
 }
 ?>

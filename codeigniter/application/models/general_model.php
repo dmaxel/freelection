@@ -283,5 +283,10 @@ class General_Model extends CI_Model {
 		$query = $this->db->query("SELECT * FROM votes WHERE confirmation_number = '$confirmation'");
 		return $query->result_array();
 	}
+	
+	public function getUsersNoVote($election_id){
+		$query = $this->db->query("select distinct uacc_email from voting_eligibility natural join user_accounts natural join ballots where uacc_group_fk=4 and election_id=$election_id and uacc_id not in (select distinct uacc_id from votes natural join ballots where election_id=$election_id)");
+		return $query->result_array();
+	}
 }
 ?>
