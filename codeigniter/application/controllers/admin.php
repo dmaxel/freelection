@@ -548,7 +548,7 @@ error_reporting(-1);
 			$this->email->send();
 		}
 		
-		redirect('/admin');
+		redirect('/view_elections');
 	}
 }
 ?>

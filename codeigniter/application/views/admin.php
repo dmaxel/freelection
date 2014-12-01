@@ -41,11 +41,6 @@
           <div class="col-sm-6">
           <?php
             if ($selected_election_id != -1) {
-				
-				echo '<div class="col-sm-3">
-            <a href="index.php/admin/send_reminder/'.$selected_election_id.'"><button class="btn btn-xs btn-default" id="reminder_button">Send Reminder Email</button></a>
-          </div>';
-				
                 $start_time = strtotime($election_window['voting_window_start']);
                 $formatted_start = date("M d, Y g:i A", $start_time);
                 
