@@ -36,8 +36,6 @@
           </div>
           <div class="col-sm-4">
 			<?
-			$last_emailed_query = $this->general_model->getLastEmailed($selected_election_id);
-			$last_emailed = strtotime($last_emailed_query['last_emailed']);
 			$available_time = $last_emailed + (24 * 60 * 60);
 			$current_time = time();
 			
