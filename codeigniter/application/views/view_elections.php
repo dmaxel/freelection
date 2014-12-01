@@ -37,7 +37,8 @@
           <div class="col-sm-4">
 			<?
 			$last_emailed_query = $this->db->query("SELECT last_emailed FROM elections WHERE election_id = $selected_election_id");
-			$last_emailed = strtotime($last_emailed_query);
+			$last_emailed_array = $last_emailed_query->result_array();
+			$last_emailed = strtotime($last_emailed_array['last_emailed']);
 			$available_time = $last_emailed + (24 * 60 * 60);
 			$current_time = time();
 			
