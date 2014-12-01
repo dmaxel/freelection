@@ -544,7 +544,7 @@ error_reporting(-1);
 			$this->email->from('freelection.voting.system@gmail.com', 'Freelection Admin');
 			$this->email->to($user['uacc_email']);
 			$this->email->subject('Freelection - A Reminder To Vote!');
-			$this->email->message("Hello there! It appears that you have not yet voted in the \"".$electionTitle."\" election you registered for! This is a reminder to go vote! Freelection");
+			$this->email->message("Hello there! It appears that you have not yet voted in the election you registered for! This is a reminder to go vote! Freelection");
 			$this->email->send();
 		}
 		
