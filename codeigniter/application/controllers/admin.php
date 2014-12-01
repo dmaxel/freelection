@@ -494,6 +494,7 @@ error_reporting(-1);
 		else
 		{
 			$confirmation_value = $this->input->post('confirmation_field');
+			$data['confirmation_value'] = $confirmation_value;
 			$info = $this->general_model->getVotesByConfirm($confirmation_value);
 			$user = NULL;
 			foreach($info as $each)
