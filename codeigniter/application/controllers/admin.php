@@ -276,6 +276,7 @@ error_reporting(-1);
 		$data['username'] = $realName['uacc_firstname']." ".$realName['uacc_lastname'];
         $this->load->view('templates/header', $data);
 		
+		$submitted = $this->input->post('createuser');
 		$data['elections'] = $this->general_model->getElectionInfoList();
 		$data['saved_firstname'] = $this->input->post('firstname_field');
 		$data['saved_lastname'] = $this->input->post('lastname_field');
@@ -290,7 +291,7 @@ error_reporting(-1);
 		
 		if($data['saved_type'] == 3)
 		{
-			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_position'] == NULL || $data['saved_username'] == NULL)
+			if(!($submitted) || $data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_position'] == NULL || $data['saved_username'] == NULL)
 			{
 				//$temp['username'] = $this->general_model->getUsername();
 		        //$this->load->view('templates/header', $temp);
@@ -327,7 +328,7 @@ error_reporting(-1);
 		}
 		else
 		{
-			if($data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_username'] == NULL)
+			if(!($submitted) || $data['saved_firstname'] == NULL || $data['saved_lastname'] == NULL || $data['saved_election'] == NULL || $data['saved_major'] == NULL || $data['saved_email'] == NULL || $data['saved_username'] == NULL)
 			{
 				//$temp['username'] = $this->general_model->getUsername();
 		        //$this->load->view('templates/header', $temp);
