@@ -26,7 +26,11 @@
         <input name="current_election" type="hidden" value="<?php echo $selected_election_id ?>"></input>
         <div id="email_button_container" class="row">
           <div class="col-sm-4">
-            ## voters haven't voted yet
+			  <?  if ($selected_election_id != -1)
+			{
+            echo $numUsersNoVote.' voters have not voted yet';
+			}
+			?>
           </div>
           <div class="col-sm-4">
           </div>
