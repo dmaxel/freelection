@@ -1,5 +1,4 @@
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
-	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-546b7b6c0898f4a6" async="async"></script>
 
   <div class="row">
           <div class="col-xs-4">
@@ -24,3 +23,4 @@
 			echo '</div>';
 		}
         ?>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-546b7b6c0898f4a6" async="async"></script>
