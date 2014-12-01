@@ -24,7 +24,3 @@
 			echo '</div>';
 		}
         ?>
-
-        <div id="vote_button_container" style="margin-left: auto; margin-right: auto; margin-top: 20px">
-          <a href="index.php/voter/voteNow"><button class="btn btn-xs btn-default" id="vote_button">Share you voted</button></a>
-        </div>
