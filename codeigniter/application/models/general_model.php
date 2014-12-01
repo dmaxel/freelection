@@ -141,6 +141,11 @@ class General_Model extends CI_Model {
 		return $query->row_array();
 	}
 	
+	public function getElectionList(){
+		$query = $this->db->query("SELECT election_id, election_title, description, voting_window_start, voting_window_end, registration_window_start, registration_window_end FROM elections");
+		return $query->row_array();
+	}
+	
 	public function getPositions($userID){
 		$query = $this->db->query("SELECT position, type, title, write_ins FROM ballots NATURAL JOIN voting_eligibility WHERE uacc_id = $userID");
 		return $query->result_array();
