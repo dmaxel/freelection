@@ -57,6 +57,7 @@ class View_Elections extends CI_Controller {
 		//if an election is selected
         if ($data['selected_election_id'] != -1)
         {
+            
             $usersNoVote = $this->general_model->getUsersNoVote($data['selected_election_id']);
             $i = 0;
             foreach($usersNoVote as $each)
