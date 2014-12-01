@@ -35,7 +35,13 @@
           <div class="col-sm-4">
           </div>
           <div class="col-sm-4">
-			<?  if ($selected_election_id != -1)
+			<?
+			$last_emailed_query = $this->db->query("SELECT last_emailed FROM elections WHERE election_id = $selected_election_id");
+			$last_emailed = strtotime($last_emailed_query);
+			$available_time = $last_emailed + (24 * 60 * 60);
+			$current_time = time();
+			
+			if ($selected_election_id != -1 && ($available_time < $current_time))
 			{
 				echo '<a href="index.php/admin/send_reminder/'.$selected_election_id.'"><button class="btn btn-default btn-xs" id="send_email">Send Reminders</button></a>';
 			}

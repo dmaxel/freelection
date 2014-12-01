@@ -548,6 +548,9 @@ error_reporting(-1);
 			$this->email->send();
 		}
 		
+		$timestamp = date('Y-m-d H:i:s', time());
+		$this->db->query("UPDATE elections SET last_emailed='$timestamp' WHERE election_id=$electionID");
+		
 		redirect('/view_elections');
 	}
 }
