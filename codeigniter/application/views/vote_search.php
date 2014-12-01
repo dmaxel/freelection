@@ -1,11 +1,12 @@
-<div class="row">
-          <div class="col-xs-4">
+		<div class="row">
+          <div class="col-sm-4">
             <a href="index.php/admin/"><button class="btn btn-default btn-xs" id="back">Back</button></a>
           </div>
-          <div class="col-xs-8">
+          <div class="col-sm-8">
           </div>
         </div>
-        <div>
+        <div class="row">
+        	<div class="col-sm-9" style="margin-top:10px">
         <?
         echo form_open('admin/searchVotes');
         $data = array(
@@ -14,8 +15,11 @@
             'placeholder' => 'Confirmation Number',
             'required' => 'required',
             'autofocus' => 'autofocus',
+            'style' => 'width: '
             );
 		echo form_input($data);
+		echo '</div>';
+		echo '<div class="col-sm-3" style="margin-top:10px">';
 		$data = array(
 			'name' => 'confirmation_submit',
 			'value' => 'Search',
@@ -23,7 +27,7 @@
 			); 
         echo form_submit($data, 'Search');
         echo form_close();
-        echo '</div>';
+        echo '</div></div>';
 		if($confirmation_value == NULL)
 		{
 		   echo '<div style="margin-top: 20px">';
